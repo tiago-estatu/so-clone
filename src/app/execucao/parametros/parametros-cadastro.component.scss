@@ -1,0 +1,7 @@
+::ng-deep .mat-expanded {
+    overflow: unset !important;
+}
+::ng-deep .selected-item, .multiselect-item-checkbox{
+    background: #006441!important;
+    border: 1px solid #006441!important;
+}

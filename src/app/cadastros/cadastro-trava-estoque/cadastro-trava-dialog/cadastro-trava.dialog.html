@@ -1,0 +1,76 @@
+<div mat-dialog-title class="modal-title">Alterar trava de estoque</div>
+
+
+<div mat-dialog-content class="modal-wrap" [formGroup]="trava">
+    <div class="row">
+        <!--CD INPUT-->
+        <div class="col-8 col">
+            <div class="title-form ajustaLarguraLabel"><i class="fa fa-0-5x fa-files-o"></i>CD</div>
+            <mat-form-field appearance="outline" class="full-width rd-input">
+                <input matInput placeholder="CD" formControlName="regional"/>
+            </mat-form-field>
+        </div>
+        <!--CD INPUT-->
+
+        <!--PRODUTO INPUT-->
+        <div class="col-8 col">
+            <div class="title-form ajustaLarguraLabel"><i class="fa fa-0-5x fa-files-o"></i>Produto</div>
+            <mat-form-field appearance="outline" class="full-width rd-input">
+                <input matInput placeholder="Produto" formControlName="produto"/>
+            </mat-form-field>
+        </div>
+        <!--PRODUTO INPUT-->
+
+        <!--QUANTIDADE INPUT-->
+        <div class="col-3 col">
+            <div class="title-form ajustaLarguraLabel"><i class="fa fa-0-5x fa-files-o"></i>Quantidade</div>
+            <mat-form-field appearance="outline" class="full-width rd-input">
+                <input matInput placeholder="Quantidade" type="number" formControlName="qtReserva"/>
+            </mat-form-field>
+        </div>
+        <!--QUANTIDADE INPUT-->
+
+        <!--DATA INICIO INPUT-->
+        <div class="col-4 col">
+            <div class="title-form ajustaLarguraLabel"><i class="fa fa-0-5x fa-files-o"></i>Inicio da Vigência</div>
+            <div class="form-group form-picker">
+                <mat-form-field appearance="outline" style="width:140px">
+                    <input matInput bsDatepicker placeholder="__/__/____" formControlName="dtInicioReserva" autocomplete="off"
+                        class="form-control" #datepickerUm="bsDatepicker" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" type="text" />
+                    <a class="icon-input-field dates" (click)="datepickerUm.toggle()">
+                        <i class="fa fa-0-5x fa-calendar-o"></i>
+                    </a>
+                </mat-form-field>
+            </div>
+        </div>
+        <!--DATA INICIO INPUT-->
+
+
+        <!--DATA FIM INPUT-->
+        <div class="col-4 col">
+            <div class="title-form ajustaLarguraLabel"><i class="fa fa-0-5x fa-files-o"></i>Fim da Vigência</div>
+            <div class="form-group form-picker">
+                <mat-form-field appearance="outline" style="width:140px">
+                    <input matInput bsDatepicker placeholder="__/__/____" formControlName="dtFimReserva" autocomplete="off"
+                        class="form-control" #datepickerUm="bsDatepicker" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" type="text" />
+                    <a class="icon-input-field dates" (click)="datepickerUm.toggle()">
+                        <i class="fa fa-0-5x fa-calendar-o"></i>
+                    </a>
+                </mat-form-field>
+            </div>
+        </div>
+        <!--DATA FIM INPUT-->
+
+        <!--MOTIVO INPUT-->
+        <!--<div class="col-12 col">
+            <rd-motivo-trava-estoque></rd-motivo-trava-estoque>
+        </div>-->
+        <!--MOTIVO INPUT-->
+
+    </div>
+</div>
+
+<div mat-dialog-actions class="d-flex justify-content-end">
+    <button class="dButton d-inline-flex white ml-3 mt-1" (click)="closeDialog()">Cancelar</button>
+    <button class="dButton d-inline-flex green ml-3 mt-1" (click)="updateReserve()">Salvar</button>
+</div>

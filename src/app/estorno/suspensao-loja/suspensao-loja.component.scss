@@ -1,0 +1,80 @@
+.mat-expansion-panel {
+    overflow: visible!important;
+}
+#controlaMarginsDataPicker {
+    position: relative;
+    z-index: 0;
+    margin-left: -3px!important;
+}
+#controlaMarginsDataPicker .vigFinal {
+    margin-left: 32px;
+}
+#controlaMarginsDataPicker .form-group{
+    width: 100%;
+    margin-bottom: 0rem;
+}
+#legendaDataGeracaoPedido {
+    position: absolute;
+    bottom:-7px;
+    left: 16px;
+    z-index: 1;
+    color:#7b7b7b;
+}
+.alinhaBtoEditarCentro {text-align: center!important}
+
+.suspensaoNormal {
+    width: 140px;
+    display: inline-block;
+    background: #28A745;
+    border-radius: 32px;
+    color: #000;
+    font-size: 13px;
+    text-align: center!important;
+}
+.supensaoParcial {
+    display: inline-block;
+    background: #FFFF00;
+    border-radius: 32px;
+    color: #000;
+    font-size: 13px;
+    text-align: center!important;
+}
+.supensaoTotal {
+    display: inline-block;
+    background: #cb2431;
+    border-radius: 32px;
+    font-size: 13px;
+    color: #fff;
+    text-align: center!important;
+}
+
+
+.table-container-modal {
+    position: relative;
+    z-index: 0;
+    max-height: 550px;
+    overflow: auto;
+
+  }
+
+#topoDaTabelaFaturamentoSuspensoDetalhe {
+    background: #fff;
+    top:0;
+    left: 0;
+    position: sticky;
+    position: -webkit-sticky;
+    z-index: 0;
+    margin-bottom: 10px;
+}
+
+/* CONFIGURAÇÕES PADRÃO PARA GRID */
+#tabelaTarget .configuraTextosHeaderTabela {display: block;width: auto;text-transform: uppercase; font-weight: bold}
+    #tabelaTarget td span{display: block;text-align: left; font-size: 0.675rem; height: 17px; overflow: hidden}
+    .ajustaTamanhoBtoEditar{text-align: center}
+    .ajustaTamanhoBtoEditar .iconInsideBtn{padding:0 0.6rem 0 0.6rem!important}
+    #tabelaTarget tfoot td{text-align: center}
+        #tabelaTarget .msgSemResultadosNaBusca {font-family: Cereal-Medium;color: #005034;font-size: 1rem;margin: 0;}
+
+     #mostraResultadosCarregados {display: block}
+     #mostraSemResultadosEncontrados {display: none}
+     .alinhaBtoEditarCentro {text-align: center!important}

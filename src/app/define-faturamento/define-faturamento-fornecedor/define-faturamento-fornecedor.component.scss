@@ -1,0 +1,13 @@
+th:last-child,
+td:last-child {
+    text-align: center;
+}
+#tabelaTarget, #mostraResultadosCarregados {margin-top: 15px}
+#tabelaTarget .configuraTextosHeaderTabela {text-align: left;display: block;width: auto;text-transform: uppercase; font-weight: bold}
+    #tabelaTarget td span{display: block;text-align: left}
+    .ajustaTamanhoBtoEditar{text-align: left}
+    .ajustaTamanhoBtoEditar .iconInsideBtn{padding:0 0.6rem 0 0.6rem!important}
+    #tabelaTarget tfoot td{text-align: left}
+        #tabelaTarget .msgSemResultadosNaBusca {font-family: Cereal-Medium;color: #005034;font-size: 1rem;margin: 0;padding: 10px 0px 20px 25px}
+
+   

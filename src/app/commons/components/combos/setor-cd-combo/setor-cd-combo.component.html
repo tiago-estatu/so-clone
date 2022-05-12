@@ -1,0 +1,20 @@
+<div class="title-form vig">
+    <i class="fa fa-0-5x fa-files-o"></i>
+    Selecionar setor CD
+</div>
+
+<ng-multiselect-dropdown
+[ngModelOptions]="{ standalone: true }"
+[(ngModel)]="setorCDSelecionadoLista"
+name="setor"
+[placeholder]="'Selecionar setor '"
+[data]="setores | async | dropmap: 'cdSetorSeparacao' : 'dsSetorSeparacao'"
+(onSelect)="selecionado($event)"
+(onDeSelect)="selecionado($event)"
+(onSelectAll)="selecionado($event)"
+(onDeSelectAll)="limparSelecionados()"
+[settings]="dropdownSettings"
+[disabled]="!!disabled">
+    
+  
+</ng-multiselect-dropdown>

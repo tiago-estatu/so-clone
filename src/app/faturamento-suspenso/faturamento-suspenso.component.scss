@@ -1,0 +1,19 @@
+::ng-deep .mat-expanded {
+    overflow: unset !important;
+}
+
+.buscas {
+    display: grid;
+    height: 57px;
+}
+
+.datas {
+    display: flex;
+    height: 60px;
+    padding-left: unset;
+}
+
+table#tbAgendasjaSuspensas {
+    max-width: 300px!important;
+    display: inline-table;
+}

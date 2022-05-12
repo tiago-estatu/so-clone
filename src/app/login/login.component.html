@@ -1,0 +1,54 @@
+<div class="container-fluid ilogin">
+  <div class="row h-100">
+
+    <div class="col login-left">
+      <div class="row justify-content-center">
+        <div class="col-10 col-sm-10 col-lg-12 col-xl-12">
+          <img class="logo-login" src="./assets/images/logo_rd.svg" width="90%" />
+          <h2 class="subtitle login">Stock Optimisation</h2>
+        </div>
+      </div>
+    </div>
+
+    <div class="col login-right">
+      <div class="row justify-content-center form">
+        <div class="col-10 col-sm-12 col-lg-12 col-xl-12">
+
+          <h3 class="subtitle form">Faça o seu login</h3>
+
+          <form [formGroup]="loginForm" class="form-signin">
+            <div class="form-group">
+              <label class="rdLabel login" for="">Usuário RD</label>
+              <input type="text" formControlName="usuario" class="form-control rdField" [class.is-invalid]='validator.isInvalid("usuario")'
+                autofocus>
+              <div *ngIf="validator.isInvalid('usuario') && validator.isRequired('usuario')" class="invalid-feedback">
+                Informe o usuário
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="rdLabel login" for="">Senha RD</label>
+              <input type="password" formControlName="senha" class="form-control rdField" [class.is-invalid]='validator.isInvalid("senha")'
+                autocomplete="off">
+              <div *ngIf="validator.isInvalid('senha') && validator.isRequired('senha')" class="invalid-feedback">
+                Informe a senha
+              </div>
+            </div>
+
+            <div class="d-flex justify-content-end">
+              <button class="dButton green login" type="submit" (click)="loginSubmit()">Entrar</button>
+            </div>
+
+          </form>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<rd-loading *ngIf="validator.errorLoaded" [@fadeInOut]></rd-loading>
+
+<simple-notifications [options]="options"></simple-notifications>

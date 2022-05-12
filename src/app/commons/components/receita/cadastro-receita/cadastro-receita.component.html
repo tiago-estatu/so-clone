@@ -1,0 +1,498 @@
+<div class="accordion mt-2">
+  <div class="option">
+    <input type="checkbox" id="toggleDadosPaciente" [(ngModel)]="toggleDadosPaciente" class="toggle" />
+    <label class="title" for="toggleDadosPaciente">
+      <span class="d-inline-flex mb-1">
+        <i class="fa fa-1x fa-user mr-2"></i>Dados do Paciente
+      </span>
+      <span class="icons">
+        <i class="fa fa-angle-down"></i>
+        <i class="fa fa-angle-right"></i>
+      </span>
+    </label>
+    <div class="content content-form">
+      <div class="row row-forms">
+        <div class="col-6 col form-group">
+          <mat-form-field class="w-100" appearance="outline">
+            <mat-label class="placeholder">Nome</mat-label>
+            <input matInput class="form-control" type="text" [(ngModel)]="nomePaciente" autocomplete="off" maxlength="40">
+          </mat-form-field>
+        </div>
+        <div class="col-4 col form-group select-inputs">
+          <mat-form-field class="w-100" appearance="outline">
+            <mat-label class="placeholder">RG</mat-label>
+            <input matInput class="form-control" type="number" [(ngModel)]="rg" autocomplete="off" />
+          </mat-form-field>
+        </div>
+        <div class="col-2 col form-group">
+          <mat-form-field class="w-100" appearance="outline">
+            <mat-label class="placeholder">Emissor</mat-label>
+            <input matInput class="form-control" type="text" [(ngModel)]="emissor" autocomplete="off" maxlength="5" />
+          </mat-form-field>
+        </div>
+        <div class="col-4 col form-group">
+          <mat-form-field class="w-100" appearance="outline">
+            <mat-label class="placeholder">Data Nasc.</mat-label>
+            <input matInput class="form-control" type="date" [(ngModel)]="dataNascimento" autocomplete="off" (keyup)="dateMask($event)"
+              maxlength="10" />
+          </mat-form-field>
+        </div>
+
+        <div class="col-4 col form-group">
+          <mat-form-field class="w-100 ml-2" appearance="outline">
+            <mat-label class="placeholder">Telefone ou celular</mat-label>
+            <input matInput class="form-control" type="text" [(ngModel)]="telefone" autocomplete="off" [textMask]="{mask: phoneMask}" />
+          </mat-form-field>
+        </div>
+
+        <div class="col-4 col form-group">
+          <mat-form-field class="w-100 ml-2" appearance="outline">
+            <mat-label class="placeholder">CPF</mat-label>
+            <input matInput class="form-control" type="text" [(ngModel)]="cpf" autocomplete="off" (blur)="abreToggleEndereco()" />
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="alert-danger mt-1 col col-12 mb-3 text-center pt-2 pb-2" *ngIf="errosDadosPaciente.length > 0">
+        <ul *ngFor="let erro of errosDadosPaciente">
+          <li>{{erro}}</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="accordion mt-4">
+  <div class="option">
+    <input type="checkbox" id="toggleEndereco" [(ngModel)]="toggleEndereco" class="toggle" />
+    <label class="title" for="toggleEndereco">
+      <span class="d-inline-flex mb-1">
+        <i class="fa fa-1x fa-map-marker mr-2"></i>Endereço</span>
+      <span class="icons">
+        <i class="fa fa-angle-down"></i>
+        <i class="fa fa-angle-right"></i>
+      </span>
+    </label>
+    <div class="content content-form">
+      <div class="row row-forms">
+        <div class="col-3 col form-group">
+          <mat-form-field class="w-100" appearance="outline">
+            <mat-label class="placeholder">CEP</mat-label>
+            <input matInput class="form-control" type="text" [(ngModel)]="cep" autocomplete="off">
+          </mat-form-field>
+        </div>
+        <div class="col-6 col form-group">
+          <mat-form-field class="w-100" appearance="outline">
+            <mat-label class="placeholder">Logradouro</mat-label>
+            <input matInput class="form-control" type="text" [(ngModel)]="endereco" autocomplete="off">
+          </mat-form-field>
+        </div>
+        <div class="form-group col col-3">
+          <mat-form-field class="w-100" appearance="outline">
+            <mat-label class="placeholder">Número</mat-label>
+            <input matInput class="form-control" type="text" [(ngModel)]="numero" autocomplete="off">
+          </mat-form-field>
+        </div>
+        <div class="form-group col col-3">
+          <mat-form-field class="w-100" appearance="outline">
+            <mat-label class="placeholder">Complemento</mat-label>
+            <input matInput class="form-control" type="text" [(ngModel)]="complemento" autocomplete="off">
+          </mat-form-field>
+        </div>
+        <div class="form-group col col-3 select-inputs">
+          <mat-form-field class="w-100" appearance="outline">
+            <mat-label class="placeholder">Estado</mat-label>
+            <mat-select [(ngModel)]="estado">
+              <mat-option>Selecione um Estado</mat-option>
+              <mat-option *ngFor="let select of tiposEndereco" [value]="select.sigla">
+                {{select.sigla}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="form-group col col-3">
+          <mat-form-field class="w-100" appearance="outline">
+            <mat-label class="placeholder">Cidade</mat-label>
+            <input matInput class="form-control" type="text" [(ngModel)]="cidade" autocomplete="off">
+          </mat-form-field>
+        </div>
+        <div class="form-group col col-3">
+          <mat-form-field class="w-100" appearance="outline">
+            <mat-label class="placeholder">Bairro</mat-label>
+            <input matInput class="form-control" type="text" [(ngModel)]="bairro" (blur)="abreToggleMedico()" autocomplete="off">
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+    <div class="alert-danger mt-1 col col-12 mb-3 text-center pt-2 pb-2" *ngIf="errosEndereco.length > 0">
+      <ul *ngFor="let erro of errosEndereco">
+        <li>{{erro}}</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+
+<div class="accordion mt-2">
+  <div class="option">
+    <input type="checkbox" id="toggleMedico" [(ngModel)]="toggleMedico" class="toggle" />
+    <label class="title" for="toggleMedico">
+      <span class="d-inline-flex mb-1">
+        <i class="fa fa-1x fa-user-md mr-2"></i>Dados do Médico
+      </span>
+      <span class="icons">
+        <i class="fa fa-angle-down"></i>
+        <i class="fa fa-angle-right"></i>
+      </span>
+    </label>
+
+    <div class="content content-form">
+      <div class="row row-forms">
+        <div class="alert-danger mt-1 col col-12 mb-3 text-center pt-2 pb-2" *ngIf="erroMedico">
+          {{erroMedico}}
+        </div>
+        <div class="row row-forms" *ngIf="medicoSelecionado.length <= 0">
+          <div class="col-4 col form-group">
+            <mat-form-field class="w-100" appearance="outline">
+              <mat-label class="placeholder">CRM</mat-label>
+              <input matInput class="form-control" type="text" [(ngModel)]="crm" autocomplete="off" />
+            </mat-form-field>
+          </div>
+          <div class="form-group col col-3 select-inputs">
+            <mat-form-field class="w-100" appearance="outline">
+              <mat-label class="placeholder">UF</mat-label>
+              <mat-select [(ngModel)]="ufCrm" (blur)="abreToggleReceita()">
+                <mat-option>Selecione um Estado</mat-option>
+                <mat-option *ngFor="let select of tiposEndereco" [value]="select.sigla">
+                  {{select.sigla}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col-4 col form-group">
+            <button class="dButton iconInsideBtn d-inline-flex white" type="button" (click)="buscarMedico()">
+              <i class="fa pb-1 fa-0-5x fa-stethoscope mr-1"></i> Buscar médico
+            </button>
+          </div>
+        </div>
+
+        <section class="content-block table-consult mt-1 mb-4 col col-12">
+          <table class="table table-striped text-center">
+
+            <thead>
+              <tr class="row">
+                <th width="10%">CRM</th>
+                <th width="10%">UF</th>
+                <th width="75%">Nome do médico</th>
+                <th width="5%"></th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr class="row text-center" *ngFor="let medico of medicoSelecionado">
+                <td width="10%">{{medico.nrCr}}</td>
+                <td width="10%">{{medico.estado}}</td>
+                <td width="75%">{{medico.nmProfissional}}</td>
+                <th width="5%">
+                  <a (click)="deletarMedico()" title="Excluir médico">
+                    <i class="fa fa-0-5x fa-trash"></i>
+                  </a>
+                </th>
+              </tr>
+            </tbody>
+
+          </table>
+        </section>
+
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+<div class="accordion mt-2">
+  <div class="option">
+    <input type="checkbox" id="toggleItensReceita" [(ngModel)]="toggleReceita" class="toggle" />
+    <label class="title" for="toggleItensReceita">
+      <span class="d-inline-flex mb-1">
+        <i class="fa fa-1x fa-file-text mr-2"></i>Itens da receita
+      </span>
+      <span class="icons">
+        <i class="fa fa-angle-down"></i>
+        <i class="fa fa-angle-right"></i>
+      </span>
+    </label>
+
+    <div class="content content-form">
+      <div class="row row-forms">
+        <div class="col col-6">
+          <section class="content-block table-consult">
+            <table class="table table-striped text-center">
+
+              <thead>
+                <tr class="row">
+                  <th width="90%" class="text-center">Produtos controlados</th>
+                  <th width="10%"></th>
+                </tr>
+              </thead>
+
+              <tbody>
+                <tr class="row text-center" *ngFor="let item of itensContralados">
+                  <td width="90%">{{item.idProduto}} - {{item.dsProduto}}</td>
+                  <th width="10%">
+                    <a (click)="AddItemReceita(item)" title="Adicionar item">
+                      <i class="fa fa-0-5x fa-plus-circle"></i>
+                    </a>
+                  </th>
+                </tr>
+              </tbody>
+
+            </table>
+          </section>
+        </div>
+
+        <div class="col col-6">
+          <section class="content-block table-consult">
+            <table class="table table-striped text-center">
+
+              <thead>
+                <tr class="row">
+                  <th width="90%" class="text-center">Produtos vinculados a receita</th>
+                  <th width="10%"></th>
+                </tr>
+              </thead>
+
+              <tbody>
+                <tr class="row text-center" *ngFor="let item of itensContraladosReceita">
+                  <td width="90%">{{item.idProduto}} - {{item.dsProduto}}</td>
+                  <th width="10%">
+                    <a (click)="removerItem(item)" title="Remover item">
+                      <i class="fa fa-0-5x fa-trash"></i>
+                    </a>
+                  </th>
+                </tr>
+              </tbody>
+
+            </table>
+          </section>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="accordion mt-2">
+  <div class="option">
+    <input type="checkbox" id="toggleImagem"  [(ngModel)]="toggleImagens" class="toggle" />
+    <label class="title" for="toggleImagem">
+      <span class="d-inline-flex mb-1">
+        <i class="fa fa-1x fa-file-image-o mr-2"></i>Imagens da receita
+      </span>
+      <span class="icons">
+        <i class="fa fa-angle-down"></i>
+        <i class="fa fa-angle-right"></i>
+      </span>
+    </label>
+
+    <div class="content content-form">
+      <div class="row row-forms">
+        <div class="alert-danger mt-1 col col-12 mb-3 text-center pt-2 pb-2" *ngIf="erroImagem">
+          {{erroImagem}}
+        </div>
+        <div class="row row-forms">
+          <div class="col-4 col form-group">
+            <label for="upload" class="dButton d-inline-flex white mr-2"><i class="fa fa-0-5x fa-cloud-upload mr-2"></i>Upload
+              Receita</label>
+            <input id="upload" class="form-control file" type="file" (change)="enviarImagem($event)" name="file" accept="image/*" />
+
+          </div>
+        </div>
+
+        <section class="content-block table-consult mt-1 mb-4 col col-12">
+          <table class="table table-striped text-center">
+
+            <thead>
+              <tr class="row">
+                <th width="90%">imagem</th>
+                <th width="5%"></th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr class="row text-center" *ngFor="let imagem of imagens">
+                <td width="90%">{{imagem.nomeArquivo}}</td>
+                <th width="10%">
+                  <a (click)="deletarImagem(imagem)" title="Excluir Receita">
+                    <i class="fa fa-0-5x fa-trash"></i>
+                  </a>
+                </th>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="alert-danger mt-1 col col-12 mb-3 text-center pt-2 pb-2" *ngIf="erroFormulario">
+  {{erroFormulario}}
+</div>
+
+<div class="mt-3 text-right">
+  <button class="dButton iconInsideBtn d-inline-flex green" type="button" (click)="validaFormulario()">
+    <i class="fa pb-1 fa-0-5x fa-check mr-1"></i> Salvar
+  </button>
+</div>
+
+
+
+
+
+
+
+
+<!-- <div class="row row-forms col-12">
+    
+    <div class="col-4 col form-group">
+      <mat-form-field class="w-100" appearance="outline">
+        <mat-label class="placeholder">Nome do Paciente </mat-label>
+        <input matInput class="form-control" [(ngModel)]="nomePaciente" type="text" />
+      </mat-form-field>
+    </div>
+
+    <div class="col-3 col form-group">
+      <mat-form-field class="w-100" appearance="outline">
+        <mat-label class="placeholder">RG</mat-label>
+        <input matInput class="form-control" type="number" [(ngModel)]="rg" />
+      </mat-form-field>
+    </div>
+
+    <div class="col-2 col form-group">
+      <mat-form-field class="w-100" appearance="outline">
+        <mat-label class="placeholder">Emissor</mat-label>
+        <input matInput class="form-control" type="text" [(ngModel)]="emissor" />
+      </mat-form-field>
+    </div>
+
+
+    <div class="col-3 col form-group">
+      <mat-form-field class="w-100" appearance="outline">
+        <mat-label class="placeholder">Data Nasc.</mat-label>
+        <input matInput class="form-control" type="text" [(ngModel)]="dataNascimento" (keyup)="dateMask($event)" maxlength="10" />
+      </mat-form-field>
+    </div>
+
+    <div class="col-3 col form-group">
+      <mat-form-field class="w-100" appearance="outline">
+        <mat-label class="placeholder">CEP</mat-label>
+        <input matInput class="form-control" type="text" [(ngModel)]="cep" mask="00000-000" />
+      </mat-form-field>
+    </div>
+
+    <div class="col-3 col form-group">
+      <mat-form-field class="w-100" appearance="outline">
+        <mat-label class="placeholder">Endereço</mat-label>
+        <input matInput class="form-control" type="text" [(ngModel)]="endereco" />
+      </mat-form-field>
+    </div>
+
+    <div class="col-2 col form-group">
+      <mat-form-field class="w-100" appearance="outline">
+        <mat-label class="placeholder">Número</mat-label>
+        <input matInput class="form-control" type="number" [(ngModel)]="numero" />
+      </mat-form-field>
+    </div>
+
+    <div class="col-4 col form-group">
+      <mat-form-field class="w-100" appearance="outline">
+        <mat-label class="placeholder">Complemento</mat-label>
+        <input matInput class="form-control" type="text" [(ngModel)]="complemento" />
+      </mat-form-field>
+    </div>
+
+    <div class="col-4 col form-group">
+      <mat-form-field class="w-100" appearance="outline">
+        <mat-label class="placeholder">Bairro</mat-label>
+        <input matInput class="form-control" type="text" [(ngModel)]="bairro" />
+      </mat-form-field>
+    </div>
+
+    <div class="col-4 col form-group">
+      <mat-form-field class="w-100" appearance="outline">
+        <mat-label class="placeholder">Cidade</mat-label>
+        <input matInput class="form-control" type="text" [(ngModel)]="cidade" />
+      </mat-form-field>
+    </div>
+
+    <div class="col-2 col form-group">
+      <mat-form-field class="w-100" appearance="outline">
+        <mat-label class="placeholder">UF</mat-label>
+        <input matInput class="form-control" type="text" [(ngModel)]="uf" />
+      </mat-form-field>
+    </div>
+  </div>
+
+  <div class="row row-forms">
+    <div class="col-3 col form-group">
+
+      <mat-form-field class="w-100" appearance="outline">
+        <mat-label class="placeholder">Telefone ou celular</mat-label>
+        <input matInput class="form-control" type="text" [(ngModel)]="telefone" [textMask]="{mask: phoneMask}" />
+      </mat-form-field>
+    </div>
+
+    <div class="col-2 col form-group">
+      <mat-form-field class="w-100" appearance="outline">
+        <mat-label class="placeholder">CRM</mat-label>
+        <input matInput class="form-control" type="text" [(ngModel)]="crm" />
+      </mat-form-field>
+    </div>
+
+    <div class="col-2 col form-group">
+      <mat-form-field class="w-100" appearance="outline">
+        <mat-label class="placeholder">UF CRM</mat-label>
+        <input matInput class="form-control" type="text" [(ngModel)]="ufCrm" />
+      </mat-form-field>
+    </div>
+
+    <div class="col-12 col mt-1">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Produto</th>
+            <th>Medicamento</th>
+            <th>Cat</th>
+            <th>Ms</th>
+            <th>Lote</th>
+            <th>Validade</th>
+            <th>Qtd</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tr>
+          <td>teste</td>
+          <td>teste</td>
+          <td>teste</td>
+          <td>teste</td>
+          <td>teste</td>
+          <td>teste</td>
+          <td>teste</td>
+          <td>
+            <a href="#">
+              <i class="fa fa-0-5x fa-edit" title="Editar"></i>Editar
+            </a>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div> -->

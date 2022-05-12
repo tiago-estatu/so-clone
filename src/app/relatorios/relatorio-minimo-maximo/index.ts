@@ -1,0 +1,1 @@
+export * from './relatorio-minimo-maximo.component';

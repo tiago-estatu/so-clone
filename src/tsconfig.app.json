@@ -1,0 +1,13 @@
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "moduleResolution": "node",
+    "outDir": "../out-tsc/app",
+    "types": ["node"]
+  },
+  "exclude": [
+    "setupJest.ts",
+    "**/*.spec.ts",
+    "matchers.ts"
+  ]
+}

@@ -1,0 +1,63 @@
+<!-- /TABELA MODAL SUSPENDER FATURAMENTO DETALHE -->
+<div class="table-container-modal">
+    <table id="topoDaTabelaFaturamentoSuspensoDetalhe" class="tabaleModalFaturamentoSuspensoDetalhe">
+        <!-- TOPO COM INFORMAÇÕES SOBRE A CONSULTA -->
+        <tr>
+            <td colspan="2"><span class="configuraTextosHeaderTabela"> CENTRO DISTRIBUIÇÃO </span> <span class="ajustaTextoModalDetalhe"> : {{ dadosParaDetalhe.cdRegional }} - {{ dadosParaDetalhe.nmRegional }} </span></td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="configuraTextosHeaderTabela"> FILIAL </span> <span class="ajustaTextoModalDetalhe"> : {{ dadosParaDetalhe.cdFilial }} - {{ dadosParaDetalhe.nmFantasia }}</span></td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="configuraTextosHeaderTabela"> DATA </span> <span class="ajustaTextoModalDetalhe"> : {{ dadosParaDetalhe.dataInicio }} - {{ dadosParaDetalhe.dataFim }}</span></td>
+        </tr>
+        <tr class="borderBottomNaBottomTr">
+            <td><span class="configuraTextosHeaderTabela">Dt Abastecimentos</span></td>
+            <td><span class="configuraTextosHeaderTabela">Status</span></td>
+        </tr>
+        <!--/ TOPO COM INFORMAÇÕES SOBRE A CONSULTA -->
+    </table>
+
+    <table class="tabaleModalFaturamentoSuspensoDetalhe">
+        <tbody>
+            <tr *ngFor="let item of dadosParaDetalhe.detalhe">
+
+                <!-- MOSTRO OS DIAS QUE CONTÉM FATURAMENTO (SUSPENSO OU NORMAL) -->
+                <td><span>{{ item.dataFaturamento }}</span></td>
+                <!--/ MOSTRO OS DIAS QUE CONTÉM FATURAMENTO (SUSPENSO OU NORMAL) -->
+
+
+                <!-- FATURAMENTO NORMAL -->
+                <ng-container *ngIf="item.motivoFaturamento.length === 0;">
+                    <td><span class="faturamentoNormal"> ABASTECIMENTO NORMAL </span></td>
+                </ng-container>
+                <!--/ FATURAMENTO NORMAL -->
+
+                <!-- SUSPENSÃO PARCIAL DE FATURAMENTO  -->
+                <ng-container *ngIf="item.motivoFaturamento.length > 0 && item.fgSuspensa === false;">
+                    <td><span class="supensaoParcial"> ABASTECIMENTO PARCIALMENTE SUSPENSO - ({{ item.qtdSuspensos }}) PRODUTOS SUSPENSOS </span></td>
+                </ng-container>
+                <!--/ SUSPENSÃO PARCIAL DE FATURAMENTO  -->
+
+                <!-- SUSPENSÃO TOTAL DE FATURAMENTO  -->
+                <ng-container *ngIf="item.motivoFaturamento.length > 0 && item.fgSuspensa === true;">
+                    <td><span class="supensaoTotal" >ABASTECIMENTO SUSPENSO </span></td>
+                </ng-container>
+                <!-- /SUSPENSÃO TOTAL DE FATURAMENTO  -->
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="2">
+                    <div class="btoSair">
+                        <button class="dButton d-inline-flex green ml-3 mt-1" (click)="fecharDetalhe()"> Sair </button>
+                    </div>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+</div>
+<!-- /TABELA MODAL SUSPENDER FATURAMENTO DETALHE -->
+
+
+

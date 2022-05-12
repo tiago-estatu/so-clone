@@ -1,0 +1,58 @@
+
+.table-container-modal {
+    position: relative;
+    z-index: 0;
+    max-height: 550px;
+    overflow: auto;
+
+  }
+
+#topoDaTabelaFaturamentoSuspensoDetalhe {
+    background: #fff;
+    top:0;
+    left: 0;
+    position: sticky;
+    position: -webkit-sticky;
+    z-index: 0;
+    margin-bottom: 10px;
+}
+
+.tabaleModalFaturamentoSuspensoDetalhe .configuraTextosHeaderTabela {display: block;width: auto;text-transform: uppercase; font-weight: bold; float: left; color:#006441}
+    .tabaleModalFaturamentoSuspensoDetalhe td span{display: block;text-align: left; padding: 0px 0px 2px 0px; margin-bottom: 5px}
+    .tabaleModalFaturamentoSuspensoDetalhe tfoot td{text-align: right}
+    .tabaleModalFaturamentoSuspensoDetalhe .btoSair {padding: 15px 0px 0 0; float: right}
+
+    .ajustaTextoModalDetalhe{display: block; float: left}
+    .borderBottomNaBottomTr {border-bottom: 1px solid #006441!important;}
+
+
+    .faturamentoNormal {
+        display: inline-block;
+        background: #28A745;
+        border-radius: 32px;
+        color: #000;
+        font-size: 13px;
+        text-align: center!important;
+    }
+    .supensaoParcial {
+        display: inline-block;
+        background: #FFFF00;
+        border-radius: 32px;
+        color: #000;
+        font-size: 13px;
+        text-align: center!important;
+    }
+    .supensaoTotal {
+        display: inline-block;
+        background: #cb2431;
+        border-radius: 32px;
+        font-size: 13px;
+        color: #fff;
+        text-align: center!important;
+    }
+
+      ::ng-deep .mat-checkbox-disabled .mat-checkbox-background{
+        background-color: #e0e0e0;
+      }
+
+

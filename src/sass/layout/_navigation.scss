@@ -1,0 +1,35 @@
+//Top Navigation
+.nav-top {
+    height: 4rem;
+    padding: 0.9rem 0 1.5rem 0;
+    @include flexbox();
+    border-bottom: 1px solid $border;
+    .info-page {
+        .title-page {
+            font-family: $font-medium;
+            color: $dark-green;
+            font-size: 1.4rem;
+            margin: 0;
+            line-height: 23px;
+
+            /*text-transform: lowercase;
+            line-height: 23px;
+            &::first-letter{
+                text-transform: uppercase;
+            }*/
+        }
+    } // user config
+
+    .user {
+        width: 100%;
+        .user-config {
+            .user-name {
+                font-family: $font-medium;
+                border: none;
+                background: none;
+                padding: 9px 0;
+                color: $dark-gray;
+            }
+        }
+    }
+}

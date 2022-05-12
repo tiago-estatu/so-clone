@@ -1,0 +1,29 @@
+@import "styles.scss";
+.notifications {
+    font-size: $font-size-md;
+    margin-right: 40px;
+    color: #364554;
+    @include flexbox();
+    @include align-items(center);
+    font-family: $font-book;
+    position: relative;
+
+    &:hover{
+        text-decoration: none;
+        color: #364554;
+    }
+
+.number{
+    position: absolute;
+    background-color: $color-primary;
+    @include border-radius(19px);
+    display: inline-block;
+    padding: 0px 6px;
+    top: 0;
+    right: 0;
+    color: white;
+}
+    i {
+        font-size: 2.1rem;
+    }
+}

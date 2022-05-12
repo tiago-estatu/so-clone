@@ -1,0 +1,190 @@
+<mat-accordion>
+  <mat-expansion-panel [expanded]="expandir" class="overflow-unset">
+    <form class="row row-forms one-field-validate">
+      <!--  BOTÃO EXPORTAR MODELO CSV -->
+      <div class="col-12 col form-group divbtnExportModelCsv">
+        <!-- <div class="col-8 col form-group"> -->
+
+          <mat-button-toggle-group #group="matButtonToggleGroup" [value]="typeService"
+            (change)="checkService(group.value)" style="width: 200px; height: 30px;align-items:center">
+            <mat-button-toggle value="pedido" style="width: 100px">CD</mat-button-toggle>
+            <mat-button-toggle value="faturamento" style="width: 100px">Loja</mat-button-toggle>
+          </mat-button-toggle-group>
+        <!-- </div> -->
+
+        <!-- <div class="col-4 col form-group divbtnExportModelCsv"> -->
+          <button class="dButton d-inline-flex white ml-3 mt-1 btnExportModelCsv" (click)="exportarModeloCsv()"
+            matTooltip="Exportar modelo CSV.">
+            Exportar modelo CSV</button>
+        <!-- </div> -->
+      </div>
+
+      <div class="form-group row col-12">
+        <!-- DROPDOWN SELECIONAR CENTRO DISTRIBUIÇÃO  -->
+        <centro-distribuicao-combo class="form-group col-4 col centro-distribuicao-combo"
+          (selecionados)="todosCentroDistribuicaoSelecionados($event)" #elementCD>
+        </centro-distribuicao-combo>
+        <!--/ DROPDOWN SELECIONAR CENTRO DISTRIBUIÇÃO  -->
+        <div id="rota" class="col-4 col form-group" *ngIf="!isPedido">
+          <div class="title-form vig">
+            <i class="fa fa-0-5x fa-files-o"></i>
+            Selecionar Rota
+          </div>
+          <ng-multiselect-dropdown [ngModelOptions]="{standalone: true}" [(ngModel)]="rotaSelecionadoLista" name="rota1"
+            (onSelect)="rotasSelecionadas($event)" (onDeSelect)="rotasSelecionadas($event)" [placeholder]="'Rotas'"
+            [data]="dropdownRotaLista" [settings]="dropdownSettings">
+          </ng-multiselect-dropdown>
+        </div>
+        <rd-fornecedor-combo [standalone]="false" *ngIf="isPedido" class="form-group col-5 col fornecedor-combo"
+          (selecionados)="preencherTodosFornecedoresSelecionados($event)" #elementFornecedor>
+        </rd-fornecedor-combo>
+
+        <!-- DROPDOWN SELECIONAR DIA DA SEMANA  -->
+        <rd-dia-da-semana-combo *ngIf="isPedido" class="form-group col-3 col dia-semana"
+          (selecionados)="preencherTodosDiasSelecionados($event)" #elementDiaDaSemana>
+        </rd-dia-da-semana-combo>
+        <!--/ DROPDOWN SELECIONAR DIA DA SEMANA  -->
+
+        <!-- DROPDOWN SELECIONAR FABRICANTE  -->
+        <rd-fabricante-combo [standalone]="false" *ngIf="isPedido" class="form-group col-5 col fabricantes"
+          (selecionados)="preencherTodosFabricantesSelecionados($event)" #elementFabricante>
+        </rd-fabricante-combo>
+        <!--/ DROPDOWN SELECIONAR FABRICANTE  -->
+
+        <div id="freq" class="col-4 col form-group" *ngIf="isPedido">
+          <div class="title-form vig">
+            <i class="fa fa-0-5x fa-files-o"></i>
+            Selecionar Frequência
+          </div>
+          <ng-multiselect-dropdown [ngModelOptions]="{standalone: true}" [(ngModel)]="frequenciaSelecionadoLista"
+            name="frequencia" [placeholder]="'Frequência'" [data]="dropdownFrequenciaLista"
+            [settings]="dropdownSettingsOne">
+          </ng-multiselect-dropdown>
+        </div>
+        <!-- DROPDOWN SELECIONAR FILIAL  -->
+        <filial-combo *ngIf="!isPedido" class="form-group col-4 col filial-combo"
+          (selecionados)="preencherTodasFiliaisSelecionadas($event)" [cdsSelecionados]="_todosCDSelecionado"
+          #elementFilial>
+        </filial-combo>
+        <!--/ DROPDOWN SELECIONAR FILIAL  -->
+        <div class="col-6 col form-group" *ngIf="!isPedido">
+          <div class="title-form vig">
+            <i class="fa fa-0-5x fa-files-o"></i>
+            Selecionar Padrão Abastecimento
+          </div>
+          <ng-multiselect-dropdown [ngModelOptions]="{standalone: true}"
+            [(ngModel)]="padraoAbastecimentoSelecionadoLista" name="padrao" [placeholder]="'Padrão Abastecimento'"
+            [data]="dropdownPadraoAbastecimentoLista" [settings]="dropdownSettingsOne">
+          </ng-multiselect-dropdown>
+        </div>
+      </div>
+
+      <div class="col-12 text-right">
+        <button class="dButton d-inline-flex green ml-3 mt-1" (click)="consultar()">
+          Consultar
+        </button>
+        <label for="upload" class="dButton d-inline-flex green ml-3 mt-1"><i
+            class="fa fa-0-5x fa-cloud-upload mr-2"></i>
+          <span>Importar</span>
+        </label>
+        <input id="upload" class="form-control file" type="file"
+          accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
+          (change)="importarExcel($event.target.files)" name="file" />
+
+        <label for="download" class="dButton d-inline-flex green ml-3 mt-1">
+          <i class="fa fa-0-5x fa-cloud-download mr-2"></i>
+          <span>Exportar</span>
+        </label>
+        <input id="download" class="form-control file" type="submit" (click)="exportAsXLSX()" />
+
+        <button class="dButton d-inline-flex white ml-3 mt-1" (click)="limparCampos()">
+          Limpar campos
+        </button>
+      </div>
+    </form>
+  </mat-expansion-panel>
+
+</mat-accordion>
+
+
+<div class="table-consult">
+  <section class="content-block">
+
+    <div class="agendaCD" *ngIf="isPedido">
+      <form class="row row-forms one-field-validate">
+
+        <table mat-table [dataSource]="configuracaoCD" class="table table-striped">
+
+          <ng-container matColumnDef="cdRegional">
+            <th mat-header-cell *matHeaderCellDef><b>Centro Distribuição</b></th>
+            <td mat-cell *matCellDef="let element"> {{ element.cdRegional }} - {{element.nmRegional}} </td>
+          </ng-container>
+          <ng-container matColumnDef="cdFornecedor">
+            <th mat-header-cell *matHeaderCellDef><b>Fornecedor</b></th>
+            <td mat-cell *matCellDef="let element"> {{element.cdFornecedor}} - {{element.nmFornecedor}} </td>
+          </ng-container>
+          <ng-container matColumnDef="cdFabricante">
+            <th mat-header-cell *matHeaderCellDef><b>Fabricante</b></th>
+            <td mat-cell *matCellDef="let element"> {{element.cdFabricante}} - {{element.nmFabricante}} </td>
+          </ng-container>
+          <ng-container matColumnDef="diaSemana">
+            <th mat-header-cell *matHeaderCellDef><b>Dia Compra</b></th>
+            <td mat-cell *matCellDef="let element"> {{ getDiaSemana(element.diaSemana) }} </td>
+          </ng-container>
+          <ng-container matColumnDef="qtDiasIntervalo">
+            <th mat-header-cell *matHeaderCellDef><b>Frequência</b></th>
+            <td mat-cell *matCellDef="let element"> {{ getFrequencia(element.qtDiasIntervalo) }} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="acoes">
+            <th mat-header-cell *matHeaderCellDef="let element" class="text-center">Editar</th>
+            <td mat-cell *matCellDef="let element" class="text-center">
+              <a class="dButton d-inline-flex white ml-3 mt-1" type="submit" (click)="exibirAlterarAgenda(element)">
+                <i class="fa fa-0-5x fa-edit" title="Editar login"></i>
+              </a>
+            </td>
+
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns:displayedColumns"></tr>
+
+        </table>
+
+
+      </form>
+    </div>
+    <div class="agendaLoja" *ngIf="!isPedido">
+      <form class="row row-forms one-field-validate">
+        <table mat-table [dataSource]="configuracaoLoja" class="table table-striped">
+
+          <ng-container matColumnDef="selecionado">
+            <th mat-header-cell *matHeaderCellDef>
+              <mat-checkbox [(ngModel)]="selecionarTodos" (change)="selecionarAll($event)">
+              </mat-checkbox>
+            </th>
+            <td mat-cell *matCellDef="let element">
+              <mat-checkbox [(ngModel)]="element.selecionado" (change)="!element.selecionado;itemSelecionado()">
+              </mat-checkbox>
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="filial">
+            <th mat-header-cell *matHeaderCellDef><b>Código Filial</b></th>
+            <td mat-cell *matCellDef="let element"> {{element.cdFilial}} - {{element.nmFantasia}} </td>
+          </ng-container>
+          <ng-container matColumnDef="padrao">
+            <th mat-header-cell *matHeaderCellDef><b>Padrão Abastecimento</b></th>
+            <td mat-cell *matCellDef="let element"> {{element.cdPadraoAbastecimento}} -
+              {{element.dsPadraoAbastecimento}} </td>
+          </ng-container>
+          <tr mat-header-row *matHeaderRowDef="displayedLojaColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns:displayedLojaColumns"></tr>
+        </table>
+      </form>
+    </div>
+    <mat-paginator [pageSizeOptions]="[25, 50, 100]"></mat-paginator>
+  </section>
+</div>
+
+<rd-loading [@fadeInOut] *ngIf="componentLoading"></rd-loading>
+<rd-new-modal [imagemModal]='imagemModal' [tituloModal]='tituloModal' [mensagemModal]='mensagemModal'></rd-new-modal>

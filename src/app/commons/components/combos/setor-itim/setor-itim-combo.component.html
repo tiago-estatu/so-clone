@@ -1,0 +1,15 @@
+<div class="title-form vig">
+  <i class="fa fa-0-5x fa-files-o"></i>
+  Selecionar grupo itim
+</div>
+
+<ng-multiselect-dropdown 
+  [ngModelOptions]="{ standalone:true }"
+  [(ngModel)]="setorSelecionado"
+  name="comboGrupoItim" 
+  [data]="grupo"
+  (onSelect)="selecionado()"
+  (onDeselect)="selecionado()"
+  [settings]="dropdownSettings">
+
+</ng-multiselect-dropdown>

@@ -1,0 +1,173 @@
+<mat-accordion>
+  <mat-expansion-panel [expanded]="expandir" class="overflow-unset">
+    <form>
+
+        <!--  BOTÃO EXPORTAR MODELO CSV -->
+        <div class="float-right export">
+            <button class="dButton d-inline-flex white ml-3 mt-1 btnExportModelCsv" style="margin-right: 44px" (click)="exportarModeloCSV()" matTooltip="Exportar modelo CSV."> Exportar modelo CSV</button>
+        </div>
+        <!--  /BOTÃO EXPORTAR MODELO CSV -->
+
+        <div class="form-group row col-12">
+            <!-- DROPDOWN SELECIONAR CENTRO DISTRIBUIÇÃO  -->
+            <centro-distribuicao-combo
+                class="form-group col-4 col centro-distribuicao-combo"
+                (selecionados)="todosCentroDistribuicaoSelecionado($event)"
+                #elementCD>
+            </centro-distribuicao-combo>
+            <!--/ DROPDOWN SELECIONAR CENTRO DISTRIBUIÇÃO  -->
+
+            <!-- DROPDOWN SELECIONAR FILIAL  -->
+            <filial-combo
+                class="form-group col-4 col filial-combo"
+                (selecionados)="todosFilialSelecionado($event)"
+                [cdsSelecionados]="_todosCDSelecionado"
+                #elementFilial>
+            </filial-combo>
+            <!--/ DROPDOWN SELECIONAR FILIAL  -->
+
+            <!-- DROPDOWN SELECIONAR MOTIVO SUSPENSAO FATURAMENTO  -->
+            <rd-motivo-suspensao-combo
+                class="form-group col-4 col motivo-suspensao"
+                (selecionados)="preencherTodosMotivosSelecionados($event)" [tipoMotivo]="tipoMotivoSuspensao" #elementMotivo>
+            </rd-motivo-suspensao-combo>
+            <!--/ DROPDOWN SELECIONAR MOTIVO SUSPENSAO FATURAMENTO  -->
+
+
+            <!--
+                **************************************************
+                **************************************************
+                **************************************************
+                A SUSPENSÃO POR PRODUTO FOI DESABILITADA TEMPORARIAMENTE
+                PARA PODERMOS ATENDER A TELA DE ESTORNO DA SUSPENSÃO
+                                21/07/2020
+                **************************************************
+                **************************************************
+            -->
+            <div class="form-group col-8 buscas produto" style="display: none">
+                <div class="title-form vig"><i class="fa fa-0-5x fa-files-o"></i>Digitar os Produtos</div>
+                <div class="buscas">
+                    <mat-form-field class="inputFiltro" appearance="outline">
+                        <input matInput class="form-control"
+                                [ngModelOptions]="{standalone: true}"
+                                [(ngModel)]="_todosProdutosDigitados" type="text" placeholder="{{_msgParaHabilitarProdutos}}"
+                                [disabled]="!contemFilialSelecionado"
+                                virgulaNumero>
+                    </mat-form-field>
+                </div>
+            </div>
+            <!-- /INPUT ABERTO SELEÇÃO DE PRODUTOS  -->
+
+            <!-- DATA PICKER (SELEÇÃO DATAS)  -->
+            <div class="form-group col-12 datas">
+                <div class="form-group col-2 vigInicio">
+                    <div class="title-form vig"><i class="fa fa-0-5x fa-files-o"></i>Data Inicial</div>
+                    <div class="form-group">
+                        <mat-form-field
+                            class="w-100"
+                            appearance="outline"
+                            style="width:140px !important">
+                            <input
+                            matInput
+                            bsDatepicker
+                            placeholder="__/__/____"
+                            [(ngModel)]="_dataInicial"
+                            [ngModelOptions]="{standalone: true}"
+                            [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
+                            autocomplete="off"
+                            class="form-control"
+                            #datepickerUm="bsDatepicker"
+                            type="text"
+                            />
+                            <a class="icon-input-field dates" (click)="datepickerUm.toggle()">
+                            <i class="fa fa-0-5x fa-calendar-o"></i>
+                            </a>
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <div class="form-group col-2 vigFinal">
+                    <div class="title-form"><i class="fa fa-0-5x fa-files-o"></i>Data Final</div>
+                    <div class="form-group">
+                        <mat-form-field class="w-100" appearance="outline" style="width:140px !important">
+                            <input
+                                matInput
+                                bsDatepicker
+                                placeholder="__/__/____"
+                                [(ngModel)]="_dataFinal"
+                                [ngModelOptions]="{standalone: true}"
+                                [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
+                                autocomplete="off"
+                                class="form-control"
+                                #datepickerDois="bsDatepicker"
+                                type="text"/>
+                            <a class="icon-input-field dates" (click)="datepickerDois.toggle()">
+                            <i class="fa fa-0-5x fa-calendar-o"></i></a>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+            <!-- /DATA PICKER (SELEÇÃO DATAS)  -->
+
+
+            <!-- BARRA DE BOTÕES  -->
+            <div class="form-group col-12 text-right">
+
+
+                <!-- SUSPENDER  -->
+                <button class="dButton d-inline-flex green ml-3 mt-1"
+                (click)="suspenderAgendasFataturamentoSelecionados($event)" [disabled]="nenhumItemSelecionado"> Suspender
+               </button>
+               <!-- /SUSPENDER  -->
+
+
+                <!-- CONSULTAR  -->
+                <button class="dButton d-inline-flex green ml-3 mt-1"
+                (click)="consultar()"> Consultar
+                </button>
+                <!-- /CONSULTAR  -->
+
+
+                <!-- IMPORTAR  -->
+                <label for="upload" class="dButton d-inline-flex green ml-3 mt-1">
+                    <i class="fa fa-0-5x fa-cloud-upload mr-2"></i><span>Importar</span>
+                </label>
+                <input
+                    #importarRef
+                    id="upload"
+                    class="form-control file" type="file"
+                    accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
+                    (change)="importarExcel($event)"
+                    name="file"/>
+                <!--/ IMPORTAR  -->
+
+
+                <!-- EXPORTAR  -->
+                <label for="download" class="dButton d-inline-flex green ml-3 mt-1">
+                <i class="fa fa-0-5x fa-cloud-download mr-2"></i>
+                <span>Exportar</span></label>
+                <input id="download" class="form-control file" (click)="exportarAgendaFaturamentoSuspenso()"/>
+                <!-- / EXPORTAR  -->
+
+                <!-- LIMPAR CAMPOS  -->
+                <button class="dButton d-inline-flex white ml-3 mt-1"
+                    (click)="limparCampos()"> Limpar campos
+                </button>
+                <!-- /LIMPAR CAMPOS  -->
+
+            </div>
+            <!--/ BARRA DE BOTÕES  -->
+      </div>
+    </form>
+  </mat-expansion-panel>
+</mat-accordion>
+
+<!-- CARREGA RESULTADOS GRID  -->
+<rd-grid-faturamento-suspenso
+    (contemSelecionado)="contemFaturamentoSelecionado($event)"
+    (selecionadas)="faturamentosSelecionados($event)"
+    [query]="parametrosParaEnviadosGrid">
+</rd-grid-faturamento-suspenso>
+<!--/ CARREGA RESULTADOS GRID  -->
+
+<rd-loading [@fadeInOut] *ngIf="componentLoading"></rd-loading>

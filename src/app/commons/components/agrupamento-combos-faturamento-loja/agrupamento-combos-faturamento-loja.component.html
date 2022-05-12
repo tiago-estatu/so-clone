@@ -1,0 +1,22 @@
+<div class="form-group row col-12">
+    <!-- DROPDOWN SELECIONAR CENTRO DISTRIBUIÇÃO  -->
+    <centro-distribuicao-combo class="col-4"
+        [config]="{standalone: true, coldStart: true}">
+    </centro-distribuicao-combo>
+    <!--/ DROPDOWN SELECIONAR CENTRO DISTRIBUIÇÃO  -->
+
+    <!-- DROPDOWN SELECIONAR FILIAL ROTA  -->
+    <filial-rota-combo class="col-4"
+        [config]="{standalone: true, coldStart: true}">
+    </filial-rota-combo>
+    <!-- /DROPDOWN SELECIONAR FILIAL ROTA  -->
+
+    <!-- DROPDOWN SELECIONAR FILIAL -->
+    <filial-combo class="col-4"
+        [config]="{standalone: true, coldStart: true}">
+    </filial-combo>
+    <!--/ DROPDOWN SELECIONAR FILIAL -->
+</div>
+<rd-loading [@fadeInOut] *ngIf="componentLoading"></rd-loading>
+
+

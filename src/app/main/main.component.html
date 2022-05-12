@@ -1,0 +1,22 @@
+<div class="container-fluid home" id='container-home'>
+
+    <div class="row h-100" id='h-100-main'>
+  
+      <!-- Sidebar Menu -->
+      <rd-sidebar></rd-sidebar>
+  
+      <div class="col content">
+        <!-- header -->
+        <rd-header></rd-header>
+        <!-- header -->
+  
+        <div class="row page-content" [@routeAnimation]="getRouterOutletState(animateHere)" id='page-content'>
+          <router-outlet #animateHere="outlet"></router-outlet>
+        </div>
+  
+      </div>
+  
+    </div>
+  
+  </div>
+  

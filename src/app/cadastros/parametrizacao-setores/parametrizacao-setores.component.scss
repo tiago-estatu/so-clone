@@ -1,0 +1,11 @@
+::ng-deep .mat-expanded { overflow: unset !important}
+.ajustarPosicaoBotoesExportar {float: left; width: 100%}
+.ajustarPosicaoBotoesExportar ul {float: right}
+.ajustarPosicaoBotoesExportar ul li{float: left; margin-left: 15px}
+
+#tabelaTarget {margin-top: 15px}
+#tabelaTarget .configuraTextosHeaderTabela {text-align: left; color: #005034; display: block;width: auto;text-transform: uppercase; font-weight: bold}
+
+.modalConfirmaAlteracaoCadastro {display: block; width: 100%; padding: 15px 0; border: 1px solid #005034}
+.modalConfirmaAlteracaoCadastro li {display: block; float: left; width: 100%; text-align: left; border: 1px solid;}
+.modalConfirmaAlteracaoCadastro li strong{text-align: left; }

@@ -1,0 +1,94 @@
+<mat-accordion>
+    <section class="container-modal">
+      <div class="option">
+          <!-- TÍTULO DA PÁGINA -->
+          <span class="d-inline-flex mb-1"><p class="title"> {{ titulo }} </p></span>
+          <!-- /TÍTULO DA PÁGINA -->
+          <!-- FORM -->
+          <form [formGroup]="cadastroForm" class="col-12">
+              <div class="content content-form">
+                  <div class="row row-forms">
+                  <table>
+                        <tr>
+                            <td  colspan="2">
+                              <!-- CAMPO FILIAL -->
+                              <mat-label>Filial</mat-label>
+                              <mat-form-field class="w-100" appearance="outline">
+                                  <input matInput class="form-control" type="text" formControlName="inputFilial">
+                              </mat-form-field>
+                              <!-- /CAMPO FILIAL -->
+                             </td>
+                        </tr>
+                        <tr>
+                            <td  colspan="2">
+                              <!-- CAMPO PRODUTO -->
+                              <mat-label>Produto</mat-label>
+                              <mat-form-field class="w-100" appearance="outline">
+                                  <input matInput class="form-control" type="text" id="inputProduto" formControlName="inputProduto">
+                              </mat-form-field>
+                              <!-- /CAMPO PRODUTO -->
+                            </td>
+                        </tr>
+                        <tr>
+                        <td  colspan="2" [hidden]="disabledMotivoDropDownOuInput">
+                                <!-- DROPDOWN SELECIONAR MOTIVO  -->
+                                <rd-motivos-cadastro-minimo-maximo
+                                (selecionados)="setMotivosSelecionados($event)"   
+                                #elementMotivo>
+                                </rd-motivos-cadastro-minimo-maximo>
+                                <!--/ DROPDOWN SELECIONAR MOTIVO  -->
+                        </td>
+                        </tr>
+                        <tr>
+                            <td  colspan="2" [hidden]="!disabledMotivoDropDownOuInput">
+                                <!-- CAMPO PRODUTO -->
+                                <mat-label>Motivo</mat-label>
+                                <mat-form-field class="w-100" appearance="outline">
+                                <input matInput class="form-control" type="text" id="inputMotivo" formControlName="inputMotivo">
+                                </mat-form-field>
+                                <!-- /CAMPO PRODUTO -->
+                            </td>
+                        </tr>
+                      <tr>
+                            <td>
+                              <!-- CAMPO MÍNIMO -->
+                              <mat-label>Mínimo</mat-label>
+                              <mat-form-field class="w-100" appearance="outline">
+                              <input matInput name="inputMinimo" class="form-control" type="number" maxlength="10" (input)="onChangeMax($event)" formControlName="inputMinimo" (keypress)="keyPress($event)">
+                              </mat-form-field>
+                              <!-- /CAMPO MÍNIMO -->
+                            </td>
+                            <td>
+                              <!-- CAMPO MAXIMO -->
+                              <mat-label>Máximo</mat-label>
+                              <mat-form-field class="w-100" appearance="outline">
+                              <input matInput name="inputMaximo" class="form-control" type="number" maxlength="10" (input)="onChangeMax($event)" formControlName="inputMaximo" (keypress)="keyPress($event)">
+                              </mat-form-field>
+                              <!-- /CAMPO MAXIMO -->
+                            </td>
+                      </tr>
+                  </table>
+                  </div>
+              </div>
+          </form>
+          <!--/ FORM -->
+      </div>
+      <!-- LEGENDA -->
+      <div class="ajustaDivLegenda">
+            <ul>
+              <li><span class="ajustaTextLegenda">0 = Não será enviada para Loja</span></li>
+              <li><span class="ajustaTextLegenda"> - 1 = Anular o cadastro que já existe</span></li>
+              <!-- <li><span class="ajustaTextLegenda">Vazio = Manter o cadastro que já existe</span></li> -->
+          </ul>
+      </div>
+      <!-- /LEGENDA -->
+      <!-- BOTÕES -->
+      <div class="text-right bot">
+        <button class="dButton d-inline-flex green ml-3 mt-1" (click)="gravarMinimoMaximo()"> {{ btnAtualizarCadastrar }} </button>
+        <button class="dButton d-inline-flex green ml-3 mt-1" (click)="exit()"> Sair </button>
+      </div>
+      <!--/ BOTÕES -->
+    </section>
+  </mat-accordion>
+  <rd-loading [@fadeInOut] *ngIf="componentLoading"></rd-loading>
+  <rd-new-modal (fechou)="fechouModal($event)" [imagemModal]="imagemModal" [tituloModal]="tituloModal" [mensagemModal]="mensagemModal"></rd-new-modal>

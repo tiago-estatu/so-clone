@@ -1,0 +1,30 @@
+::ng-deep .selected-item,
+.multiselect-item-checkbox {
+  background: #006441 !important;
+  border: 1px solid #006441 !important;
+}
+::ng-deep .multiselect-dropdown {
+  padding-top: 4px;
+}
+::ng-deep.item2{
+  max-height: 120px!important;
+}
+
+.break-element {
+  word-break: break-all;
+}
+.mat-button-toggle-checked {
+  background-image: linear-gradient(
+    to right,
+    #29764c 0%,
+    #42bd79 51%,
+    #29764c 100%
+  );
+  color: white;
+  background-size: 200%;
+  transition: background-image 0.5s;
+
+  &:hover {
+    background-position: right center;
+  }
+}

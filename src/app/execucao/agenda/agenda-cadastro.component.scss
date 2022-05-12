@@ -1,0 +1,37 @@
+::ng-deep .mat-expanded {
+    overflow: unset !important;
+}
+::ng-deep .selected-item, .multiselect-item-checkbox{
+    background: #006441!important;
+    border: 1px solid #006441!important;
+}
+
+.mat-button-toggle-checked {
+    background-image: linear-gradient(to right, #29764c 0%, #42bd79 51%, #29764c 100%);
+    color: white;
+    background-size: 200%;
+    transition: background-image 0.5s;
+
+    &:hover {
+        background-position: right center;
+    }
+}
+
+mat-button-toggle-group.mat-button-toggle-group.mat-button-toggle-group-appearance-standard {
+    margin-top: 4px;
+}
+
+a.text-export.cd {
+    margin-left: 20px;
+  }
+  
+  .text-export {
+    float: right;
+  }
+.table-consult {
+    padding-top: 1% !important;
+}
+
+.col-12.text-right {
+    padding-bottom: 10px;
+}

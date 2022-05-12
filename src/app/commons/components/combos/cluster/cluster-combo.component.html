@@ -1,0 +1,19 @@
+<div class="title-form vig">
+  <i class="fa fa-0-5x fa-files-o"></i>
+  Selecionar Cluster
+</div>
+  <ng-multiselect-dropdown
+    [ngModelOptions]="{ standalone: true }"
+    [(ngModel)]="clusterSelecionado"
+    name="cluster"
+    [placeholder]="'Selecionar Cluster'"
+    [data]="dataSource"
+    (onSelect)="selecionado($event)"
+    (onDeSelect)="selecionado($event)"
+    (onSelectAll)="selecionado($event)"
+    (onDeSelectAll)="limparSelecionados()"
+    [settings]="dropdownSettings"
+    [disabled]="disabled"
+  >
+  </ng-multiselect-dropdown>
+<rd-loading [@fadeInOut] *ngIf="componentLoading"></rd-loading>

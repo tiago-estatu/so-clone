@@ -1,0 +1,20 @@
+<div class="title-form vig">
+    <i class="fa fa-0-5x fa-files-o"></i>
+    Selecionar Motivo
+  </div>
+<!-- DROPDOWN SELECT MOTIVO -->
+<ng-multiselect-dropdown
+    [ngModelOptions]="{ standalone: true }"
+    [(ngModel)]="motivoSelecionadoLista"
+    name="Selecionar Motivo"
+    [placeholder]="'Selecionar Motivo'"
+    [data]="dropdownMotivo"
+    (onSelect)="selecionado()"
+    (onDeSelect)="selecionado()"
+    [settings]="dropdownSettingsSelecionarUm">
+</ng-multiselect-dropdown>
+<!--/ DROPDOWN SELECT MOTIVO -->
+
+<!-- ÍCONE DE LOADING -->
+<rd-loading [@fadeInOut] *ngIf="componentLoading"></rd-loading>
+<!--/ ÍCONE DE LOADING -->

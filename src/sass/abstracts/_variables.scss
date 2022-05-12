@@ -1,0 +1,100 @@
+    //COLORS
+
+    //******Internal Variables//******
+    $white: #fff;
+    $dark-green: #005034;
+    $dark-green2: #1f5f3d;
+    $dark-green3: #005034;
+
+    $yellow: #ecb200;
+    $light-orange: #FF9800;
+    $orange: #FF9800;
+    $dark-orange: #F4511E;
+    $blue: #006eaa;
+    $cyan: #00BCD4;
+    $dark-blue: #0791AC;
+    $light-green:#84CE34;
+    $green: #7CB342;
+    $light-red: #F44336;
+    $red: #b72c29;
+
+    $light-gray: #fafafa;
+    $gray: #f6f6f6;
+    $gray1: #BDBDBD;
+    $gray2: #d0d0d0;
+    $gray3: #a7a7a7;
+    $gray4: darken(#888888, 5%); //$gray4: #888888;
+    $gray5: #EAEAEA;
+    $gray6: darken(#9E9E9E, 5%); //$gray6: #9E9E9E;
+    $gray7: #ced4da;
+    $dark-gray: #616161;
+    $black: #212121;
+
+
+
+
+    //******Global Variables//******
+    $color-default: $white;
+    $color-primary: $dark-green;
+    $color-titles: $dark-green;
+
+    $color-bg-default: $light-gray;
+    $color-bg-disable: $gray2;
+
+    $color-font-disable: $gray3;
+    $color-font-primary: $gray4;
+    $color-font-segundary: $gray6;
+
+    $color-error: $red;
+
+    $border: $gray5;
+    $border-inputs: $gray7;
+
+    //Status
+    $color-status-open: $yellow;
+    $color-status-approved: $dark-blue;
+    $color-status-attended: $blue;
+    $color-status-waiting: $orange;
+    $color-status-awaiting-note: $cyan;
+    $color-status-completed: $green;
+    $color-status-finalized: $gray1;
+    $color-status-canceled: $dark-orange;
+    $color-status-notattended: $red;
+
+
+
+    //FONT SIZE
+    $font-size-xsm: 0.625rem; //10px
+    $font-size-sm: 0.75rem; //12px
+    $font-size-smd: 0.8125rem; //13px
+    $font-size-md: 0.875rem; //14px
+    $font-size-base-sm: 0.93rem; //15px
+    $font-size-base: 1rem; //16px
+    $font-size-base-md: 1.3rem; //20.8px
+    $font-size-lg: 1.5rem; //24px
+    $font-size-lx: 2.25rem; //36px
+    $font-size-xs: 3.125rem; //50px
+
+    $font-path: '/assets/fonts/';
+
+    //Fonts
+    @include font-face(Cereal-Black, $font-path + 'AirbnbCereal-Black', null, null, ttf);
+    @include font-face(Cereal-Bold, $font-path + 'AirbnbCereal-Bold', null, null, ttf);
+    @include font-face(Cereal-Book, $font-path + 'AirbnbCereal-Book', null, null, ttf);
+    @include font-face(Cereal-ExtraBold, $font-path + 'AirbnbCereal-ExtraBold', null, null, ttf);
+    @include font-face(Cereal-Medium, $font-path + 'AirbnbCereal-Medium', null, null, ttf);
+    @include font-face(Cereal-Light, $font-path + 'AirbnbCereal-Light', null, null, ttf);
+    @include font-face(VAGRound, $font-path + 'VAGRound', null, null, ttf);
+    @include font-face(Line-Awesome, $font-path + 'line-awesome', null, null, ttf);
+
+    $font-black: Cereal-Black;
+    $font-bold: Cereal-Bold;
+    $font-book: Cereal-Book;
+    $font-extra-bold: Cereal-ExtraBold;
+    $font-medium: Cereal-Medium;
+    $font-light: Cereal-Light;
+    $font-special: VAGRound;
+    $font-bg-icons: Line-Awesome;
+
+
+

@@ -1,0 +1,111 @@
+<mat-accordion>
+  <mat-expansion-panel [expanded]="expandir" class="overflow-unset">
+
+    <!-- CONTROLA O FORM -->
+    <div class="row row-forms" id="ajustaMarginBottom" [formGroup]="form">
+      <!--  BOTÃO EXPORTAR MODELO CSV -->
+      <div class="ajustarPosicaoBotoesExportar export">
+            <button class="dButton d-inline-flex white ml-3 mt-1 btnExportModelCsv" style="margin-right: 15px;"
+               (click)="downloadCSV()" matTooltip="Exportar modelo CSV."> Exportar modelo CSV
+            </button>
+      </div>
+      <!--  /BOTÃO EXPORTAR MODELO CSV -->
+
+      <!-- CONTROLA GRUPO DOS SELECTS -->
+      <div class="form-group row col-12 grids">
+        <centro-distribuicao-combo class="form-group col-6 col centro-distribuicao-combo"
+            [control]="getFormField('cdRegional')"
+            (selecionados)="todosCentroDistribuicaoSelecionados($event)"
+            [config]="{multi: false, standalone: true}"  >
+        </centro-distribuicao-combo>
+
+        <rd-setor-cd-combo  class="form-group col-6 col fornecedor-combo"
+            [standalone]="false"
+            [control]="getFormField('cdSetorSeparacao')"
+            (selecionados)="setorCdSelecionados($event)"
+            [config]="{standalone: false, coldStart: true}">
+        </rd-setor-cd-combo>
+
+        <rd-combo-setor-itim class="form-group col-4 col fornecedor-combo"
+            [control]="getFormField('itimSetorSeparacao')"
+            (selecionados)="GruposItimSelecionados($event)"
+            #elementGrupoPrioridade>
+        </rd-combo-setor-itim>
+
+
+      </div>
+      <!-- CONTROLA GRUPO DOS SELECTS -->
+
+      <!-- BARRA DE BOTÕES  -->
+      <div class="form-group col-12 text-right">
+        <!-- CONSULTAR  -->
+        <button mat-button class="dButton d-inline-flex green ml-3 mt-1"
+          [disabled]="habilitarBtoConsultarSetores() === true"
+          (click)="consultarSetores()">Consultar
+        </button>
+        <!-- /CONSULTAR  -->
+
+        <!-- CADASTRAR  -->
+        <button mat-button class="dButton d-inline-flex green ml-3 mt-1"
+          [disabled]="habilitarBtoCadastrarSetores() === true"
+          (click)="cadastrarNovoSetor()">Cadastrar Setor
+        </button>
+        <!-- /CADASTRAR  -->
+
+        <!-- IMPORTAR  -->
+        <label for="upload" class="dButton d-inline-flex green ml-3 mt-1">
+          <i class="fa fa-0-5x fa-cloud-upload mr-2"></i><span>Importar</span>
+        </label>
+
+        <input id="upload" class="form-control file" [formControl]="fileControl" type="file"
+          accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" (change)="importFile($event)" name="file" />
+        <!--/ IMPORTAR  -->
+
+        <!-- LIMPAR -->
+        <button class="dButton d-inline-flex white ml-3 mt-1" (click)="limparCampos()">
+          Limpar campos
+      </button>
+      <!--/ LIMPAR -->
+
+      </div>
+      <!--/ BARRA DE BOTÕES  -->
+    </div>
+    <!-- /CONTROLA O FORM -->
+
+
+    <!-- MONTA GRID -->
+    <section *ngIf="resultaConsult.value.length > 0" class="content-block table-consult">
+        <table id="tabelaTarget">
+            <tr>
+                <td><span class="configuraTextosHeaderTabela">CD Regional</span></td>
+                <td><span class="configuraTextosHeaderTabela">Setor CD</span></td>
+                <td><span class="configuraTextosHeaderTabela">Setor ITIM</span></td>
+            </tr>
+            <tr  style="cursor: pointer;" *ngFor="let item of resultaConsult | async | paginate: { itemsPerPage: queryFilters.getParam('size'), currentPage: queryFilters.getParam('page'), totalItems: paging.value.numberOfItems  }" (click)="alterarSetor(item)" class="efeitoHoverLinha table table-striped" >
+                <td><strong>{{ item.cdRegional}}</strong> - {{item.nmRegional}}</td>
+                <td><strong>{{item.dsSetorSeparacao}}</strong> </td>
+                <td>{{item.cdItimSetorSeparacao}}</td>
+            </tr>
+            <tr>
+                <td colspan="3">
+                    <div class="row d-felx justify-content-center">
+                        <!-- CONTROLA PAGINAÇÃO -->
+                        <pagination-controls
+                            class="controlaCssPaginacao" (pageChange)="getPage($event)"
+                            autoHide="false"
+                            responsive="false"
+                            previousLabel="Anterior"
+                            nextLabel="Próximo">
+                        </pagination-controls>
+                        <!--/ CONTROLA PAGINAÇÃO -->
+                    </div>
+                </td>
+              </tr>
+          </table>
+    </section>
+    <!--/ MONTA GRID -->
+  </mat-expansion-panel>
+</mat-accordion>
+<!--/ CONTAIN TODO O PAINEL DE FILTROS -->
+
+<rd-loading [@fadeInOut] *ngIf="componentLoading"></rd-loading>

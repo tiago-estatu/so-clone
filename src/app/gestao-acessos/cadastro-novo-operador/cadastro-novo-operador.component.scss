@@ -1,0 +1,51 @@
+.mat-expansion-panel {
+    overflow: visible!important;
+}
+#campoDigitarMatricula {
+    position: relative;
+    margin-top: -5px;
+}
+#campoDigitarMatricula .buscas {
+    margin-left: -13px;
+}
+#ajustaMarginBottom .bot {
+    margin-top: 16px;
+    margin-left: -30px;
+}
+
+#ajustaMarginBottom .botNovoOperador {
+    margin: 20px 0px 0px -17px;
+}
+.vigInicio {
+    width: 170px;
+    margin-left: 40px;
+}
+.vigFinal {
+    width: 170px;
+}
+.ajustaLarguraLabel {
+    width: 120px;
+}
+
+.datepickerStyle {
+    background: none;
+}
+.perfilCombo {
+    width: 360px;
+    margin: 4px 0px 0px 20px;
+}
+
+.col-6.bot {
+    min-inline-size: max-content;
+}
+
+.table-consult{margin-top: 15px}
+#tabelaTarget .configuraTextosHeaderTabela {text-align: left;display: block;width: auto;text-transform: uppercase; font-weight: bold}
+    #tabelaTarget td span{display: block;text-align: left}
+    .ajustaTamanhoBtoEditar{text-align: left}
+    .ajustaTamanhoBtoEditar .iconInsideBtn{padding:0 0.6rem 0 0.6rem!important}
+    #tabelaTarget tfoot td{text-align: left}
+        #tabelaTarget .msgSemResultadosNaBusca {font-family: Cereal-Medium;color: #005034;font-size: 1rem;margin: 0;padding: 10px 0px 20px 25px}
+
+
+

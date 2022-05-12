@@ -1,0 +1,1 @@
+export * from './cadastro-novo-operador.service';

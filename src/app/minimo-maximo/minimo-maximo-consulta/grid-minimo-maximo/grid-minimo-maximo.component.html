@@ -1,0 +1,94 @@
+<!-- CONTROLA TODA A GRID TABELA
+    *** O NÚMERO DE COLUNAS DEVE SER SEMPRE O MESMO EM TODAS AS LINHAS ****
+
+    NG-IF MOSTRA RESULTADO GRID OU MSG ERRO
+-->
+
+<div id="mostraResultadosCarregados">
+    <ng-container *ngIf="totalDeItems>0; else msgSemResultadosNaBusca">
+        <section id="tabelaTarget" class="content-block table-consult">
+            <table>
+                <tbody>
+                    <tr>
+                        <td><span class="configuraTextosHeaderTabela">CD</span></td>
+                        <td><span class="configuraTextosHeaderTabela">Filial</span></td>
+                        <td><span class="configuraTextosHeaderTabela">Região Macro</span></td>
+                        <td><span class="configuraTextosHeaderTabela">Produto</span></td>
+                        <td><span class="configuraTextosHeaderTabela">Categoria</span></td>
+                        <td><span class="configuraTextosHeaderTabela">Motivo</span></td>
+                        <td><span class="configuraTextosHeaderTabela">Qtd Min.</span></td>
+                        <td><span class="configuraTextosHeaderTabela">Qtd Max.</span></td>
+                        <td><span class="configuraTextosHeaderTabela">*</span></td>
+                    </tr>
+                    <!-- HARDCODE PARA O TOPO DA TABELA /-->
+
+                    <!--
+                        NG-FOR INTERANDO SOBRE AS TR'S DA TABELA
+                        PARA POPULAR A GRID
+                    -->
+                   <!-- <tr *ngFor="let item of dataSource | paginate: { itemsPerPage: 5, currentPage: paginaSelecionada }">-->
+                    <tr class="efeitoHoverLinha" *ngFor="let item of dataSource | async | paginate: { itemsPerPage: itemsPorPagina, currentPage: pageNumber, totalItems: totalDeItems }">
+                        <td><span><b>{{ item.codigoCentroDistribuicao}}</b>-{{item.nomeCentroDistribuicao}}</span></td>
+                        <td><span><b>{{ item.codigoFilial}}</b>-{{item.nomeFantasia }}</span></td>
+                        <td><span>{{ item.descricaoRegiaoMacro }}</span></td>
+                        <td><span><b>{{ item.codigoProduto }}</b>-{{ item.descricaoProduto }}</span></td>
+                        <td><span>{{ item.descricaoCategoria }}</span></td>
+                        <td><span><b>{{ item.cdMotivoEstoqueMinMax }}</b>-{{item.descricaoMotivoEstoqueMinMax}}</span></td>
+                        <td><span>{{ item.quantidadeEstoqueMinimo }}</span></td>
+                        <td><span>{{ item.quantidadeEstoqueMaximo }}</span></td>
+                        <td>
+                            <div class="ajustaTamanhoBtoEditar" [matTooltipPosition]="position.value" [matTooltip]="msgTooltip(item)">
+                                <button
+
+                                [disabled]= "!item.isEditable"
+                                class= "icon-remove"
+                                mat-icon-button (click)="atualizar(item)">
+                                <mat-icon class= "icon-remove">edit</mat-icon>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                    <!-- / HARDCODE PARA O TOPO DA TABELA -->
+                </tbody>
+
+
+                <!-- FOOTER DA TABELA -->
+                <tfoot>
+                    <tr>
+                        <td colspan="12">
+                            <!-- CONTROLA PAGINAÇÃO -->
+                            <pagination-controls
+                                class="controlaCssPaginacao" (pageChange)="getPage($event)"
+                                autoHide="true"
+                                responsive="false"
+                                previousLabel="Anterior"
+                                nextLabel="Próximo">
+                            </pagination-controls>
+                            <!--/ CONTROLA PAGINAÇÃO -->
+                        </td>
+                    </tr>
+                </tfoot>
+                <!--/ FOOTER DA TABELA -->
+            </table>
+        </section>
+    </ng-container>
+    <!-- /BLOCO NG-IF -->
+</div>
+
+<div id="mostraSemResultadosEncontrados">
+    <!-- BLOCO NG-ELSE -->
+    <ng-template #msgSemResultadosNaBusca>
+    </ng-template>
+    <!-- /BLOCO NG-ELSE -->
+</div>
+<rd-new-modal
+  [imagemModal]="imagemModal"
+  [tituloModal]="tituloModal"
+  [mensagemModal]="mensagemModal"
+></rd-new-modal>
+<rd-loading [@fadeInOut] *ngIf="componentLoading"></rd-loading>
+
+
+
+
+

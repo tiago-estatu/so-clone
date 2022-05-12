@@ -1,0 +1,83 @@
+$airbnb-black: "airbnb-black";
+$airbnb-bold: "airbnb-bold";
+$airbnb-book: "airbnb-book";
+$airbnb-extra_bold: "airbnb-extra_bold";
+$airbnb-light: "airbnb-light";
+$airbnb-medium: "airbnb-medium";
+$vaground: "vaground";
+
+.no-pad {
+  padding: 0 !important;
+}
+
+.no-pad-left {
+  padding-left: 0 !important;
+}
+
+.no-pad-right {
+  padding-right: 0 !important;
+}
+
+.no-marg-left {
+  margin-left: 0 !important;
+}
+
+.no-marg-right {
+  margin-right: 0 !important;
+}
+
+.text-align-left {
+  text-align: left !important;
+}
+
+.text-align-right {
+  text-align: right !important;
+}
+
+.text-align-center {
+  text-align: center !important;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.full-width {
+  width: 100%;
+}
+
+@mixin translate($x, $y) {
+  -webkit-transform: translate($x, $y);
+  -ms-transform: translate($x, $y);
+  transform: translate($x, $y);
+}
+
+@mixin border-radius($value) {
+  -webkit-border-radius: $value;
+  -moz-border-radius: $value;
+  border-radius: $value;
+}
+
+@mixin user-select() {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+@mixin box-shadow($a, $b, $c, $d) {
+  -webkit-box-shadow: $a $b $c $d rgba(50, 50, 50, 0.75);
+  -moz-box-shadow:    $a $b $c $d rgba(50, 50, 50, 0.75);
+  box-shadow:         $a $b $c $d rgba(50, 50, 50, 0.75);
+}
+
+@mixin transition($property, $time, $animation) {
+  -webkit-transition: $property $time $animation;
+  -moz-transition: $property $time $animation;
+  -ms-transition: $property $time $animation;
+  -o-transition: $property $time $animation;
+  transition: $property $time $animation;
+}
+
+
+ 

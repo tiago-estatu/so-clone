@@ -1,0 +1,19 @@
+.error{
+    color: $color-error;
+    font-weight: bold;
+    text-align: center;
+
+    &.large{
+        font-family: $font-bold;
+        font-size: 1rem; 
+    }
+}
+
+.alert{
+    padding: 15px;
+    .close{
+      font-size: 25px !important;
+      padding: .35rem 1.25rem !important;
+    }
+  }
+  

@@ -1,0 +1,109 @@
+<mat-accordion>
+  <mat-expansion-panel [expanded]="expandir" class="overflow-unset">
+
+
+    <!-- CONTROLA O FORM -->
+    <form class="row row-forms one-field-validate">
+
+      <!-- CONTROLA GRUPO DOS SELECTS -->
+      <div class="form-group row col-12 grids">
+
+        <!-- DROPDOWN SELECIONAR ESTOQUE -->
+        <tipo-estoque-combo class="form-group col-4 col tipo-estoque"
+            (selecionados)="tipoEstoqueSelecionados($event)" #elementTipoEstoque>
+        </tipo-estoque-combo>
+        <!--/ DROPDOWN SELECIONAR ESTOQUE -->
+
+        <!-- DROPDOWN SELECIONAR MOTIVO  -->
+        <rd-motivo-estoque-extra-combo class="form-group col-4 col rd-motivo-estoque-extra-combo"
+           [config]="pathService" (selecionados)="todosMotivosSelecionados($event)" #elementMotivo>
+        </rd-motivo-estoque-extra-combo>
+        <!--/ DROPDOWN SELECIONAR MOTIVO  -->
+
+
+        <!-- DATA PICKER (SELEÇÃO DATAS)  -->
+        <div id="controlaMarginsDataPicker" class="col-4">
+          <div class="form-group row">
+            <div class="form-group col-5 vigInicio">
+              <div class="title-form ajustaLarguraLabel"><i class="fa fa-0-5x fa-files-o"></i>DATA INICIAL VIG</div>
+              <div class="form-group">
+                <mat-form-field appearance="outline" style="width:140px">
+                  <input matInput bsDatepicker placeholder="__/__/____" [(ngModel)]="_dataInicial"
+                    [ngModelOptions]="{standalone: true}" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
+                    autocomplete="off" class="form-control" #datepickerUm="bsDatepicker" type="text" />
+                  <a class="icon-input-field dates" (click)="datepickerUm.toggle()">
+                    <i class="fa fa-0-5x fa-calendar-o"></i>
+                  </a>
+                </mat-form-field>
+              </div>
+            </div>
+
+            <div class="form-group col-4 vigFinal">
+              <div class="title-form ajustaLarguraLabel"><i class="fa fa-0-5x fa-files-o"></i>DATA FINAL VIG</div>
+              <div class="form-group">
+                <mat-form-field appearance="outline" style="width:140px">
+                  <input matInput bsDatepicker placeholder="__/__/____" [(ngModel)]="_dataFinal"
+                    [ngModelOptions]="{standalone: true}" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
+                    autocomplete="off" class="form-control" #datepickerDois="bsDatepicker" type="text" />
+                  <a class="icon-input-field dates" (click)="datepickerDois.toggle()">
+                    <i class="fa fa-0-5x fa-calendar-o"></i></a>
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+          <small id="legendaDataGeracaoPedido">Selecione a data da recomendação do pedido</small>
+        </div>
+        <!-- /DATA PICKER (SELEÇÃO DATAS) -->
+
+        <!-- INPUT ABERTO SELEÇÃO DE FILIAIS  -->
+        <div class="form-group col-6 buscas produto">
+          <div class="title-form vig"><i class="fa fa-0-5x fa-files-o"></i>Digitar Filial</div>
+          <div class="buscas">
+            <mat-form-field class="col-12 inputFiltro" appearance="outline">
+              <input matInput class="form-control" [ngModelOptions]="{standalone: true}"
+                [(ngModel)]="_todasFiliaisDigitadas" type="text" placeholder="{{_msgParaHabilitarFilial}}" #cdFilialDigitados virgulaNumero>
+            </mat-form-field>
+          </div>
+        </div>
+        <!-- /INPUT ABERTO SELEÇÃO DE FILIAIS  -->
+
+        <!-- INPUT ABERTO PARA SELEÇÃO DE PRODUTOS  -->
+        <div id="cdProdutosBuscaPadrao" class="form-group col-6 buscas produto">
+            <div class="title-form vig"><i class="fa fa-0-5x fa-files-o"></i>Digitar os produtos</div>
+            <div class="buscas">
+                <mat-form-field class="col-12 inputFiltro" appearance="outline">
+                    <input id="focusOut" matInput class="form-control" [ngModelOptions]="{standalone: true}"
+                    [(ngModel)]="_todosProdutosDigitados" type="text" placeholder="{{_msgParaHabilitarProdutos}}" #CdProdutosDigitados virgulaNumero>
+                </mat-form-field>
+            </div>
+            <small id="legendaLMPM">Motivo LMPM deve ser consultado individualmente</small>
+        </div>
+        <!-- /INPUT ABERTO PARA SELEÇÃO DE PRODUTOS  -->
+
+      </div>
+      <!-- CONTROLA GRUPO DOS SELECTS -->
+
+
+      <!-- BARRA DE BOTÕES  -->
+      <div class="form-group col-12 text-right">
+        <!-- EXPORTAR  -->
+        <label for="download" class="dButton d-inline-flex green ml-3 mt-1">
+          <i class="fa fa-0-5x fa-cloud-download mr-2"></i>
+          <span>Exportar</span></label>
+        <input id="download" class="form-control file" (click)="exportarDadosConsultados()" />
+        <!-- / EXPORTAR  -->
+
+        <!-- LIMPAR CAMPOS  -->
+        <button class="dButton d-inline-flex white ml-3 mt-1" (click)="limparCampos()"> Limpar campos
+        </button>
+        <!-- /LIMPAR CAMPOS  -->
+      </div>
+      <!--/ BARRA DE BOTÕES  -->
+    </form>
+    <!-- /CONTROLA O FORM -->
+
+  </mat-expansion-panel>
+</mat-accordion>
+<!--/ CONTAIN TODO O PAINEL DE FILTROS -->
+
+<rd-loading [@fadeInOut] *ngIf="componentLoading"></rd-loading>

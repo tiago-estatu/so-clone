@@ -1,0 +1,205 @@
+<mat-accordion>
+    <mat-expansion-panel [expanded]="true" class="overflow-unset">
+        <form class="row row-forms one-field-validate" [formGroup]="filterForm">
+
+            <!--  BOTÃO EXPORTAR MODELO CSV -->
+            <div class="col-12 col form-group">
+                <button class="dButton d-inline-flex white ml-3 mt-1 btnExportModelCsv" style="margin-right: 33px"
+                        (click)="exportarModeloCSV()" matTooltip="Exportar modelo CSV.">
+                    Exportar
+                    modelo
+                    CSV
+                </button>
+            </div>
+            <!--/  BOTÃO EXPORTAR MODELO CSV -->
+
+            <!--  GRUPO CONTAINER PARA OS FILTROS -->
+            <div id="ajustaMarginBottom" class="form-group row col-12">
+
+                <div class="row col-12">
+                    <produto-combo class="form-group col-6 col" [control]="getControl(filterForm,'cdProduto')"
+                                   [config]="{onlyNumber: true, multi: false}">
+                    </produto-combo>
+                </div>
+
+
+                <!-- CONTAINER GRUPO BOTÕES -->
+                <div class="col-12 text-right bot">
+                    <!-- CONSULTAR -->
+                    <button class="dButton d-inline-flex green ml-3 mt-1" [disabled]="!filterForm.valid"
+                            (click)="consultar()">
+                        Consultar
+                    </button>
+                    <!--/CONSULTAR -->
+
+                    <!-- ALTERAR -->
+                    <button *ngIf="productSubject.getValue().length > 0 || editing"
+                            class="dButton d-inline-flex green ml-3 mt-1"
+                            (click)="editing ? cancelEditing() : modifyValues()">
+                        {{editing ? 'Cancelar' : 'Alterar'}}
+                    </button>
+                    <!--/ALTERAR -->
+
+                    <!-- SALVAR -->
+                    <button *ngIf="editing" class="dButton d-inline-flex green ml-3 mt-1" [disabled]="!editing"
+                            (click)="saveOrDelete()">
+                        Salvar
+                    </button>
+                    <!--/SALVAR -->
+
+                    <!-- IMPORTAR  -->
+                    <label for="upload" class="dButton d-inline-flex green ml-3 mt-1">
+                        <i class="fa fa-0-5x fa-cloud-upload mr-2"></i><span>Importar</span>
+                    </label>
+                    <input id="upload" class="form-control file" type="file"
+                           accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
+                           name="file"
+                           (change)="importFile($event)"
+                           [formControl]="fileControl"
+                    />
+                    <!--/ IMPORTAR  -->
+
+                    <!-- LIMPAR -->
+                    <button class="dButton d-inline-flex white ml-3 mt-1" (click)="resetarCampos()">
+                        Limpar campos
+                    </button>
+                    <!--/ LIMPAR -->
+                </div>
+                <!--/ CONTAINER GRUPO BOTÕES -->
+
+            </div>
+            <!--/ GRUPO CONTAINER PARA OS FILTROS -->
+        </form>
+    </mat-expansion-panel>
+</mat-accordion>
+<div>
+
+
+    <!-- GRID DE RESULTADOS -->
+    <div id="mostraResultadosCarregados" *ngIf="productSubject.getValue()?.length > 0 || editing">
+
+
+        <section class="content-block table-consult" *ngIf="productSubject.getValue()?.length !== 0; else deleted">
+            <table id="tabelaTarget">
+                <tbody>
+
+                <tr>
+                    <td [colSpan]="8">Adicionar produto substituto</td>
+                </tr>
+                <tr>
+                    <td [colSpan]="8">
+                        <div class="row col-12 align-items-center">
+                            <div class="col-4">
+
+                                <produto-combo class="form-group col"
+                                               [control]="getControl(substitutoForm, 'cdProduto')"
+                                               [config]="{onlyNumber: true,  multi: false}">
+                                </produto-combo>
+
+                            </div>
+                            <mat-form-field class="extra-padded-input">
+                                <input matInput placeholder="Prioridade" type="number"
+                                       [formControl]="getControl(substitutoForm, 'prioridade')">
+                                <mat-error *ngIf="getControl(substitutoForm, 'prioridade').hasError('max')">Valor máximo
+                                    20
+                                </mat-error>
+                                <mat-error *ngIf="getControl(substitutoForm, 'prioridade').hasError('min')">Valor mínimo
+                                    1
+                                </mat-error>
+                                <mat-error *ngIf="getControl(substitutoForm, 'prioridade').hasError('required')">Campo
+                                    obrigatorio
+                                </mat-error>
+                            </mat-form-field>
+                            <button [disabled]="!substitutoForm.valid"
+                                    class="dButton d-inline-flex green ml-3 mt-1 align-self-baseline align-items-center aligned-button"
+                                    (click)="editing || productSubject.getValue().length >= 20 ? showInsertionError() : addSubstitute()">
+                                <i class="fa fa-1x fa-plus mr-2"></i>
+                                <span>Adicionar</span>
+                            </button>
+
+                        </div>
+
+
+                    </td>
+                </tr>
+
+
+                <tr>
+                    <td [colSpan]="8">
+                        <mat-divider></mat-divider>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td style="padding-top: 18px; padding-bottom: 18px" [colSpan]="8">Produtos substitutos para o
+                        produto: <b>
+                            {{getControl(filterForm, 'cdProduto').value[0]?.cdProduto}}
+                            - {{getControl(filterForm, 'cdProduto').value[0]?.dsProduto}}
+                        </b></td>
+                </tr>
+                <!-- HARDCODE PARA O TOPO DA TABELA -->
+                <tr>
+                    <td><span class="configuraTextosHeaderTabela">Cód. Produto</span></td>
+                    <td><span class="configuraTextosHeaderTabela">Descrição</span></td>
+                    <td><span class="configuraTextosHeaderTabela">Fornecedor</span></td>
+                    <td><span class="configuraTextosHeaderTabela">Master</span></td>
+                    <td><span class="configuraTextosHeaderTabela">Princípio ativo</span></td>
+                    <td><span class="configuraTextosHeaderTabela">Curva</span></td>
+                    <td><span class="configuraTextosHeaderTabela">Prioridade</span></td>
+                    <td><span class="configuraTextosHeaderTabela">Ações</span></td>
+                </tr>
+                <!-- HARDCODE PARA O TOPO DA TABELA /-->
+
+
+                <!-- NG-FOR INTERANDO SOBRE AS TR'S DA TABELA PARA POPULAR A GRID -->
+                <tr *ngFor="let item of productSubject | async">
+
+                    <td><span class="small-text">{{ item.cdProduto }}</span></td>
+                    <td><span class="text-break small-text text-no-wrap">{{ item.dsProduto }}</span></td>
+                    <td><span class="text-break small-text">{{ item.nmFantasiaFornecedor }}</span></td>
+                    <td><span class="text-break small-text">{{ item.dsCategoriaMaster }}</span></td>
+                    <td><span
+                            class="text-break small-text">{{ item.dsPrincipioAtivoComposto || emptyCells.composition }}</span>
+                    </td>
+                    <td><span class="small-text">{{ item.clCurvaFis }}</span></td>
+                    <td>
+                        <span>
+                            <mat-form-field appearance="outline" style="max-width: 80px">
+                              <input matInput placeholder="Prioridade" [disabled]="!editing" type="number"
+                                     [(ngModel)]="item.prioridade">
+                            </mat-form-field>
+                        </span>
+                    </td>
+                    <td>
+                        <span class="cursor-pointer" matTooltip="Excluir" (click)="modifyValues(item)">
+                            <mat-icon>delete</mat-icon>
+                        </span>
+                    </td>
+                </tr>
+                </tbody>
+
+            </table>
+        </section>
+        <ng-template #deleted>
+            <section class="content-block table-consult" *ngIf="productSubject.getValue()?.length == 0 && editing">
+                <table id="TabelaEmpty">
+                    <tr>
+                        <td class="configuraTextosHeaderTabela">
+                            Todos os produtos foram marcados para exclusão
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Clique em <a class="link-green" (click)="saveOrDelete()">salvar</a> para efetuar as exclusões.
+                            Ou clique em <a class="link-green" (click)="cancelEditing()">cancelar</a> para reverter as alterações
+                        </td>
+                    </tr>
+                    <tr><td> </td></tr>
+                </table>
+            </section>
+        </ng-template>
+    </div>
+    <!-- GRID DE RESULTADOS -->
+
+
+    <!-- LOADING -->
+    <rd-loading [@fadeInOut] *ngIf="componentLoading"></rd-loading>

@@ -1,0 +1,1 @@
+export * from './grid-minimo-maximo.component';

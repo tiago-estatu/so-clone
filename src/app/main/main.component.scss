@@ -1,0 +1,14 @@
+@import 'styles.scss';
+
+.home {
+    background-color: $color-bg-default;
+    font-size: $font-size-smd;
+    color: $color-font-primary;
+
+    .content {
+        margin: 0 23px;
+        height: 100%;
+        min-height: 100vh;
+
+    }
+}

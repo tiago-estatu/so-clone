@@ -1,0 +1,101 @@
+<mat-accordion>
+    <mat-expansion-panel [expanded]="true" class="overflow-unset">
+        <div class="row row-forms" id="ajustaMarginBottom" [formGroup]="lojaEspelhoForm">
+            <!--Botão de exportar modelo em CSV-->
+            <div class="col-12 col form-group divbtnExportModelCsv">
+                <!-- <a class="text-export cd float-right" matTooltip="Exportar modelo CSV.">
+                    Exportar
+                    modelo
+                    CSV</a> -->
+                <button mat-button class="dButton d-inline-flex white ml-3 mt-1 btnExportModelCsv"
+                    (click)="exportarModeloCSV()" matTooltip="Exportar modelo CSV.">Exportar modelo CSV
+                </button>
+            </div>
+
+            <div class="filtros col-12">
+
+                <!--Componente Procurar Loja semDemanda-->
+                <div class="form-group col-md-3">
+                    <rd-filial-selector [config]="{multi: false, label: LABEL_SEM_DEMANDA}"
+                        [control]="getFormField('semDemanda')">
+                    </rd-filial-selector>
+                </div>
+                <!--Componente para exibir produto espelho cadastrado-->
+                <div class="form-group col-md-2 espelhoCadastrado">
+                    <mat-form-field class="eventless">
+                        <mat-label>Filial Espelho Cadastrado</mat-label>
+                        <mat-chip-list class="single-chip" #chipListProduct>
+                            <mat-chip *ngIf="getFormField('espelhoCadastrado').value?.length > 0">
+                                {{getFormField('espelhoCadastrado').value[0].cdFilialEspelho}}
+                                - {{getFormField('espelhoCadastrado').value[0].dsFilialEspelho}}
+                            </mat-chip>
+                            <mat-chip *ngIf="nenhumaLojaEncontrada && getFormField('semDemanda').value?.length > 0 ">
+                                Nenhuma loja encontrada
+                            </mat-chip>
+                            <input matInput [matChipInputFor]="chipListProduct" [disabled]="true">
+                        </mat-chip-list>
+                    </mat-form-field>
+                </div>
+                <!--Componente Procurar Produto novoEspelho-->
+                <div class="form-group col-md-2 mbG">
+                    <rd-filial-selector [config]="{multi: false, label: LABEL_NOVO_ESPELHO}"
+                        [control]="getFormField('novoEspelho')">
+                    </rd-filial-selector>
+                </div>
+
+                <!--Componente para exibir cluster do produto espelho selecionado-->
+                <div class="form-group col-md-2 espelhoCadastrado">
+                    <mat-form-field class="eventless"
+                        [ngStyle]="{'padding-top': getFormField('cluster').value?.length > 0 ? '24px' : '38px'}">
+                        <mat-label>Cluster espelho novo</mat-label>
+                        <mat-chip-list class="single-chip" #chipFilial>
+                            <mat-chip *ngIf="getFormField('cluster').value?.length > 0">
+                                {{getFormField('cluster').value}}
+                            </mat-chip>
+                            <input id="matChipFilial" matInput [matChipInputFor]="chipFilial" [disabled]="true">
+                        </mat-chip-list>
+                    </mat-form-field>
+                </div>
+
+                <!--DATEPICKER-->
+                <div class="form-group col-2 dtInauguracao mbG">
+                    <div class="title-form dataInauguracao"><i class="fa fa-0-5x fa-files-o"></i>Data Inauguração</div>
+                    <div class="form-group dataInauguracaoDatePicker">
+                        <mat-form-field appearance="outline" style="width:140px">
+                            <input matInput placeholder="__/__/____" formControlName="dtInauguracao" autocomplete="off"
+                                class="form-control" type="text" />
+                            <a class="icon-input-field dates">
+                                <i class="fa fa-0-5x fa-calendar-o"></i>
+                            </a>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-12 text-right bot" style="margin-top: 22px;">
+                <button mat-button class="dButton d-inline-flex green ml-3 mt-1" (click)="salvarFormulario()"
+                    [disabled]="!lojaEspelhoForm.valid">Salvar
+                </button>
+                <!-- IMPORTAR  -->
+                <label for="upload" class="dButton d-inline-flex green ml-3 mt-1">
+                    <i class="fa fa-0-5x fa-cloud-upload mr-2"></i><span>Importar</span>
+                </label>
+                <input id="upload" class="form-control file" 
+                [formControl]="fileControl" 
+                type="file"
+                accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
+                (change)="importFile($event)" 
+                name="file" />
+                <!--/ IMPORTAR  -->
+                <!-- LIMPAR -->
+                <button class="dButton d-inline-flex white ml-3 mt-1" (click)="resetarCampos()">
+                    Limpar campos
+                </button>
+                <!--/ LIMPAR -->
+            </div>
+        </div>
+
+    </mat-expansion-panel>
+</mat-accordion>
+<rd-loading [@fadeInOut] *ngIf="componentLoading"></rd-loading>

@@ -1,0 +1,51 @@
+<form
+        [ngClass]="chipSelectedLocalizacao.length > 0 ? '' : 'custom-input-align'"
+        [ngStyle]="{'padding-top': chipSelectedLocalizacao.length > 0 || config.outline ? '0px' : '0px'}"
+>
+
+  <div class="title-form ajustaLarguraLabel" *ngIf="config.outline"><i class="fa fa-0-5x fa-files-o"></i> {{config.label}}</div>
+  <mat-form-field class="chip" [appearance]="config.outline ? 'outline' : 'standard'">
+    <mat-chip-list  [ngClass]="{'single-chip': !config.multi, hasContent: chipSelectedLocalizacao.length > 0}" #chipList>
+      <mat-chip
+        *ngFor="let localizacao of chipSelectedLocalizacao"
+        [selectable]="true"
+        [removable]="true"
+        (removed)="removeLocalizacao(localizacao)"
+        [matTooltip]="mensagemTooltip(localizacao)"
+        matTooltipPosition="below"
+
+      >
+      <span class="descricaoProduto">{{getDescriptionlocalization(localizacao)}}</span>
+        <mat-icon class="removerChip" matChipRemove>clear</mat-icon>
+      </mat-chip>
+      <input
+        [placeholder]="chipSelectedLocalizacao && chipSelectedLocalizacao.length > 0 ? '' : config.inputLabel"
+        #LocalizacaoInput
+        [formControl]="localizacaoControl"
+        [matAutocomplete]="auto"
+        [matChipInputFor]="chipList"
+        [type]="'text'"
+        [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+        [matChipInputAddOnBlur]="true"
+        (matChipInputTokenEnd)="addLocalizacao($event)"
+        (keydown)="checkNumbers($event)"
+        (keypress)="keyPress($event)"
+      />
+    </mat-chip-list>
+    <mat-autocomplete
+      #auto="matAutocomplete"
+      (optionSelected)="localizacaoSelected($event)"
+    >
+      <mat-option
+        *ngFor="let localizacao of filteredLocalizacao | async"
+        [value]="localizacao"
+        (click)="enableDisable()"
+      >
+        {{ localizacao.cdLocalizacao }} | {{ localizacao.nmLocalizacao }}
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+</form>
+  <simple-notifications [options]="options"></simple-notifications>
+
+  <rd-loading [@fadeInOut] *ngIf="componentLoading"></rd-loading>

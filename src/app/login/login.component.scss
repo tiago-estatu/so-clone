@@ -1,0 +1,88 @@
+@import 'styles.scss';
+
+
+.login-left {
+    @include flexbox();
+    @include justify-content(center);
+    @include align-items(center);
+    background-color: $color-primary;
+    background: -moz-radial-gradient(center, ellipse cover, #258051 40%, $color-primary 100%);
+    /* FF3.6-15 */
+    background: -webkit-radial-gradient(center, ellipse cover, #258051 40%, $color-primary 100%);
+    /* Chrome10-25,Safari5.1-6 */
+    background: radial-gradient(ellipse at center, #258051 40%, $color-primary 100%);
+    /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#258051', endColorstr='$color-primary', GradientType=1);
+    /* IE6-9 fallback on horizontal gradient */
+    .subtitle {
+        &.login {
+            font-family: $font-special, Arial, Helvetica, sans-serif;
+            color: $color-default;
+            font-size: 2rem;
+            text-align: center;
+        }
+    }
+    .logo-login {
+        display: block;
+        margin-right: auto;
+        margin-left: auto;
+        margin-bottom: 2rem;
+    }
+}
+
+.login-right {
+    @include flexbox();
+    @include justify-content(center);
+    @include align-items(center);
+    line-height: 30px;
+    background-color: $color-bg-default;
+    .subtitle {
+        &.form {
+            font-family: $font-medium;
+            color: $color-primary;
+            font-size: 1.3rem;
+            margin-bottom: 5rem;
+        }
+    }
+    .form {
+        max-width: 445px;
+        width: 100%;
+    }
+    .form-group {
+        .rdLabel {
+            font-family: $font-light;
+            font-size: 15px;
+            color: $color-font-primary;
+            margin-bottom: 0.2rem;
+            letter-spacing: 0.5px;
+        }
+        .rdField {
+            border: 0;
+            @include border-radius(0);
+            border-bottom: 1px solid #E3E3E3;
+            background-color: transparent;
+            height: calc(1.9rem);
+            &:focus {
+                border-bottom: 1px solid $color-primary !important;
+                box-shadow: none;
+            }
+        }
+        .invalid-feedback {
+            font-size: $font-size-smd;
+            margin-top: 4px;
+        }
+    }
+    .form-group+.form-group {
+        margin-top: 45px;
+    }
+}
+
+.ilogin {
+    height: 100vh;
+}
+
+.loadingLogin {
+    position: absolute;
+    bottom: -30px;
+    right: 52%;
+}

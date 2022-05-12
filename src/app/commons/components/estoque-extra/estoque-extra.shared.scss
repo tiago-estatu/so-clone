@@ -1,0 +1,55 @@
+::ng-deep .mat-expanded {
+  overflow: unset !important;
+}
+.break-element {
+  word-break: break-all;
+}
+
+a.text-export.cd {
+  margin-left: 20px;
+}
+
+.text-export {
+  float: right;
+}
+
+.text-right {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+::ng-deep .selected-item,
+.multiselect-item-checkbox {
+  background: #006441 !important;
+  border: 1px solid #006441 !important;
+}
+
+#ajustaMarginBottom .col {
+  margin-bottom: 5px!important;
+}
+#controlaMarginsDataPicker {
+  margin-left: -3px!important;
+}
+#controlaMarginsDataPicker .vigFinal {
+  margin-left: 32px;
+}
+#controlaMarginsDataPicker .form-group{
+  width: 111%;
+  margin-bottom: 0rem;
+}
+.title-form{
+  width: 105%!important;
+}
+
+/* CONFIGURAÇÕES PADRÃO PARA GRID */
+#tabelaTarget .configuraTextosHeaderTabela {display: block;width: auto;text-transform: uppercase; font-weight: bold}
+  #tabelaTarget td span{display: block;text-align: left; font-size: 0.675rem; height: 17px; overflow: hidden}
+  .ajustaTamanhoBtoEditar{text-align: center}
+  .ajustaTamanhoBtoEditar .iconInsideBtn{padding:0 0.6rem 0 0.6rem!important}
+  #tabelaTarget tfoot td{text-align: center}
+    #tabelaTarget .msgSemResultadosNaBusca {font-family: Cereal-Medium;color: #005034;font-size: 1rem;margin: 0;}
+
+    #mostraResultadosCarregados {display: block}
+    #mostraSemResultadosEncontrados {display: none}
+    .alinhaBtoEditarCentro {text-align: center!important}
+
+

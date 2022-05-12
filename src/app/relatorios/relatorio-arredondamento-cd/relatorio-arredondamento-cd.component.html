@@ -1,0 +1,92 @@
+<mat-accordion>
+    <mat-expansion-panel [expanded]="true" class="overflow-unset">
+  
+      <!-- CONTROLA O FORM -->
+      <form class="row row-forms one-field-validate" [formGroup]="form">
+        <!-- DROPDOWN SELECIONAR CENTRO DISTRIBUIÇÃO  -->
+        <div class="form-group col-10 col-lg-4 col-md-6 col-sm-9">
+          <centro-distribuicao-combo
+            [control]="getControl('cdRegional')"
+            class="centro-distribuicao-combo">
+          </centro-distribuicao-combo>
+        </div>
+        <!--/ DROPDOWN SELECIONAR CENTRO DISTRIBUIÇÃO  -->
+
+        <!-- DROPDOWN SELECIONAR FORNECEDOR  -->
+        <div class="form-group col-10 col-lg-4 col-md-5 col-sm-8 fornecedor">
+          <rd-fornecedor-combo class="fornecedor-combo"
+          [control]="getControl('cdFornecedor')"
+          [config]="config"
+          >
+          </rd-fornecedor-combo>
+      </div>
+        <!--/ DROPDOWN SELECIONAR FORNECEDOR  -->
+
+
+        <!-- CONTROLA GRUPO DOS SELECTS -->
+        <div class="row col-12 grids">
+  
+          <!-- DATA PICKER (SELEÇÃO DATAS)  -->
+          <div id="controlaMarginsDataPicker" class="col-12">
+            <!-- DATA INICIAL-->
+            <div class="row">
+              <div class="form-group col-12 col-xl-2 col-lg-3 col-md-4 col-sm-8">
+                <div class="title-form ajustaLarguraLabel"><i class="fa fa-0-5x fa-files-o"></i>DATA INICIAL</div>
+                <div>
+                  <mat-form-field appearance="outline" style="width:140px">
+                    <input matInput bsDatepicker placeholder="__/__/____" formControlName="dtInicio"
+                       [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
+                      autocomplete="off" class="form-control" #datepickerUm="bsDatepicker" type="text" />
+                        <a class="icon-input-field dates" (click)="datepickerUm.toggle()">
+                            <i class="fa fa-0-5x fa-calendar-o"></i>
+                        </a>
+                  </mat-form-field>
+                </div>
+              </div>
+              <!--/ DATA INICIAL-->
+              <!-- DATA FINAL-->
+              <div class="form-group col-12 col-xl-2 col-lg-3 col-md-4 col-sm-8">
+                <div class="title-form ajustaLarguraLabel"><i class="fa fa-0-5x fa-files-o"></i>DATA FINAL</div>
+                <div>
+                  <mat-form-field appearance="outline" style="width:140px">
+                    <input matInput bsDatepicker placeholder="__/__/____" formControlName="dtFim"
+                       [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
+                      autocomplete="off" class="form-control" #datepickerDois="bsDatepicker" type="text" />
+                    <a class="icon-input-field dates" (click)="datepickerDois.toggle()">
+                      <i class="fa fa-0-5x fa-calendar-o"></i>
+                      </a>
+                  </mat-form-field>
+                </div>
+              </div>
+              <!--/ DATA FINAL-->
+
+            </div>
+          </div>
+          <!-- /DATA PICKER (SELEÇÃO DATAS) -->
+        </div>
+        <!-- CONTROLA GRUPO DOS SELECTS -->
+  
+  
+        <!-- BARRA DE BOTÕES  -->
+        <div class="form-group col-12 text-right">
+          <!-- EXPORTAR  -->
+          <label for="download" class="dButton d-inline-flex green ml-3 mt-1">
+            <i class="fa fa-0-5x fa-cloud-download mr-2"></i>
+            <span>Exportar</span></label>
+          <input id="download" class="form-control file" (click)="exportar()"/>
+          <!-- / EXPORTAR  -->
+  
+          <!-- LIMPAR CAMPOS  -->
+          <button class="dButton d-inline-flex white ml-3 mt-1" (click)="resetForm()"> Limpar campos
+          </button>
+          <!-- /LIMPAR CAMPOS  -->
+        </div>
+        <!--/ BARRA DE BOTÕES  -->
+      </form>
+      <!-- /CONTROLA O FORM -->
+  
+    </mat-expansion-panel>
+  </mat-accordion>
+  <!--/ CONTAIN TODO O PAINEL DE FILTROS -->
+  
+  <rd-loading [@fadeInOut] *ngIf="componentLoading"></rd-loading>

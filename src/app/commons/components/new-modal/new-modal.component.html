@@ -1,0 +1,39 @@
+<div class="backdrop" [class.modal_show]="openModal"></div>
+
+<div class="modal" tabindex="-1" role="dialog" [class.modal_show]='openModal'>
+
+  <div class="modal-dialog" role="document" [class.modal-lg]='modalLargeSize' [class.modal-md]='modalMediumSize'>
+
+    <div class="modal-content">
+
+      <div class="modal-body">
+        <div class="d-flex justify-content-center mt-1 mb-3">
+          <span class="{{imagemModal}}-content">
+            <i class="large-icon fa fa-{{imagemModal}}"></i>
+          </span>
+        </div>
+
+        <h2 class="mb-2">{{tituloModal}}</h2>
+
+        <div class="text-center" *ngIf='mensagemModal == undefined'>
+          Erro desconhecido!
+        </div>
+
+        <div class="text-center" [innerHTML]="mensagemModal | sanitizeHtml" *ngIf='mensagemModal != undefined'></div>
+
+        <ng-content *ngIf='conteudoModal'></ng-content>
+
+        <rd-buttons-modal *ngIf='botoesPrincipais' [btnVoltarConfirmar]='btnVoltarConfirmar' [btnVoltar]='btnVoltar' [btnCancelName]='btnCancelName'
+          [colorBtnPrincipal]='colorBtnPrincipal' [btnConfirmar]='btnConfirmar' [btnNameConfirmar]='btnNameConfirmar'>
+        </rd-buttons-modal>
+
+      </div>
+
+
+    </div>
+
+  </div>
+
+</div>
+
+<rd-sound [somErro]="somErro"></rd-sound>

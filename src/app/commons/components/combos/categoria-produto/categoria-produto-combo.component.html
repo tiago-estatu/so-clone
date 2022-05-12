@@ -1,0 +1,23 @@
+<div class="title-form vig">
+  <i class="fa fa-0-5x fa-files-o"></i>
+  Selecionar Categoria
+</div>
+  <ng-multiselect-dropdown
+    [ngModelOptions]="{ standalone: true }"
+    [(ngModel)]="categoriaProdutoSelecionadoLista"
+    name="categoria-produto"
+    [placeholder]="'Selecionar Categoria'"
+    [data]="dropdownCategoriaProdutoLista"
+    (onSelect)="selecionado($event)"
+    (onDeSelect)="selecionado($event)"
+    (onSelectAll)="selecionado($event)"
+    (onDeSelectAll)="limparSelecionados()"
+    [settings]="dropdownSettings"
+    [disabled]="disabled"
+  >
+  </ng-multiselect-dropdown>
+<rd-new-modal
+  [imagemModal]="imagemModal"
+  [tituloModal]="tituloModal"
+  [mensagemModal]="mensagemModal"></rd-new-modal>
+<rd-loading [@fadeInOut] *ngIf="componentLoading"></rd-loading>

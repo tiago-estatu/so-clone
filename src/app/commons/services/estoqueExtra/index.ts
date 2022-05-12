@@ -1,0 +1,1 @@
+export * from './estoque-extra.service';

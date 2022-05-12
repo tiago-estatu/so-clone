@@ -1,0 +1,152 @@
+<mat-accordion>
+  <mat-expansion-panel [expanded]="expandir" class="overflow-unset">
+    <form class="row row-forms one-field-validate" [formGroup]="filterForm">
+
+      <!--  BOTÃO EXPORTAR MODELO CSV -->
+      <div class="col-12 col form-group">
+        <button class="dButton d-inline-flex white ml-3 mt-1 btnExportModelCsv" style="margin-right: 34px"  (click)="exportarModeloCSV()" matTooltip="Exportar modelo CSV."> Exportar modelo CSV</button>
+      </div>
+      <!--/  BOTÃO EXPORTAR MODELO CSV -->
+
+      <!--  GRUPO CONTAINER PARA OS FILTROS -->
+      <div id="ajustaMarginBottom" class="form-group row col-12">
+
+        <div class="row col-12">
+          <!-- DROPDOWN SELECIONAR FILIAL  -->
+          <filial-combo class="form-group col-6 col filial-combo" (selecionados)="preencherFiliaisSelecionadas($event)"
+                        #elementFilial>
+          </filial-combo>
+          <!--/ DROPDOWN SELECIONAR FILIAL  -->
+
+          <!-- IMPUT TYPE  SELECIONAR PRODUTOS  -->
+          <produto-combo class="form-group col-6 col" (selecionados)="preencherProdutosSelecionados($event)" [config]="{onlyNumber: true}"
+                         #elementProduto>
+          </produto-combo>
+          <!--/ IMPUT TYPE  SELECIONAR PRODUTOS  -->
+        </div>
+
+
+        <!-- DATA PICKER (SELEÇÃO DATAS)  -->
+        <div id="controlaMarginsDataPicker" class="col-10">
+          <div class="form-group row">
+            <div class="form-group col-2 vigInicio">
+              <div class="title-form"><i class="fa fa-0-5x fa-files-o"></i>Data Inicial Vig</div>
+              <div class="form-group">
+                <mat-form-field appearance="outline" style="width:140px">
+                  <input matInput bsDatepicker placeholder="__/__/____" formControlName="dataInicial"
+                         [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
+                    autocomplete="off" class="form-control" #datepickerUm="bsDatepicker" type="text" />
+                  <a class="icon-input-field dates" (click)="datepickerUm.toggle()">
+                    <i class="fa fa-0-5x fa-calendar-o"></i>
+                  </a>
+                </mat-form-field>
+              </div>
+            </div>
+
+            <div class="form-group col-2 vigFinal">
+              <div class="title-form"><i class="fa fa-0-5x fa-files-o"></i>Data Final Vig</div>
+              <div class="form-group">
+                <mat-form-field appearance="outline" style="width:140px">
+                  <input matInput bsDatepicker placeholder="__/__/____" formControlName="dataFinal"
+                         [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
+                    autocomplete="off" class="form-control" #datepickerDois="bsDatepicker" type="text" />
+                  <a class="icon-input-field dates" (click)="datepickerDois.toggle()">
+                    <i class="fa fa-0-5x fa-calendar-o"></i></a>
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- /DATA PICKER (SELEÇÃO DATAS) -->
+
+
+        <!-- CONTAINER GRUPO BOTÕES -->
+        <div class="col-12 text-right bot">
+          <!-- CONSULTAR -->
+          <button class="dButton d-inline-flex green ml-3 mt-1" (click)="consultar()">
+            Consultar
+          </button>
+          <!--/CONSULTAR -->
+
+          <!-- IMPORTAR  -->
+          <label for="upload" class="dButton d-inline-flex green ml-3 mt-1">
+            <i class="fa fa-0-5x fa-cloud-upload mr-2"></i><span>Importar</span>
+          </label>
+          <input #importarRef id="upload" class="form-control file" type="file"
+            accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
+            (change)="importarExcel($event)" name="file" />
+          <!--/ IMPORTAR  -->
+
+          <!-- LIMPAR -->
+          <button class="dButton d-inline-flex white ml-3 mt-1" (click)="resetarCampos()">
+            Limpar campos
+          </button>
+          <!--/ LIMPAR -->
+        </div>
+        <!--/ CONTAINER GRUPO BOTÕES -->
+
+      </div>
+      <!--/ GRUPO CONTAINER PARA OS FILTROS -->
+    </form>
+  </mat-expansion-panel>
+</mat-accordion>
+<div>
+
+
+  <!-- TABELA GRID -->
+  <div id="mostraResultadosCarregados">
+    <ng-container *ngIf="totalItems>0">
+      <section class="content-block table-consult">
+        <table id="tabelaTarget">
+          <tbody>
+            <!-- HARDCODE PARA O TOPO DA TABELA -->
+            <tr>
+              <td><span style="width: 60px" class="configuraTextosHeaderTabela">VIG INICIAL</span></td>
+              <td><span style="width: 56px" class="configuraTextosHeaderTabela">VIG FINAL </span></td>
+              <td><span style="width: 200px" class="configuraTextosHeaderTabela">FILIAL</span></td>
+              <td><span style="width: 250px" class="configuraTextosHeaderTabela">PRODUTO</span></td>
+              <td><span style="width: 56px" class="configuraTextosHeaderTabela">QTD</span></td>
+              <td><span style="width: 100px" class="configuraTextosHeaderTabela">TIPO</span></td>
+              <td><span style="width: 56px" class="configuraTextosHeaderTabela">DETALHE</span></td>
+            </tr>
+            <!-- HARDCODE PARA O TOPO DA TABELA /-->
+
+
+            <!-- NG-FOR INTERANDO SOBRE AS TR'S DA TABELA PARA POPULAR A GRID -->
+            <tr *ngFor="let element of dataSource| paginate: { itemsPerPage: filtroBack.getParam('size'), currentPage: filtroBack.getParam('page'), totalItems: totalItems }">
+              <td><span>{{element.dtInicioVigencia | date:'dd/MM/yyyy' }} </span></td>
+              <td><span>{{element.dtFimVigencia | date:'dd/MM/yyyy' }}</span></td>
+              <td><span><b>{{element.filial}}</b> - {{element.dsFilial}}</span></td>
+              <td><span><b>{{element.produto}}</b> - {{element.dsProduto}} </span></td>
+              <td><span>{{element.qtEstoque}}</span></td>
+              <td><span> {{element.dsTipo}} </span></td>
+              <!-- BTO VER DETALHE -->
+              <td><span class="alinhaBtoEditarCentro"><a (click)="goTo($event, element)" class="mr-2"><i
+                      class="fa fa-0-5x fa-edit" title="Ver detalhe"></i></a></span></td>
+              <!--/ BTO VER DETALHE -->
+            </tr>
+          </tbody>
+
+
+          <!-- FOOTER DA TABELA -->
+          <tfoot>
+            <tr>
+              <td colspan="8">
+                <!-- CONTROLA PAGINAÇÃO -->
+                <pagination-controls class="controlaCssPaginacao" [maxSize]="15" (pageChange)="getPage($event)" autoHide="true"
+                  responsive="false" previousLabel="Anterior" nextLabel="Próximo">
+                </pagination-controls>
+                <!--/ CONTROLA PAGINAÇÃO -->
+              </td>
+            </tr>
+          </tfoot>
+          <!--/ FOOTER DA TABELA -->
+        </table>
+      </section>
+    </ng-container>
+    <!-- /BLOCO NG-IF -->
+  </div>
+  <!-- /TABELA GRID -->
+
+  <!-- LOADING -->
+  <rd-loading [@fadeInOut] *ngIf="componentLoading"></rd-loading>

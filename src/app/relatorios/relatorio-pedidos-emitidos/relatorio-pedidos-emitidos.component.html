@@ -1,0 +1,99 @@
+<mat-accordion>
+    <mat-expansion-panel [expanded]="expandir" class="overflow-unset">
+
+
+        <!-- CONTROLA O FORM -->
+        <form class="col-12 one-field-validate">
+            <!-- CONTROLA GRUPO DOS SELECTS -->
+
+            <!--COMBO REATIVO TRIPLO (CD + FABRICANTE + FORNECEDOR + [flagCompraCd]="falso para retorno de atrelado ao cdOperador" )-->
+            <rd-agrupamento-combos-cd [flagCompraCd]="true" (selecionados)="campoSelecionado($event)"></rd-agrupamento-combos-cd>
+            <!--/ COMBO REATIVO TRIPLO (CD + FABRICANTE + FORNECEDOR)-->
+
+
+
+
+
+
+
+                <!-- DROPDOWN SELECIONAR CENTRO DISTRIBUIÇÃO
+                <centro-distribuicao-combo class="form-group col-4 col centro-distribuicao-combo"
+                    (selecionados)="todosCentroDistribuicaoSelecionados($event)" #elementCD>
+                </centro-distribuicao-combo>
+
+                <div class="form-group col-4 fornecedor">
+                    <rd-fornecedor-combo class="fornecedor-combo"
+                        (selecionados)="preencherTodosFornecedoresSelecionados($event)" #elementFornecedor>
+                    </rd-fornecedor-combo>
+                </div>
+
+                <rd-fabricante-combo class="form-group col-4 fabricantes"
+                    (selecionados)="preencherTodosFabricantesSelecionados($event)" #elementFabricante>
+                </rd-fabricante-combo>
+                -->
+
+
+            <!-- CONTROLA GRUPO DOS SELECTS -->
+
+            <!-- DATA PICKER (SELEÇÃO DATAS)  -->
+            <div id="controlaMarginsDataPicker" class="col-10">
+                <div class="form-group row">
+                    <div class="form-group col-2 vigInicio">
+                        <div class="title-form"><i class="fa fa-0-5x fa-files-o"></i>Data Inicial</div>
+                        <div class="form-group">
+                            <mat-form-field appearance="outline" style="width:140px">
+                                <input matInput bsDatepicker placeholder="__/__/____" [(ngModel)]="_dataInicial"
+                                [ngModelOptions]="{standalone: true}" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" autocomplete="off"
+                                class="form-control" #datepickerUm="bsDatepicker" type="text" />
+                                <a class="icon-input-field dates" (click)="datepickerUm.toggle()">
+                                <i class="fa fa-0-5x fa-calendar-o"></i>
+                                </a>
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                    <div class="form-group col-2 vigFinal">
+                        <div class="title-form"><i class="fa fa-0-5x fa-files-o"></i>Data Final</div>
+                        <div class="form-group">
+                            <mat-form-field appearance="outline" style="width:140px">
+                                <input matInput bsDatepicker placeholder="__/__/____" [(ngModel)]="_dataFinal"
+                                [ngModelOptions]="{standalone: true}" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
+                                autocomplete="off" class="form-control" #datepickerDois="bsDatepicker" type="text" />
+                                <a class="icon-input-field dates" (click)="datepickerDois.toggle()">
+                                <i class="fa fa-0-5x fa-calendar-o"></i></a>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+                <small id="legendaDataGeracaoPedido">Selecione a data da recomendação do pedido</small>
+            </div>
+            <!-- /DATA PICKER (SELEÇÃO DATAS) -->
+
+
+            <!-- BARRA DE BOTÕES  -->
+            <div class="form-group col-12 text-right">
+                <!-- EXPORTAR  -->
+                <label for="download" class="dButton d-inline-flex green ml-3 mt-1">
+                <i class="fa fa-0-5x fa-cloud-download mr-2"></i>
+                <span>Exportar</span></label>
+                <input id="download" class="form-control file" (click)="exportarDadosConsultados()"/>
+                <!-- / EXPORTAR  -->
+
+                <!-- LIMPAR CAMPOS  -->
+                <button class="dButton d-inline-flex white ml-3 mt-1"
+                    (click)="limparCampos()"> Limpar campos
+                </button>
+                <!-- /LIMPAR CAMPOS  -->
+            </div>
+            <!--/ BARRA DE BOTÕES  -->
+        </form>
+        <!-- /CONTROLA O FORM -->
+
+    </mat-expansion-panel>
+</mat-accordion>
+<!--/ CONTAIN TODO O PAINEL DE FILTROS -->
+
+<rd-loading [@fadeInOut] *ngIf="componentLoading"></rd-loading>
+
+
+

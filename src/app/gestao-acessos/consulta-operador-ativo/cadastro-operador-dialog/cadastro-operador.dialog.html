@@ -1,0 +1,73 @@
+<div mat-dialog-title class="modal-title">Alterar vigência operador</div>
+
+
+<div mat-dialog-content class="modal-wrap" [formGroup]="operadorForm">
+    <div class="row">
+        <!--Perfil Atrelado INPUT-->
+        <div class="col-4 col">
+            <div class="title-form ajustaLarguraLabel"><i class="fa fa-0-5x fa-files-o"></i>Perfil Já Atrelado</div>
+            <mat-form-field appearance="outline" class="full-width rd-input">
+                <input matInput placeholder="Perfil Atrelado" formControlName="perfil"/>
+            </mat-form-field>
+        </div>
+        <!--Perfil Atrelado INPUT-->
+        <!--Matricula INPUT-->
+        <div class="col-2 col">
+            <div class="title-form ajustaLarguraLabel"><i class="fa fa-0-5x fa-files-o"></i>Matricula</div>
+            <mat-form-field appearance="outline" class="full-width rd-input">
+                <input matInput placeholder="Matricula" formControlName="matricula"/>
+            </mat-form-field>
+        </div>
+        <!--Matricula INPUT-->
+
+        <!--operador INPUT-->
+        <div class="col-5 col">
+            <div class="title-form ajustaLarguraLabel"><i class="fa fa-0-5x fa-files-o"></i>Operador</div>
+            <mat-form-field appearance="outline" class="full-width rd-input">
+                <input matInput placeholder="Operador" type="text" formControlName="operador"/>
+            </mat-form-field>
+        </div>
+        <!--operador INPUT-->
+
+      <!-- DATA INCIAL -->
+      <div class="col-2 vigInicio">
+        <div class="title-form"><i class="fa fa-0-5x fa-files-o"></i>Inicio Vigencia</div>
+        <div class="form-group">
+          <mat-form-field appearance="outline" style="width:140px">
+            <input readonly matInput bsDatepicker placeholder="__/__/____" formControlName="dtInicioVigencia"
+              [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" autocomplete="off" class="form-control datepickerStyle"
+              #datepickerUm="bsDatepicker" type="text" />
+            <a class="icon-input-field dates" (click)="datepickerUm.toggle()">
+              <i class="fa fa-0-5x fa-calendar-o"></i>
+            </a>
+          </mat-form-field>
+        </div>
+      </div>
+      <!-- /DATA INCIAL -->
+
+     <!--DATEPICKER-->
+     <div class="marginless col-2 dtInauguracao mbG">
+        <div class="title-form dataInauguracao"><i class="fa fa-0-5x fa-files-o"></i>Final Vigencia</div>
+        <div class="form-group dataInauguracaoDatePicker">
+            <mat-form-field appearance="outline" style="width:140px">
+                <input matInput bsDatepicker placeholder="__/__/____" formControlName="dtFimVigencia" autocomplete="off"
+                    class="form-control" #datepickerDois="bsDatepicker" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" type="text" />
+                <a class="icon-input-field dates" (click)="datepickerDois.toggle()">
+                    <i class="fa fa-0-5x fa-calendar-o"></i>
+                </a>
+            </mat-form-field>
+        </div>
+    </div>
+    <!--/DATEPICKER-->
+      <!--Escolher novo perfil INPUT-->
+      <div class="col-5 col">
+        <perfil-acesso-combo  [config]="{titlePerfil:'Atrelar novo perfil', multi: false, standalone: true}" [control]="getFormField('idPerfil')">
+        </perfil-acesso-combo>
+    </div>
+    <!--Escolher novo perfil INPUT-->
+</div>
+
+<div mat-dialog-actions class="d-flex justify-content-end buttons">
+    <button class="dButton d-inline-flex white ml-3 mt-1" (click)="closeDialog()">Cancelar</button>
+    <button [disabled]="!(operadorForm.valid)" class="dButton d-inline-flex green ml-3 mt-1" (click)="update()">Salvar</button>
+</div>

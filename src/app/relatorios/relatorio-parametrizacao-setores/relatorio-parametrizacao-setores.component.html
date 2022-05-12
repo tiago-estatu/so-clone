@@ -1,0 +1,100 @@
+<mat-accordion>
+  <mat-expansion-panel [expanded]="expandir" class="overflow-unset">
+
+    <!-- CONTROLA O FORM -->
+    <div class="row row-forms" id="ajustaMarginBottom" [formGroup]="form">
+
+      <!-- CONTROLA GRUPO DOS SELECTS -->
+      <div class="form-group row col-12 grids">
+        <centro-distribuicao-combo class="form-group col-4 col centro-distribuicao-combo"
+          [control]="getFormField('cdRegional')" (selecionados)="todosCentroDistribuicaoSelecionados($event)"
+          [config]="{multi: false, standalone: true}">
+        </centro-distribuicao-combo>
+
+        <rd-setor-cd-combo class="form-group col4 col fornecedor-combo" [standalone]="false"
+          [control]="getFormField('cdSetorSeparacao')" (selecionados)="setorCdSelecionados($event)"
+          [config]="{standalone: false, coldStart: true}">
+        </rd-setor-cd-combo>
+
+        <rd-combo-setor-itim class="form-group col-4 col fornecedor-combo"
+          [control]="getFormField('itimSetorSeparacao')" (selecionados)="gruposItimSelecionados($event)"
+          #elementGrupoPrioridade>
+        </rd-combo-setor-itim>
+
+
+      </div>
+      <!-- CONTROLA GRUPO DOS SELECTS -->
+
+            <!-- CONTROLA DATEPICKER -->
+      <div class="row col-12 grids">
+
+        <!-- DATA PICKER (SELEÇÃO DATAS)  -->
+        <div id="controlaMarginsDataPicker" class="col-12">
+          <!-- DATA INICIAL-->
+          <div class="row">
+            <div class="form-group col-12 col-xl-2 col-lg-3 col-md-4 col-sm-8">
+              <div class="title-form ajustaLarguraLabel"><i class="fa fa-0-5x fa-files-o"></i>DATA INICIAL</div>
+              <div>
+                <mat-form-field appearance="outline" style="width:140px" [formGroup]="form">
+                  <input matInput bsDatepicker placeholder="__/__/____" formControlName="dtInicio" [(ngModel)]="_dataInicial" required
+                    [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" autocomplete="off" class="form-control"
+                    #datepickerUm="bsDatepicker" type="text" />
+                  <a class="icon-input-field dates" (click)="datepickerUm.toggle()">
+                    <i class="fa fa-0-5x fa-calendar-o"></i>
+                  </a>
+                </mat-form-field>
+              </div>
+            </div>
+            <!--/ DATA INICIAL-->
+            <!-- DATA FINAL-->
+            <div class="form-group col-12 col-xl-2 col-lg-3 col-md-4 col-sm-8">
+              <div class="title-form ajustaLarguraLabel"><i class="fa fa-0-5x fa-files-o"></i>DATA FINAL</div>
+              <div>
+                <mat-form-field appearance="outline" style="width:140px" [formGroup]="form">
+                  <input matInput bsDatepicker placeholder="__/__/____"   formControlName="dtFim" [(ngModel)]="_dataFinal" required
+                    [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" autocomplete="off" class="form-control"
+                    #datepickerDois="bsDatepicker" type="text" />
+                  <a class="icon-input-field dates" (click)="datepickerDois.toggle()">
+                    <i class="fa fa-0-5x fa-calendar-o"></i>
+                  </a>
+                </mat-form-field>
+              </div>
+            </div>
+            <!--/ DATA FINAL-->
+
+          </div>
+        </div>
+        <!-- /DATA PICKER (SELEÇÃO DATAS) -->
+      </div>
+      <!-- /CONTROLA DATEPICKER -->
+
+      <!-- BARRA DE BOTÕES  -->
+
+      <div class="form-group col-12 text-right">
+        <!-- CONSULTAR  -->
+        <!-- <button mat-button class="dButton d-inline-flex green ml-3 mt-1"
+          [disabled]="habilitarBtoConsultarSetores() === true" (click)="consultarSetores()">Consultar
+        </button> -->
+        <!-- /CONSULTAR  -->
+
+        <!-- LIMPAR -->
+        <!-- [disabled]="habilitarBtoConsultar() === true" -->
+        <button class="dButton d-inline-flex green ml-3 mt-1" 
+          (click)="exportarDadosConsultados()">
+          Exportar
+        </button>
+        <!--/ LIMPAR -->
+
+        <!-- LIMPAR -->
+        <button class="dButton d-inline-flex white ml-3 mt-1" (click)="limparCampos()">
+          Limpar campos
+        </button>
+        <!--/ LIMPAR -->
+
+      </div>
+      <!--/ BARRA DE BOTÕES  -->
+
+    </div>
+    <!-- /CONTROLA O FORM -->
+
+    <rd-loading [@fadeInOut] *ngIf="componentLoading"></rd-loading>

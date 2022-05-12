@@ -1,0 +1,100 @@
+<mat-accordion>
+  <mat-expansion-panel [expanded]="expandir" class="overflow-unset">
+
+    <!-- CONTROLA O FORM -->
+    <form class="row row-forms one-field-validate">
+
+      <!-- CONTROLA GRUPO DOS SELECTS -->
+      <div class="form-group row col-12 grids">
+
+        <!-- DROPDOWN SELECIONAR CENTRO DISTRIBUIÇÃO  -->
+        <centro-distribuicao-combo class="form-group col-4 col centro-distribuicao-combo" [config]="{multi: false}"
+          (selecionados)="todosCentroDistribuicaoSelecionados($event)" #elementCD>
+        </centro-distribuicao-combo>
+        <!--/ DROPDOWN SELECIONAR CENTRO DISTRIBUIÇÃO  -->
+
+        <!-- DROPDOWN SELECIONAR FILIAL  -->
+        <filial-combo class="form-group col-4 col filial-combo" (selecionados)="preencherFiliaisSelecionadas($event)"
+          [config]="{multi: false}" [cdsSelecionados]="_todosCDSelecionado" #elementFilial>
+        </filial-combo>
+        <!--/ DROPDOWN SELECIONAR FILIAL  -->
+
+        <!-- DROPDOWN SELECIONAR GRUPO PRIORIDADE
+                  ****** DROPLIST ESTÁ SETADO COM VALORES HARDED CODE ************
+              -->
+        <combo-Prioridade-Loja class="form-group col-4 col combo-Prioridade-Loja"
+          [selecaoUnicaGruposPrioridade]="selecaoUnicaGruposPrioridade"
+          (selecionados)="preencherGruposSelecionados($event)" #elementGrupoPrioridade>
+        </combo-Prioridade-Loja>
+        <!--/  DROPDOWN SELECIONAR GRUPO PRIORIDADE  -->
+      </div>
+      <!-- //CONTROLA GRUPO DOS SELECTS -->
+
+      <!-- CONTROLA DATEPICKER -->
+      <div class="row col-12 grids">
+
+        <!-- DATA PICKER (SELEÇÃO DATAS)  -->
+        <div id="controlaMarginsDataPicker" class="col-12">
+          <!-- DATA INICIAL-->
+          <div class="row">
+            <div class="form-group col-12 col-xl-2 col-lg-3 col-md-4 col-sm-8">
+              <div class="title-form ajustaLarguraLabel"><i class="fa fa-0-5x fa-files-o"></i>DATA INICIAL</div>
+              <div>
+                <mat-form-field appearance="outline" style="width:140px">
+                  <input matInput bsDatepicker placeholder="__/__/____" [(ngModel)]="_dataInicial" [ngModelOptions]="{standalone: true}"
+                    [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" autocomplete="off" class="form-control"
+                    #datepickerUm="bsDatepicker" type="text" />
+                  <a class="icon-input-field dates" (click)="datepickerUm.toggle()">
+                    <i class="fa fa-0-5x fa-calendar-o"></i>
+                  </a>
+                </mat-form-field>
+              </div>
+            </div>
+            <!--/ DATA INICIAL-->
+            <!-- DATA FINAL-->
+            <div class="form-group col-12 col-xl-2 col-lg-3 col-md-4 col-sm-8">
+              <div class="title-form ajustaLarguraLabel"><i class="fa fa-0-5x fa-files-o"></i>DATA FINAL</div>
+              <div>
+                <mat-form-field appearance="outline" style="width:140px">
+                  <input matInput bsDatepicker placeholder="__/__/____"   [(ngModel)]="_dataFinal" [ngModelOptions]="{standalone: true}"
+                    [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" autocomplete="off" class="form-control"
+                    #datepickerDois="bsDatepicker" type="text" />
+                  <a class="icon-input-field dates" (click)="datepickerDois.toggle()">
+                    <i class="fa fa-0-5x fa-calendar-o"></i>
+                  </a>
+                </mat-form-field>
+              </div>
+            </div>
+            <!--/ DATA FINAL-->
+
+          </div>
+        </div>
+        <!-- /DATA PICKER (SELEÇÃO DATAS) -->
+      </div>
+      <!-- /CONTROLA DATEPICKER -->
+
+      <!-- BARRA DE BOTÕES  -->
+      <div class="form-group col-12 text-right">
+
+        <!-- EXPORTAR  -->
+        <label for="download" class="dButton d-inline-flex green ml-3 mt-1">
+          <i class="fa fa-0-5x fa-cloud-download mr-2"></i>
+          <span>Exportar</span></label>
+        <input id="download" class="form-control file" (click)="exportarDadosConsultados()" />
+        <!-- / EXPORTAR  -->
+
+        <!-- LIMPAR CAMPOS  -->
+        <button class="dButton d-inline-flex white ml-3 mt-1" (click)="limparCampos()"> Limpar campos
+        </button>
+        <!-- /LIMPAR CAMPOS  -->
+
+      </div>
+      <!--/ BARRA DE BOTÕES  -->
+    </form>
+    <!-- /CONTROLA O FORM -->
+
+  </mat-expansion-panel>
+</mat-accordion>
+<!--/ CONTAIN TODO O PAINEL DE FILTROS -->
+
+<rd-loading [@fadeInOut] *ngIf="componentLoading"></rd-loading>

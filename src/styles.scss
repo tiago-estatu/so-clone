@@ -1,0 +1,30 @@
+
+@import 'base/reset';
+/* You can add global styles to this file, and also import other style files */
+
+@import 'abstracts/mixins';
+@import 'abstracts/variables';
+
+@import 'base/typography';
+@import 'components/buttons';
+@import 'components/fields';
+@import 'components/alerts';
+@import 'components/modal';
+
+@import 'layout/content';
+@import 'layout/navigation';
+@import 'layout/tables';
+
+@import '~bootstrap/scss/bootstrap-reboot';
+@import '~bootstrap/scss/bootstrap-grid';
+
+@import 'material/_general.scss';
+@import 'material/_fields.scss';
+@import 'material/_slidetoggle.scss';
+@import 'material/_checkbox.scss';
+@import 'material/_menu.scss';
+
+@import url("https://fonts.googleapis.com/icon?family=Material+Icons");
+
+
+@import 'sass/components/selects';

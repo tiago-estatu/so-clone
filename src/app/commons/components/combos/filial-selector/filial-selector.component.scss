@@ -1,0 +1,34 @@
+/*#produtos {
+  .chip {
+    width: 440px;
+  }
+}
+*/
+.mat-icon {
+  width: 12px !important;
+}
+
+.mat-form-field {
+  display: contents!important;
+  position: relative;
+  text-align: left;
+}
+
+
+.custom-input-align{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+::ng-deep .single-chip>.mat-chip-list-wrapper{
+  display: inline-grid;
+}
+
+
+::ng-deep .single-chip>.mat-chip-list-wrapper>.mat-chip,
+::ng-deep .single-chip>.mat-chip-list-wrapper>.mat-chip-input
+{
+  grid-column: 1;
+  grid-row: 1;
+}

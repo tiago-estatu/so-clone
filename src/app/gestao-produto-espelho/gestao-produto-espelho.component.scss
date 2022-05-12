@@ -1,0 +1,32 @@
+.form-group.col-4.espelhoCadastrado {
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+
+}
+
+.inputCadastrado{
+    background-color: #e0e0e0;
+    color: rgba(0, 0, 0, 0.87);
+    transition: box-shadow 280ms cubic-bezier(.4,0,.2,1);
+    display: inline-flex;
+    padding: 7px 12px;
+    border-radius: 16px;
+    align-items: center;
+    cursor: default;
+    min-height: 32px;
+    height: 1px;
+}
+
+.mat-form-field-label {
+    color: #1b5e20;
+}
+
+.eventless {
+    pointer-events: none;
+}
+
+.mat-expansion-panel{
+    padding-bottom: 20px !important;
+}

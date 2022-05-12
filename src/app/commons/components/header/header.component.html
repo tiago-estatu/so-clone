@@ -1,0 +1,44 @@
+<!-- GRUPO (TÍTULO DA PÁGINA + USUÁRIO LOGADO) -->
+<header class="nav-top">
+    <div class="user">
+        <div class="row">
+
+            <!-- TÍTULO DA PÁGINA -->
+            <div class="col-7 align-self-center">
+                <div class="align-self-center info-page">
+                    <h2 class="title-page">{{title}}</h2>
+                </div>
+            </div>
+            <!--/ TÍTULO DA PÁGINA -->
+
+            <!-- TOPO LADO DIREITO (ÍCONE NOTIFICAÇÕES + NOME USUÁRIO) -->
+            <div class="col-5 align-self-center d-flex justify-content-end">
+                <div class="notifications open-menu" *ngIf="!componentLoading">
+                    <div>
+                        <i class="fa fa-bell"></i>
+                        <span *ngIf="showNumberNotification" [@fadeInOut] class="number">{{numberNotification}}</span>
+                    </div>
+                    <div class="menu-content" *ngIf="showNumberNotification">
+                        <a *ngFor="let report of reports" (click)="downloadReport(report)"> {{report.nome}}</a>
+                    </div>
+                </div>
+
+                <rd-basic-loading class="relatorio" [@fadeInOut] *ngIf="componentLoading"></rd-basic-loading>
+
+                <!-- MENU DE CONFIGURAÇÕES -->
+                <div class="user-config open-menu">
+                    <div class="user-name" [@fadeInOut]>{{operador}} <i class="fa fa-angle-down"></i></div>
+                    <div class="user-config-content menu-content">
+                        <a><i class="fa fa-cog"></i> Configurações</a>
+                        <a (click)="logoutSubmit()"><i class="fa fa-sign-out"></i> Sair</a>
+                    </div>
+                </div>
+                <!--/ MENU DE CONFIGURAÇÕES -->
+
+            </div>
+            <!-- /TOPO LADO DIREITO (ÍCONE NOTIFICAÇÕES + NOME USUÁRIO) -->
+        </div>
+    </div>
+    <rd-new-modal [imagemModal]='imagemModal' [tituloModal]='tituloModal' [mensagemModal]='mensagemModal'></rd-new-modal>
+</header>
+<!--/ GRUPO (TÍTULO DA PÁGINA + USUÁRIO LOGADO) -->

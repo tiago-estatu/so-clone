@@ -1,0 +1,47 @@
+:host::ng-deep.form-group .form-control + .icon-input-field{
+    right: -12px;
+}
+
+.text-right.bot {
+    padding-bottom: 15px;
+}
+
+:host::ng-deep .mat-expanded {
+    overflow: unset !important;
+}
+
+input.matricula {
+    width: auto;
+    min-width: 300px;
+    height: 35px;
+}
+
+.perfilCombo {
+    margin: 4px 0px 0px -35px;
+}
+
+.buttons {
+    padding-top: 45px;
+}
+
+.modal-title {
+    color: #4b4b4b;
+    font-size: 18px;
+    padding: 8px;
+    font-weight: bold;
+}
+.datepickerStyle {
+    background: none;
+}
+
+mat-dialog-container#mat-dialog-0 {
+    height: 400px;
+}
+
+#tabelaTarget {margin-top: 15px}
+#tabelaTarget .configuraTextosHeaderTabela {text-align: left;display: block;width: auto;text-transform: uppercase; font-weight: bold;}
+    #tabelaTarget td span{display: block;text-align: left}
+    .ajustaTamanhoBtoEditar{text-align: left}
+    .ajustaTamanhoBtoEditar .iconInsideBtn{padding:0 0.6rem 0 0.6rem!important}
+    #tabelaTarget tfoot td{text-align: left}
+        #tabelaTarget .msgSemResultadosNaBusca {font-family: Cereal-Medium;color: #005034;font-size: 1rem;margin: 0;padding: 10px 0px 20px 25px}

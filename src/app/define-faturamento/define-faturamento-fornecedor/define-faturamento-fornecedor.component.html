@@ -1,0 +1,103 @@
+<mat-accordion>
+    <mat-expansion-panel [expanded]="true" class="overflow-visible">
+      <form>
+          <div class="form-group row col-12">
+
+            <!-- COMBO DE SELECTS TRIPLO-->
+            <rd-agrupamento-combos-cd (selecionados)="selectField($event)" [flagCompraCd]="true" class="full-width spaced-row">
+
+            </rd-agrupamento-combos-cd>
+            <!--/ COMBO DE SELECTS TRIPLO-->
+
+
+  
+          <!-- BARRA DE BOTÕES  -->
+          <div class="form-group col-12 text-right">
+            
+            <!-- SALVAR  -->
+            <button [disabled]="(!(hadChange))"  (click)="updateFaturamento()" class="dButton d-inline-flex green ml-3 mt-1"> Salvar
+            </button>
+            <!-- /SALVAR  -->
+
+            <!-- CONSULTAR  -->
+            <button (click)="consultar()" [disabled]="!((fornecedorList | async).length > 0)" class="dButton d-inline-flex green ml-3 mt-1"> Consultar
+            </button>
+            <!-- /CONSULTAR  -->
+  
+  
+              <!-- LIMPAR CAMPOS  -->
+              <button (click)="limparCampos()" class="dButton d-inline-flex white ml-3 mt-1" type="reset"> Limpar campos
+              </button>
+              <!-- /LIMPAR CAMPOS  -->
+  
+          </div>
+          <!--/ BARRA DE BOTÕES  -->
+  
+        </div>
+      </form>
+    </mat-expansion-panel>
+  </mat-accordion>
+
+
+  
+<div id="mostraResultadosCarregados" *ngIf="(fornecedores | async).status == 'READY'">
+    <ng-container >
+        <section class="content-block table-consult">
+            <table id="tabelaTarget" >
+                <tbody>
+                    <tr>
+                        <th colspan="1">CD</th>
+                        <th colspan="3">Fabricante</th>
+                        <th colspan="3">Fornecedor</th>
+                        <th colspan="2">Status do faturamento</th>
+                    </tr>
+  
+                    
+                    <tr *ngFor="let fornecedor of (fornecedores | async)?.data">
+                        <td colspan="1">{{fornecedor.cdCentroDistribuicao}}</td>
+                        <td colspan="3">{{fornecedor.fabricante}}</td>
+                        <td colspan="3">{{fornecedor.fornecedor}}</td>
+                        <td colspan="1">
+                            <mat-button-toggle-group (change)="changeFaturamento(fornecedor)" [value]="fornecedor.faturamento">
+                                <mat-button-toggle value="ABF">ABF</mat-button-toggle>
+                                <mat-button-toggle value="SO">SO</mat-button-toggle>
+                              </mat-button-toggle-group>
+                        </td>
+                    </tr>
+                </tbody>
+  
+  
+                <!-- FOOTER DA TABELA -->
+                <tfoot>
+    
+                    <tr><td colspan="8" style="border-bottom: 1px solid rgba(100,100,100,0.2);"></td></tr>
+                    <tr>
+                        <td colspan="8">
+                            <div class="col-12 d-flex justify-content-end puffed">
+                                 <!-- SALVAR  -->
+                                 <button [disabled]="!(hadChange)" (click)="updateFaturamento()"  class="dButton d-inline-flex green ml-3 mt-1"> Salvar
+                                </button>
+                                <!-- /SALVAR  -->
+                                 <!-- TOPO  -->
+                                 <button *ngIf="(fornecedores | async)?.data.length > 10" (click)="toTop()" class="dButton d-inline-flex green ml-3 mt-1"> <i class="fa fa-0-5x fa-arrow-up mr-2"></i>Voltar ao topo
+                                </button>
+                                <!-- /TOPO  -->
+                            </div>
+                        </td>
+                    </tr>
+                </tfoot>
+                <!--/ FOOTER DA TABELA -->
+            </table>
+        </section>
+    </ng-container>
+    <!-- /BLOCO NG-IF -->
+  </div>
+  
+  <div id="mostraSemResultadosEncontrados">
+    <!-- BLOCO NG-ELSE -->
+    <ng-template #msgSemResultadosNaBusca>
+    </ng-template>
+    <!-- /BLOCO NG-ELSE -->
+  </div>
+  
+  <rd-loading [@fadeInOut] *ngIf="componentLoading"></rd-loading>

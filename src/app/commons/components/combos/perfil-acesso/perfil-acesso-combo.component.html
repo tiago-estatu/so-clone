@@ -1,0 +1,17 @@
+  <div class="title-form vig">
+  <i class="fa fa-0-5x fa-files-o"></i>
+      {{tituloCombo}}
+  </div>
+  <ng-multiselect-dropdown
+    [ngModelOptions]="{ standalone: true }"
+    [(ngModel)]="perfilSelecionadoLista"
+    name="perfilAcesso"
+    [placeholder]="placeholder"
+    [data]="dataSource | async | dropmap : 'idPerfil' : 'dsPerfil'"
+    (onSelect)="selecionar($event)"
+    (onSelectAll)="selecionar($event)"
+    (deSelectAll)="selecionar($event)"
+    (onDeSelect)="selecionar($event)"
+    [settings]="dropdownSettings"
+  >
+  </ng-multiselect-dropdown>

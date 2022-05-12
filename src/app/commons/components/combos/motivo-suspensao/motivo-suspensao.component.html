@@ -1,0 +1,29 @@
+<div class="title-form vig">
+    <i class="fa fa-0-5x fa-files-o"></i>
+    Selecionar Motivo Suspensão
+  </div>
+<!-- DROPDOWN SELECT MOTIVO SUSPENSÃO DE FATURAMENTO -->
+<ng-multiselect-dropdown
+    [ngModelOptions]="{ standalone: true }"
+    [(ngModel)]="motivoSelecionadoLista"
+    name="Selecionar Motivo"
+    [placeholder]="'Selecionar Motivo Suspensão'"
+    [data]="dropdownMotivoSuspensao"
+    (onSelect)="selecionado()"
+    (onDeSelect)="selecionado()"
+    [settings]="dropdownSettingsSelecionarUm">
+</ng-multiselect-dropdown>
+<!--/ DROPDOWN SELECT MOTIVO SUSPENSÃO DE FATURAMENTO -->
+
+<!-- MODAL MENSAGENS -->
+<rd-new-modal [imagemModal]="imagemModal" [tituloModal]="tituloModal" [mensagemModal]="mensagemModal">
+    <!--
+        QUANDO NECESSÁRIO INSERIR CORPO DE HTML NO MODAL
+        VERIFICAR PARAMETROS
+    -->
+</rd-new-modal>
+<!--/ MODAL MENSAGENS -->
+
+<!-- ÍCONE DE LOADING -->
+<rd-loading [@fadeInOut] *ngIf="componentLoading"></rd-loading>
+<!--/ ÍCONE DE LOADING -->

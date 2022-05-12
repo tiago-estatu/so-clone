@@ -1,0 +1,51 @@
+<form
+        [ngClass]="chipSelectedProdutos.length > 0 ? '' : 'custom-input-align'"
+        [ngStyle]="{'padding-top': chipSelectedProdutos.length > 0 || config.outline ? '0px' : '0px'}"
+>
+
+  <div class="title-form ajustaLarguraLabel" *ngIf="config.outline"><i class="fa fa-0-5x fa-files-o"></i> {{config.label}}</div>
+  <mat-form-field class="chip" [appearance]="config.outline ? 'outline' : 'standard'">
+    <mat-chip-list  [ngClass]="{'single-chip': !config.multi, hasContent: chipSelectedProdutos.length > 0}" #chipList>
+      <mat-chip
+        *ngFor="let produto of chipSelectedProdutos"
+        [selectable]="true"
+        [removable]="true"
+        (removed)="removeProduto(produto)"
+        [matTooltip]="mensagemTooltip(produto)"
+        matTooltipPosition="below"
+
+      >
+      <span class="descricaoProduto">{{getDescriptionProduct(produto)}}</span>
+        <mat-icon class="removerChip" matChipRemove>clear</mat-icon>
+      </mat-chip>
+      <input
+        [placeholder]="chipSelectedProdutos && chipSelectedProdutos.length > 0 ? '' : config.inputLabel"
+        #produtoInput
+        [formControl]="produtoControl"
+        [matAutocomplete]="auto"
+        [matChipInputFor]="chipList"
+        [type]="'text'"
+        [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+        [matChipInputAddOnBlur]="true"
+        (matChipInputTokenEnd)="addProduto($event)"
+        (keydown)="checkNumbers($event)"
+        (keypress)="keyPress($event)"
+      />
+    </mat-chip-list>
+    <mat-autocomplete
+      #auto="matAutocomplete"
+      (optionSelected)="produtoSelected($event)"
+    >
+      <mat-option
+        *ngFor="let produto of filteredProdutos | async"
+        [value]="produto"
+        (click)="enableDisable()"
+      >
+        {{ produto.cdProduto }} | {{ produto.dsProduto }}
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+</form>
+  <simple-notifications [options]="options"></simple-notifications>
+
+  <rd-loading [@fadeInOut] *ngIf="componentLoading"></rd-loading>

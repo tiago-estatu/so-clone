@@ -1,0 +1,75 @@
+::ng-deep .selected-item, .multiselect-item-checkbox{
+    background: #006441!important;
+    border: 1px solid #006441!important;
+}
+
+::ng-deep .mat-expanded {
+    overflow: unset !important;
+}
+
+section.content-block.table-consult {
+    margin-top: 15px;
+}
+
+table.table.table-striped.mat-table {
+    table-layout: auto;
+}
+
+tr.mat-header-row.ng-star-inserted {
+    text-align-last: center;
+}
+.table-consult table td{
+    text-align: center;
+}
+.table-consult {
+    display: none
+}
+.texto{
+    text-align: left!important;
+}
+th.mat-header-cell{
+    font-size:15px;
+}
+
+#tabaleGridModalPedidosEfetivados {margin-top: 15px}
+#tabaleGridModalPedidosEfetivados .configuraTextosHeaderTabela {display: block;width: auto;text-transform: uppercase; font-weight: bold}
+    #tabelatabaleGridModalPedidosEfetivadosTarget td span{display: block;text-align: center}
+    #tabaleGridModalPedidosEfetivados tfoot td{text-align: center}
+
+.buscas {
+    display: inline;
+    align-items: baseline;
+    margin-left: 0px;
+  }
+  .produto {
+      margin-left: 20px;
+  }
+
+  .dataPicker{
+    margin-top: 14px;
+  }
+
+  .grupoBotoes {
+    text-align: right!important;
+    width: 100%;
+    padding-bottom: 15px;
+    margin-right: 15px;
+}
+
+.content-block {margin-top: 15px}
+#tabelaTarget {margin: 20px 0px 0px 5px}
+
+.table-consult table td {
+    padding: 5px;
+}
+
+#tabelaTarget .configuraTextosHeaderTabela {display: block;width: auto;text-transform: uppercase; font-weight: bold}
+    #tabelaTarget td span{display: block;text-align: left; font-size: 0.675rem; height: 17px; overflow: hidden}
+    .ajustaTamanhoBtoEditar{text-align: center!important}
+    .ajustaTamanhoBtoEditar .fa-edit{padding:0 0.6rem 0 0.6rem!important}
+    #tabelaTarget tfoot td{text-align: center}
+
+    .textAlignCenter{text-align: center!important}
+
+        .positionRelative{position: relative; z-index: 0}
+        .suspenderSmall{position: absolute;top: -17px;z-index: 1;left: -1px}

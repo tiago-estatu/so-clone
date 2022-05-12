@@ -1,0 +1,63 @@
+<!-- /TABELA MODAL SUSPENDER CD DETALHE -->
+<div class="table-container-modal">
+  <table id="tabaleModalSuspensoDetalhe" class="tabaleModalSuspensoDetalhe">
+      <!-- TOPO COM INFORMAÇÕES SOBRE A CONSULTA -->
+      <tr>
+          <td colspan="2"><span class="configuraTextosHeaderTabela"> CENTRO DISTRIBUIÇÃO </span> <span class="ajustaTextoModalDetalhe"> : {{ dadosParaDetalhe.cdRegional }} - {{ dadosParaDetalhe.nmCdRegional }} </span></td>
+      </tr>
+      <tr>
+          <td colspan="2"><span class="configuraTextosHeaderTabela"> FORNECEDOR </span> <span class="ajustaTextoModalDetalhe"> : {{ dadosParaDetalhe.cdFornecedor }} - {{ dadosParaDetalhe.nmFornecedor }}</span></td>
+      </tr>
+      <tr>
+        <td colspan="2"><span class="configuraTextosHeaderTabela"> FABRICANTE </span> <span class="ajustaTextoModalDetalhe" > : {{ dadosParaDetalhe.cdFabricante }} - {{ dadosParaDetalhe.nmFabricante }}</span></td>
+    </tr>
+      <tr>
+          <td colspan="2"><span class="configuraTextosHeaderTabela"> DATA </span> <span class="ajustaTextoModalDetalhe"> : {{ dadosParaDetalhe.dtInicio }} - {{ dadosParaDetalhe.dtFim }}</span></td>
+      </tr>
+      <tr class="borderBottomNaBottomTr">
+          <td><span class="configuraTextosHeaderTabela">DATA</span></td>
+          <td><span class="configuraTextosHeaderTabela">Status</span></td>
+      </tr>
+      <!--/ TOPO COM INFORMAÇÕES SOBRE A CONSULTA -->
+  </table>
+
+  <table class="tabaleModalSuspensoDetalhe">
+      <tbody>
+          <tr *ngFor="let item of dadosParaDetalhe.detalhe">
+
+              <!-- MOSTRO OS DIAS QUE CONTÉM (SUSPENSO OU NORMAL) -->
+              <td><span>{{ item.dtAgendaAbastecimento }}</span></td>
+              <!--/ MOSTRO OS DIAS QUE CONTÉM (SUSPENSO OU NORMAL) -->
+
+
+              <!-- DATA NORMAL -->
+              <ng-container *ngIf="item.fgSuspensao===0;">
+                  <td><span class="Normal"> NORMAL </span></td>
+              </ng-container>
+              <!--/ DATA NORMAL -->
+
+              <!-- SUSPENSÃO PARCIAL DE CD -->
+              <ng-container *ngIf="item.fgSuspensao===1;">
+                  <td><span class="supensaoParcial"> SUSPENSÃO PARCIAL </span></td>
+              </ng-container>
+              <!--/ SUSPENSÃO PARCIAL DE CD  -->
+
+              <!-- SUSPENSÃO TOTAL DE CD  -->
+              <ng-container *ngIf="item.fgSuspensao === 2;">
+                  <td><span class="supensaoTotal" > SUSPENSO </span></td>
+              </ng-container>
+              <!-- /SUSPENSÃO TOTAL DE CD  -->
+          </tr>
+      </tbody>
+      <tfoot>
+          <tr>
+              <td colspan="2">
+                  <div class="btoSair">
+                      <button class="dButton d-inline-flex green ml-3 mt-1" (click)="fecharDetalhe()"> Sair </button>
+                  </div>
+              </td>
+          </tr>
+      </tfoot>
+  </table>
+</div>
+<!-- /TABELA MODAL SUSPENDER CD DETALHE -->

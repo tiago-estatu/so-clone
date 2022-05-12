@@ -1,0 +1,237 @@
+@import 'styles.scss';
+.content {
+    border-left: solid 1px $border;
+    background-color: $color-bg-default;
+}
+
+@include keyframes(fadeIn) {
+    0% {
+        opacity: 0;
+        left: 200px
+    }
+    50% {
+        opacity: 0.5;
+    }
+    100% {
+        opacity: 1;
+        left: 235px;
+        visibility: visible;
+    }
+}
+
+@include keyframes(fadeOut) {
+    0% {
+        opacity: 1;
+        left: 235px
+    }
+    50% {
+        opacity: 0.5;
+    }
+    100% {
+        opacity: 0;
+        visibility: hidden;
+    }
+}
+
+.sidebar {
+    display: block;
+    width: 235px !important;
+    width: 100%;
+    height: 100%;
+    background-color: $color-default;
+    @include transition(.6s);
+    .logo {
+        @include flexbox();
+        height: 4rem;
+        border-bottom: 1px solid $border;
+        .logo-img {
+            order: 1;
+            width: 2.7rem;
+            height: 1.75rem;
+            @include align-self(center);
+            margin: 0 0 0 24px;
+        }
+        .logo-name {
+            order: 2;
+            font-size: 1.3rem;
+            color: #005034;
+            font-family: VAGRound, Arial, Helvetica, sans-serif;
+            margin: 0px auto 0 12px;
+            visibility: visible;
+            opacity: 1;
+            -ms-flex-item-align: center;
+            align-self: center;
+            transition: 0.3s;
+            letter-spacing: 2px;
+            line-height: 0.8;
+        }
+    }
+    &.classToggleMenu {
+        width: 75px !important;
+        .logo {
+            .logo-name {
+                visibility: hidden;
+                opacity: 0;
+            }
+            .logo-img {
+                margin: 0 0 0 16px;
+            }
+        }
+        .menu {
+            li.menu-retratil {
+                width: 75px;
+            }
+            li.menuList {
+                ul {
+                    border: solid 1px $border;
+                }
+                ul+i {
+                    display: none;
+                }
+                .item-menu {
+                    padding-left: 24px;
+                    .text-item {
+                        margin-left: 5px;
+                        @include transition(.6s);
+                        visibility: hidden;
+                        opacity: 0;
+                    }
+                }
+            }
+        }
+    }
+    .menu {
+        list-style-type: none;
+        text-decoration: none;
+        margin-top: -1px;
+        color: $color-font-segundary;
+        @include flex-direction(column);
+        margin-bottom: 0;
+        li {
+            border-top: solid 1px transparent;
+            border-bottom: solid 1px transparent;
+            @include transition(.3s);
+            width: 100%;
+            position: relative;
+            &.menuList:hover {
+                background-color: $light-gray;
+                border-top: solid 1px $border;
+                border-bottom: solid 1px $border;
+            }
+            &:after {
+                @include transition(.3s);
+                @include border-radius(3px);
+                content: "";
+                height: 46px;
+                width: 0;
+                display: block;
+                position: absolute;
+                top: 0;
+            }
+            &.active {
+                &:after {
+                    width: 6px;
+                    background-color: $color-primary;
+                }
+                ul+i {
+                    color: $color-primary;
+                    @include transition(.6s);
+                }
+            }
+            &.active a,
+            &:hover a {
+                font-family: $font-bold;
+                color: $color-primary;
+                text-decoration: none;
+            }
+            &:hover {
+                ul+i {
+                    display: none;
+                }
+                ul {
+                    pointer-events: visible;
+                    visibility: visible;
+                    @include animation(0, 0.35s, fadeIn);
+                    left: 235px;
+                }
+            }
+            a {
+                position: relative; // z-index: 999;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                span {
+                    &:first-letter {
+                        text-transform: uppercase;
+                    }
+                }
+            }
+            ul {
+                padding: 4.5px;
+                left: 185px;
+                height: auto;
+                visibility: hidden;
+                pointer-events: none;
+                @include animation(0, 0.2s, fadeOut);
+                @include border-radii(0, 6px, 6px, 0);
+                @include transition(.6s);
+                position: absolute;
+                top: -1px;
+                z-index: 1;
+                background-color: $light-gray;
+                border-top: solid 1px $border;
+                border-bottom: solid 1px $border;
+                border-right: solid 1px $border;
+                li {
+                    a {
+                        font-size: 12px;
+                        height: 28px;
+                        color: $color-font-segundary;
+                        padding-right: 20px;
+                        &.active,
+                        &:hover {
+                            color: $color-primary;
+                        }
+                    }
+                }
+            }
+            ul+i {
+                display: block;
+                position: absolute;
+                top: 14px;
+                right: 8px;
+                pointer-events: none;
+            }
+            &.menu-retratil {
+                bottom: -20px;
+                position: inherit;
+                max-width: 235px;
+                &.fixed {
+                    @include transition(0.9s);
+                    position: fixed;
+                    bottom: 5px;
+                }
+            }
+        }
+        .item-menu {
+            padding-right: 5px;
+            &.disabled {
+                pointer-events: none;
+            }
+            @include flexbox();
+            @include align-items(center);
+            height: 38px;
+            padding-left: 20px;
+            font-size: $font-size-smd;
+            font-family: $font-light;
+            color: $color-font-segundary;
+            @include transition(.3s);
+            .text-item {
+                line-height: 17px;
+                visibility: visible;
+                opacity: 1;
+                align-items: baseline;
+            }
+        }
+    }
+}

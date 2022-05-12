@@ -1,0 +1,162 @@
+<mat-accordion>
+  <section class="container-modal">
+    <div class="option">
+      <!-- TÍTULO DA PÁGINA -->
+      <span id="marginTittle" class="d-inline-flex mb-1">
+        <p class="title"> {{ titulo }} </p>
+      </span>
+      <!-- /TÍTULO DA PÁGINA -->
+      <!-- FORM -->
+      <form [formGroup]="cadastroForm" class="col-12">
+        <div class="content content-form">
+          <div class="row row-forms">
+            <table id='ajusteMargin'>
+              <tr>
+                <!-- DATA PICKER (SELEÇÃO DATAS)  -->
+                <div id="marginDatePicker" class="col-12 marginDatePicker">
+                  <div class="form-group row">
+                    <div class="form-group col-6 vigInicio">
+                      <div class="title-form"><i class="fa fa-0-5x fa-files-o"></i>Data Inicial Vig</div>
+                      <div class="form-group">
+                        <mat-form-field appearance="outline" style="width:140px">
+                          <input matInput bsDatepicker placeholder="__/__/____" formControlName="dataInicial"
+                            [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" autocomplete="off" class="form-control"
+                            #datepickerUm="bsDatepicker" type="text" />
+                          <a class="icon-input-field dates" (click)="datepickerUm.toggle()">
+                            <i class="fa fa-0-5x fa-calendar-o"></i>
+                          </a>
+                        </mat-form-field>
+                      </div>
+                    </div>
+
+                    <div class="form-group col-6 vigFinal">
+                      <div class="title-form"><i class="fa fa-0-5x fa-files-o"></i>Data Final Vig</div>
+                      <div class="form-group">
+                        <mat-form-field appearance="outline" style="width:140px">
+                          <input matInput bsDatepicker placeholder="__/__/____" formControlName="dataFinal"
+                            [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" autocomplete="off" class="form-control"
+                            #datepickerDois="bsDatepicker" type="text" />
+                          <a class="icon-input-field dates" (click)="datepickerDois.toggle()">
+                            <i class="fa fa-0-5x fa-calendar-o"></i></a>
+                        </mat-form-field>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- /DATA PICKER (SELEÇÃO DATAS) -->
+                <td class="col-6">
+
+                  <!-- CAMPO FILIAL -->
+                  <mat-label>Filial</mat-label>
+                  <mat-form-field class="w-100" appearance="outline">
+                    <input matInput class="form-control" type="text" formControlName="inputFilial">
+                  </mat-form-field>
+                  <!-- /CAMPO FILIAL -->
+                </td>
+              </tr>
+
+              <tr class="col-12">
+                <td class="col-6">
+                  <!-- CAMPO PRODUTO -->
+                  <mat-label>Produto</mat-label>
+                  <mat-form-field class="w-100" appearance="outline">
+                    <input matInput class="form-control" type="text" id="inputProduto" formControlName="inputProduto">
+                  </mat-form-field>
+                  <!-- /CAMPO PRODUTO -->
+                </td>
+                <td class="col-6">
+                  <!-- CAMPO QUANTIADADE -->
+                  <mat-label>Quantidade</mat-label>
+                  <mat-form-field class="w-100" appearance="outline">
+                    <input matInput class="form-control" type="text" formControlName="inputQuantidade" (keypress)="keyPress($event)">
+                  </mat-form-field>
+                  <!-- /CAMPO QUANTIADADE -->
+                </td>
+
+              </tr>
+              <tr>
+
+              </tr>
+              <tr class="col-12">
+                <td class="col-6">
+                  <!-- CAMPO TIPO ESTOQUE -->
+                  <mat-label>Tipo de Estoque</mat-label>
+                  <mat-form-field class="w-100" appearance="outline">
+                    <input matInput class="form-control" type="text" id="inputTipoEstoque"
+                      formControlName="inputTipoEstoque">
+                  </mat-form-field>
+                  <!-- /CAMPO TIPO ESTOQUE -->
+                </td>
+                <td class="col-6" [hidden]="disabledMotivoDropDownOuInput">
+                  <!-- CAMPO MOTIVO -->
+                  <mat-label>Motivo</mat-label>
+                  <mat-form-field class="w-100" appearance="outline">
+                    <input matInput class="form-control" type="text" id="inputMotivo" formControlName="inputMotivo"
+                      (selecionados)="setMotivosSelecionados($event)">
+                  </mat-form-field>
+                  <!-- /CAMPO MOTIVO -->
+                </td>
+              </tr>
+
+              <tr class="col-12">
+
+                <td class="col-6">
+                  <!-- CAMPO 1 Vigência -->
+                  <mat-label>% 1 Vigência</mat-label>
+                  <mat-form-field class="w-100" appearance="outline">
+                    <input matInput name="inputMinimo" class="form-control" type="number" maxlength="10"
+                      formControlName="inputPorc1Vig" (keypress)="keyPress($event)">
+                  </mat-form-field>
+                  <!-- /CAMPO 1 Vigência -->
+                </td>
+                <td class="col-6">
+                  <!-- CAMPO % 2 Vigência -->
+                  <mat-label>% 2 Vigência</mat-label>
+                  <mat-form-field class="w-100" appearance="outline">
+                    <input matInput name="inputMinimo" class="form-control" type="number" maxlength="10"
+                      formControlName="inputPorc2Vig" (keypress)="keyPress($event)">
+                  </mat-form-field>
+                  <!-- /CAMPO % 2 Vigência -->
+                </td>
+
+              </tr>
+              <tr class="col-12">
+                <td class="col-6">
+                  <!-- CAMPO % 3 Vigência -->
+                  <mat-label>% 3 Vigência</mat-label>
+                  <mat-form-field class="w-100" appearance="outline">
+                    <input matInput name="inputMaximo" class="form-control" type="number" maxlength="10"
+                      formControlName="inputPorc3Vig" (keypress)="keyPress($event)">
+                  </mat-form-field>
+                  <!-- /CAMPO % 3 Vigência -->
+                </td>
+                <td class="col-6">
+                  <!-- CAMPO % 4 Vigência -->
+                  <mat-label>% 4 Vigência</mat-label>
+                  <mat-form-field class="w-100" appearance="outline">
+                    <input matInput name="inputMaximo" class="form-control" type="number" maxlength="10"
+                      formControlName="inputPorc4Vig" (keypress)="keyPress($event)">
+                  </mat-form-field>
+                  <!-- /CAMPO % 4 Vigência -->
+                </td>
+              </tr>
+
+
+            </table>
+          </div>
+        </div>
+      </form>
+      <!--/ FORM -->
+    </div>
+    <!-- BOTÕES -->
+    <div class="text-right bot">
+      <button class="dButton d-inline-flex green ml-3 mt-1" (click)="cadastrar()"> {{ btnCadastrar }} </button>
+      <button class="dButton d-inline-flex green ml-3 mt-1" (click)="exit()"> Sair </button>
+    </div>
+    <!--/ BOTÕES -->
+  </section>
+</mat-accordion>
+<rd-loading [@fadeInOut] *ngIf="componentLoading"></rd-loading>
+<rd-new-modal (fechou)="fechouModal($event)" [imagemModal]="imagemModal" [tituloModal]="tituloModal"
+  [mensagemModal]="mensagemModal">
+</rd-new-modal>

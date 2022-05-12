@@ -1,0 +1,84 @@
+<mat-accordion>
+  <mat-expansion-panel [expanded]="expandir" class="overflow-unset">
+    <form [formGroup]="relatorioForm">
+
+      <div class="form-group row col-12 grids">
+        <div iv class="form-group title-form col-8">
+          <label id="radio-group-label"> Selecione o tipo de loja: </label>
+        </div>
+
+        <!-- RADIO BUTTON -->
+        <div class="form-group title-form row col-6 buscas divRadioButton">
+          <mat-radio-group class="radio-group" (change)="capturarInput($event)" aria-labelledby="radio-group-label"
+            aria-label="Select an option">
+            <mat-radio-button class="radio-button" checked="true" name="grupo1" value="1">Loja Sem Demanda
+            </mat-radio-button>
+            <mat-radio-button class="radio-button" name="grupo2" value="2">Loja Espelho</mat-radio-button>
+          </mat-radio-group>
+        </div>
+        <!-- /RADIO BUTTON -->
+
+        <!-- INPUT TEXT -->
+        <div class="form-group row col-6 buscas filial">
+          <div class="buscas">
+            <mat-form-field class="inputFiltro" appearance="outline">
+              <input matInput class="form-control" type="text"
+                formControlName="_inputDeConsulta" (keyup)="keyUpMetodo($event)" [placeholder]="_placeHolder">
+            </mat-form-field>
+          </div>
+        </div>
+        <!-- /INPUT TEXT -->
+
+        <!-- DATEPICKER  -->
+        <div id="controlaMarginsDataPicker" class="col-4">
+          <div class="form-group row">
+            <div class="form-group col-5 vigInicio">
+              <div class="title-form ajustaLarguraLabel"><i class="fa fa-0-5x fa-files-o"></i>DATA INICIAL</div>
+              <div class="form-group">
+                <mat-form-field appearance="outline" style="width:140px">
+                  <input matInput bsDatepicker placeholder={{_dataInicial}} [(ngModel)]="_dataInicial"
+                    [ngModelOptions]="{standalone: true}" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
+                    autocomplete="off" class="form-control" #datepickerUm="bsDatepicker" type="text" />
+                  <a class="icon-input-field dates" (click)="datepickerUm.toggle()">
+                    <i class="fa fa-0-5x fa-calendar-o"></i>
+                  </a>
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- /DATEPICKER -->
+
+      </div>
+
+      <div class="form-group col-12 text-right">
+
+        <!-- CADASTRO VIGENTE  -->
+        <button for="downloadCadastoVigente" class="dButton d-inline-flex green ml-3 mt-1" [disabled]="_veficarBotaoDesabilitado" type="submit" (click)="exportarCadastroVigente()">
+          <i class="fa fa-0-5x fa-cloud-download mr-2"></i>
+          <span>Cadastro Vigente</span>
+        </button>
+        <input id="downloadCadastoVigente" class="form-control file" type="submit" (click)="exportarCadastroVigente()"  />
+        <!-- / CADASTRO VIGENTE  -->
+
+        <!-- EXPORTAR  -->
+        <label for="download" class="dButton d-inline-flex green ml-3 mt-1">
+          <i class="fa fa-0-5x fa-cloud-download mr-2"></i>
+          <span>Exportar</span></label>
+        <input id="download" class="form-control file" type="submit" (click)="exportarDadosConsultados()" />
+        <!-- / EXPORTAR  -->
+
+        <!-- LIMPAR FILTROS  -->
+        <button class="dButton d-inline-flex white ml-3 mt-1" type="reset" (click)="limparCampos()">
+          Limpar campos
+        </button>
+        <!-- / LIMPAR FILTRO -->
+      </div>
+    </form>
+
+  </mat-expansion-panel>
+</mat-accordion>
+
+<!-- <rd-new-modal [imagemModal]="imagemModal" [tituloModal]="tituloModal" [mensagemModal]="mensagemModal"></rd-new-modal> -->
+
+<rd-loading [@fadeInOut] *ngIf="componentLoading"></rd-loading>

@@ -1,0 +1,157 @@
+<mat-accordion>
+  <mat-expansion-panel [expanded]="true" class="overflow-unset">
+      <div class="row row-forms" id="ajustaMarginBottom" [formGroup]="consultarForm">
+          <!--FILTROS-->
+          <div class="col-12 row">
+              <!-- NÚMERO DE MATRÍCULA  -->
+              <div id="campoDigitarMatricula" class="form-group col-4">
+                  <div class="title-form vig"><i class="fa fa-0-5x fa-files-o"></i>Pesquisar matrícula</div>
+                  <div class="buscas">
+                    <mat-form-field class="col-12 inputFiltro" appearance="outline">
+                        <input
+                          id="focusOut"
+                          matInput class="form-control"
+                          formControlName="nrMatricula"
+                          type="number" placeholder="Nº matrícula (somente números)"
+                        />
+                    </mat-form-field>
+                  </div>
+              </div>
+              <!-- / NÚMERO DE MATRÍCULA -->
+
+              <!-- ACTION BUTTONS -->
+              <div class="col-6 bot">
+                  <!-- CONSULTA -->
+                  <button mat-button class="dButton d-inline-flex green ml-3 mt-1" (click)="consultar(1)"
+                      [disabled]="!consultarForm.valid">Consultar
+                  </button>
+                  <!--/ CONSULTA -->
+
+                  <!-- LIMPAR -->
+                  <button class="dButton d-inline-flex white ml-3 mt-1" (click)="limparCampos()">
+                      Limpar campos
+                  </button>
+                  <!--/ LIMPAR -->
+              </div>
+              <!--/ ACTION BUTTONS -->
+          </div>
+
+
+          <div class="col-12 row" *ngIf="selecionadosNaGrid.length > 0"  [formGroup]="cadastroOperadorForm">
+              <!-- DROPLIST PERFIL DE ACESSO -->
+              <div class="form-group perfilCombo">
+                <perfil-acesso-combo
+                  [config]="{multi: false, standalone: true}"
+                  [control]="getCadastroForm('idPerfil')">
+                </perfil-acesso-combo>
+              </div>
+              <!--/ DROPLIST PERFIL DE ACESSO -->
+
+              <!-- DATA INCIAL -->
+              <div class="form-group vigInicio">
+                <div class="title-form"><i class="fa fa-0-5x fa-files-o"></i>Inicio Vigencia</div>
+                <div class="form-group">
+                  <mat-form-field appearance="outline" style="width:140px">
+                    <input readonly matInput bsDatepicker placeholder="__/__/____" formControlName="dtInicioVg"
+                      [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" autocomplete="off" class="form-control datepickerStyle"
+                      #datepickerUm="bsDatepicker" type="text" />
+                    <a class="icon-input-field dates" (click)="datepickerUm.toggle()">
+                      <i class="fa fa-0-5x fa-calendar-o"></i>
+                    </a>
+                  </mat-form-field>
+                </div>
+              </div>
+              <!-- /DATA INCIAL -->
+
+              <!-- DATA FINAL -->
+              <div class="form-group vigFinal">
+                <div class="title-form"><i class="fa fa-0-5x fa-files-o"></i>Fim Vigencia</div>
+                <div class="form-group">
+                  <mat-form-field  appearance="outline" style="width:140px">
+                    <input readonly matInput bsDatepicker placeholder="__/__/____" formControlName="dtFimVg"
+                      [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" autocomplete="off" class="form-control datepickerStyle"
+                      #datepickerDois="bsDatepicker" type="text" />
+                    <a class="icon-input-field dates" (click)="datepickerDois.toggle()">
+                      <i class="fa fa-0-5x fa-calendar-o"></i></a>
+                  </mat-form-field>
+                </div>
+              </div>
+              <!-- / DATA FINAL -->
+
+              <!-- CADASTRAR NOVO OPERADOR -->
+              <div class="col-2 botNovoOperador">
+                  <button mat-button class="dButton d-inline-flex green ml-3 mt-1"
+                    (click)="cadastrarNovoOperador()"
+                    [disabled]="habilitoBotaocadastrarOperador() === true">Efetivar cadastro
+
+                  </button>
+              </div>
+              <!--/ CADASTRAR NOVO OPERADOR -->
+          </div>
+          <!--/FILTROS-->
+
+
+      </div>
+
+  </mat-expansion-panel>
+</mat-accordion>
+
+<section  *ngIf="selecionadosNaGrid.length > 0" class="content-block table-consult">
+  <table id="tabelaTarget" style="table-layout: auto!important;" class="table table-striped">
+      <tr>
+        <td style="width: 40px"><span class="configuraTextosHeaderTabela"></span></td>
+        <td style="width: 80px"><span class="configuraTextosHeaderTabela">Matrícula</span></td>
+        <td style="width: 250px"><span class="configuraTextosHeaderTabela">Nome</span></td>
+        <td style="width: 106px"><span class="configuraTextosHeaderTabela">Dt admissão</span></td>
+        <td style="width: 295px"><span class="configuraTextosHeaderTabela">Perfil Atual</span></td>
+        <td><span class="configuraTextosHeaderTabela">Cód Operador</span></td>
+        <td><span class="configuraTextosHeaderTabela">Situação atual</span></td>
+        <td><span class="configuraTextosHeaderTabela">Fim Vigencia</span></td>
+      </tr>
+      <tr class="efeitoHoverLinha" *ngFor="let element of selecionadosNaGrid | paginate: { itemsPerPage: queryConsultar.getParam('size'), currentPage: queryConsultar.getParam('page'), totalItems: paging}">
+          <!-- HABILITAR CHECKBOX -->
+          <ng-container *ngIf="element.status === true; else habilitarcheckBox">
+            <td><mat-checkbox [disabled]="true"></mat-checkbox></td>
+          </ng-container>
+          <ng-template #habilitarcheckBox>
+              <td><mat-checkbox [(ngModel)]="element.selecionado" (change)="itemSelecionado(element)"> </mat-checkbox></td>
+          </ng-template>
+          <!-- /HABILITAR CHECKBOX -->
+
+
+          <!-- HABILITAR CHECKBOX -->
+          <!--<td><mat-checkbox [(ngModel)]="element.selecionado" (change)="itemSelecionado(element)"> </mat-checkbox></td>-->
+          <!-- /HABILITAR CHECKBOX -->
+
+          <td><span>{{element.matricula}}</span></td>
+          <td><span>{{element.nmOperador}}</span></td>
+          <td><span>{{null != element.dtAdmissao ? element.dtAdmissao.slice(0, 10): 'NÃO ENCONTRADO'}}</span></td>
+          <td><span>{{element.dsPerfil != null ? element.dsPerfil : 'NÃO ENCONTRADO'}}</span></td>
+          <td><span>{{element.cdOperador}}</span></td>
+
+          <ng-container *ngIf="element.status === true; else opAtivo">
+              <td><span>Ativo</span></td>
+          </ng-container>
+          <ng-template #opAtivo>
+            <td><span>inativo ou sem cadastro</span></td>
+          </ng-template>
+
+          <td><span>{{element.dtFimVigencia != null ? element.dtFimVigencia.slice(0, 10) : 'NÃO ENCONTRADO'}}</span></td>
+      </tr>
+      <tr>
+          <td colspan="8">
+              <div class="row d-felx justify-content-center">
+                  <!-- CONTROLA PAGINAÇÃO -->
+                  <pagination-controls
+                      class="controlaCssPaginacao" (pageChange)="getPage($event)"
+                      autoHide="false"
+                      responsive="false"
+                      previousLabel="Anterior"
+                      nextLabel="Próximo">
+                  </pagination-controls>
+                  <!--/ CONTROLA PAGINAÇÃO -->
+              </div>
+          </td>
+      </tr>
+  </table>
+</section>

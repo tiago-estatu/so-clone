@@ -1,0 +1,45 @@
+::ng-deep .mat-expanded {
+    overflow: unset !important;
+  }
+
+.grids {
+  margin-bottom: unset!important;
+}
+.formulario {
+    height: 75px;
+}
+.buscas {
+  display: inline;
+  align-items: baseline;
+  margin-bottom: unset!important;
+}
+.buscas .inputFiltro{
+  width: 85%!important;
+}
+.filial {
+  margin-right: 10px!important;
+  margin-left: 2px;
+}
+.accordion {
+  width: 100%;
+}
+
+div#mostraResultadosCarregados {
+  position: relative;
+  width: 100%;
+}
+
+.btoRemover {
+  text-align: right;
+}
+.button.mat-icon-button, .icon-remove {
+  width: 100%!important;
+  color: #005034;
+}
+td.tdRemover {
+  text-align: center!important;
+}
+
+td.tdDescricao {
+  text-align: center!important;
+}

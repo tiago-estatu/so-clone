@@ -1,0 +1,83 @@
+<!-- TABELA GRID -->
+<div id="mostraResultadosCarregados">
+    <section class="content-block table-consult">
+        <table id="tabelaTarget">
+            <tbody>
+                <!-- HARDCODE PARA O TOPO DA TABELA -->
+                <tr>
+                    <!-- BTO SELECIONAR TODOS -->
+                    <td class="positionRelative">
+                        <small class="suspenderSmall">Suspender</small>
+                        <mat-checkbox [(ngModel)]="selecionarTodos" (change)="selecionarTodosItens($event)"></mat-checkbox>
+                    </td>
+                    <!--/ BTO SELECIONAR TODOS -->
+
+                    <td><span class="configuraTextosHeaderTabela">DT INICIAL</span></td>
+                    <td><span class="configuraTextosHeaderTabela">DT FINAL</span></td>
+                    <td><span class="configuraTextosHeaderTabela">CENTRO DISTRIBUIÇÃO</span></td>
+                    <td><span class="configuraTextosHeaderTabela">FILIAL</span></td>
+                    <td><span class="configuraTextosHeaderTabela">STATUS DE FATURAMENTO</span></td>
+                    <td><span class="configuraTextosHeaderTabela">DETALHE</span></td>
+                </tr>
+                <!-- HARDCODE PARA O TOPO DA TABELA /-->
+
+
+                <!-- NG-FOR INTERANDO SOBRE AS TR'S DA TABELA PARA POPULAR A GRID -->
+                <tr class="efeitoHoverLinha" *ngFor="let item of dataSource | paginate: { itemsPerPage: 20, currentPage: curPage }">
+
+                    <!-- BTO SELECIONAR ITEM ATUAL -->
+                    <td><mat-checkbox [(ngModel)]="item.selecionado" [disabled]="item.fgFilialSuspensa===2" (change)="itemSelecionado()"></mat-checkbox></td>
+                    <!--/ BTO SELECIONAR ITEM ATUAL -->
+
+                    <td><span>{{ item.dataInicio }}</span></td>
+                    <td><span>{{ item.dataFim }}</span></td>
+                    <td><span><b>{{ item.cdRegional }}</b> - {{item.nmRegional}}</span></td>
+                    <td><span><b>{{ item.cdFilial }}</b> - {{item.nmFantasia}}</span></td>
+
+                    <!-- VERIFICAÇÃO SE EXISTE ALGUM TIPO DE SUSPENSÃO DE FATURAMENTO -->
+                    <ng-container *ngIf="item.fgFilialSuspensa === 0;">
+                        <td><span class="faturamentoNormal"> NORMAL </span></td>
+                    </ng-container>
+
+                    <ng-container *ngIf="item.fgFilialSuspensa === 1;">
+                        <td><span class="supensaoParcial">POSSUI SUSPENSÃO  </span></td>
+                    </ng-container>
+
+                    <ng-container *ngIf="item.fgFilialSuspensa === 2;">
+                        <td><span class="supensaoTotal">POSSUI SUSPENSÃO TOTAL</span></td>
+                    </ng-container>
+                    <!--/ VERIFICAÇÃO SE EXISTE ALGUM TIPO DE SUSPENSÃO DE FATURAMENTO -->
+
+
+                    <!-- BTO VER DETALHE -->
+                    <td><span class="alinhaBtoEditarCentro"><a (click)="exibirModalFaturamentoSuspensoDetalhe(item)" class="mr-2"><i class="fa fa-0-5x fa-edit" title="Ver detalhe"></i></a></span></td>
+                    <!--/ BTO VER DETALHE -->
+                </tr>
+            </tbody>
+
+
+            <!-- FOOTER DA TABELA -->
+            <tfoot>
+                <tr>
+                    <td colspan="8">
+                        <!-- CONTROLA PAGINAÇÃO -->
+                        <pagination-controls
+                            class="controlaCssPaginacao" (pageChange)="curPage = $event"
+                            autoHide="true"
+                            responsive="false"
+                            previousLabel="Anterior"
+                            nextLabel="Próximo">
+                        </pagination-controls>
+                        <!--/ CONTROLA PAGINAÇÃO -->
+                    </td>
+                </tr>
+            </tfoot>
+            <!--/ FOOTER DA TABELA -->
+        </table>
+    </section>
+</div>
+<!-- /TABELA GRID -->
+
+<!-- JANELA MODAL E LOADING -->
+<rd-loading [@fadeInOut] *ngIf="componentLoading"></rd-loading>
+<!--/ JANELA MODAL E LOADING -->

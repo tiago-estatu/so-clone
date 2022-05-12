@@ -1,0 +1,261 @@
+.time-picker-footer button {
+    display: inline-block !important;
+}
+
+.dButton,
+.time-picker-footer button {
+    position: relative;
+    cursor: pointer;
+    display: block;
+    font-family: $font-bold;
+    font-size: $font-size-md;
+    height: 2.5rem;
+    width: fit-content;
+    padding: 0rem 1.5625rem;
+    line-height: 37px;
+    margin: 0;
+    @include border-radius(1.25rem);
+    @include transition('background-color', .3s);
+    max-width: 320px;
+    @include box-shadow(0, 2px, 4px 0, rgba(0, 0, 0, 0.4));
+    border: 0;
+
+    .mat-checkbox {
+        position: absolute;
+        top: 9px;
+        left: 30px;
+    }
+
+    &.login {
+        width: 100%;
+        background-color: $color-primary;
+        color: $color-default;
+        border: 0;
+        height: 73px;
+        margin: 60px 0 0 0;
+        @include border-radius(36px);
+        font-family: $font-book;
+        font-size: 1.5rem;
+        max-width: inherit;
+    }
+
+    &:disabled {
+        opacity: 0.5;
+    }
+
+    i {
+        line-height: 33px;
+    }
+
+    &.white {
+        background: $color-default;
+        color: $color-primary;
+
+        span,
+        i {
+            color: $color-primary;
+        }
+
+        &:hover {
+            background: darken($color-default, 3);
+        }
+    }
+
+    &.grey {
+        background: darken($color-default, 7);
+        color: $color-primary;
+
+        span,
+        i {
+            color: $color-primary;
+        }
+
+        &:hover {
+            background: darken($color-default, 10);
+        }
+    }
+
+    &.green {
+        background-color: lighten($color-primary, 4);
+        color: $color-default;
+
+        span,
+        i {
+            color: $color-default;
+        }
+
+        &:hover {
+            background: $color-primary;
+            color: $color-default;
+        }
+
+        &.circle-rounded {
+            box-shadow: none !important;
+            padding: 0.5rem !important;
+            border: 1px solid #dcdcdc;
+
+            i {
+                font-size: 1.525rem !important;
+            }
+        }
+    }
+
+    &.orange {
+        background-color: lighten($color-status-waiting, 4);
+        color: $color-default;
+
+        span,
+        i {
+            color: $color-default;
+        }
+
+        &:hover {
+            background: $color-status-canceled;
+            color: $color-default;
+        }
+    }
+
+    &.red {
+        background: $color-error;
+        color: $color-default;
+
+        span,
+        i {
+            color: $color-default;
+        }
+
+        &:hover {
+            background-color: lighten($color-error, 7);
+            color: $color-default;
+        }
+    }
+
+    span.shortcut {
+        margin-left: 5px;
+        font-size: 10px;
+        text-transform: uppercase;
+    }
+}
+
+
+
+.button-keys {
+    display: block;
+    margin: 10px auto 10px auto;
+    width: 100%;
+    text-align: center;
+
+    button {
+        list-style-type: none;
+        position: relative;
+        border-radius: 20px;
+        background: $white;
+        border: 1px solid #ccc;
+        padding: 5px 10px 5px 30px;
+        margin: 0 5px;
+        @include box-shadow(0, 2px, 4px 0, rgba(0, 0, 0, 0.1));
+        display: inline-block;
+        @include transition(.3s);
+        margin-bottom: 10px;
+
+        @media only screen and (max-width: 1310px) {
+            margin: 0 3px 10px 0;
+        }
+
+        p:first-child {
+            position: absolute;
+            background: $color-primary;
+            border-radius: 15px;
+            left: 2px;
+            top: 2px;
+            color: #ffffff;
+            width: 25px;
+            height: 25px;
+            margin: 0;
+            text-align: center;
+            line-height: 24px;
+            font-size: $font-size-sm;
+
+            @media only screen and (max-width: 1310px) {
+                width: 24px;
+                height: 24px;
+                top: 1px;
+            }
+        }
+
+        p:last-child {
+            margin: 0;
+            font-size: 12px;
+            color: $dark-green;
+
+            @media only screen and (max-width: 1310px) {
+                font-size: 11px;
+            }
+        }
+
+        &:hover {
+            background: darken($color-default, 6);
+        }
+    }
+}
+
+button {
+    &:disabled {
+        cursor: no-drop;
+        opacity: 0.4
+    }
+}
+
+.link-green {
+    @include transition(.3s);
+    border-bottom: solid 1px transparent !important;
+
+    &:hover {
+        color: $color-primary !important;
+        border-bottom: solid 1px $color-primary !important;
+    }
+}
+
+.bcButton {
+    color: $color-font-primary;
+
+    span {
+        font-family: $font-medium;
+        font-size: $font-size-base;
+        margin: 2px 0 0 5px;
+    }
+}
+
+// input.file{
+//     &::before{
+//     content: "\f1e8";
+//     cursor: pointer;
+//     display: inline-block;
+//     font: normal normal normal 14px/1 "LineAwesome";
+//     font-size: inherit;
+//     text-rendering: auto;
+//     text-decoration: inherit;
+//     text-transform: none;
+//     -webkit-font-smoothing: antialiased;
+//     }
+// }
+input.file{
+    display: none;
+}
+
+// COR PARA O BTO DOS MOAIS Swal.fire
+.setBackgroundColor {
+    background-color: #005034!important;
+    border:0!important;
+}
+
+.btnExportModelCsv{
+    // text-align: end;
+    float: right;
+
+}
+
+.mat-button-toggle-checked {
+    background-color: $color-primary !important;
+    color: $color-default !important;
+}

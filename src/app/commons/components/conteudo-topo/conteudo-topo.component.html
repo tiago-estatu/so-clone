@@ -1,0 +1,20 @@
+<div class="text-title text-center">
+
+
+  <a (click)="backBtn()" title='Voltar para página anterior' *ngIf='rotaVoltar != ""' class="back">
+    <i class="fa fa-reply"></i>{{textoVoltar}}
+  </a>
+
+  {{tituloPagina}}
+
+
+</div>
+
+
+<div class="row" *ngIf='subtituloPagina != ""'>
+
+  <div class="text-subtitle offset-1 col-10 text-center">
+    {{subtituloPagina}}
+  </div>
+
+</div>

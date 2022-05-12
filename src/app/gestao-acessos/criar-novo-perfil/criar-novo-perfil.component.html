@@ -1,0 +1,80 @@
+<mat-accordion>
+  <mat-expansion-panel [expanded]="true" class="overflow-unset">
+      <div class="row row-forms" *ngIf="!consultou" id="ajustaMarginBottom" [formGroup]="consultarForm">
+          <!--FILTROS-->
+          <div class="col-12 row">
+
+              <!-- DROPLIST PERFIL DE ACESSO -->
+              <div class="col-5 perfilCombo">
+                <perfil-acesso-combo
+                  [config]="{multi: false, standalone: true, jsonComDescricao: true}"
+                  [control]="getConsultaForm('idPerfil')">
+                </perfil-acesso-combo>
+              </div>
+              <!--/ DROPLIST PERFIL DE ACESSO -->
+
+              <!-- ACTION BUTTONS -->
+              <div class="col-12 bot text-right">
+                 <!-- Novo PERFIL  -->
+                 <button mat-button class="dButton d-inline-flex green ml-2 mt-1" (click)="criarNovoPerfil()"
+                 [disabled]="consultarForm.valid">Criar novo perfil
+                  </button>
+                  <!--/ NOVO PERFIL-->
+                   <!-- COPIAR -->
+                   <button mat-button class="dButton d-inline-flex green ml-2 mt-1" (click)="clonarPerfilPorId(getConsultaForm('idPerfil').value)"
+                   [disabled]="!consultarForm.valid">Clonar perfil selecionado
+                  </button>
+                  <!--/ COPIAR -->
+                  <!-- LIMPAR -->
+                  <button class="dButton d-inline-flex white ml-2 mt-1" (click)="limparCampos()">
+                    Limpar campos
+                  </button>
+                  <!--/ LIMPAR -->
+              </div>
+              <!--/ ACTION BUTTONS -->
+          </div>
+</div>
+
+
+<div class="col-12 row" *ngIf="consultou"  [formGroup]="crudForm">
+    <!-- NOME DO PERFIL  -->
+    <div id="nomePerfil" class="form-group col-6">
+        <div class="title-form vig"><i class="fa fa-0-5x fa-files-o"></i>Nome do perfil</div>
+        <div class="buscas">
+          <mat-form-field class="col-12 uppercase" appearance="outline">
+              <input
+                id="focusOut"
+                matInput class="form-control"
+                formControlName="dsPerfil"
+                type="text" placeholder="digite o nome para o novo perfil aqui..." 
+              />
+              <mat-error *ngIf="crudForm.invalid">Por favor, escreva apenas com letras MAIUSCULAS e sem caracteres especiais ou acento.</mat-error>
+          </mat-form-field>
+
+    </div>
+
+    <!-- / NOME DO PERFIL -->
+    </div>
+
+    <div class="title-form vig"><i class="fa fa-0-5x fa-files-o"></i>ROTAS DO PERFIL</div>
+    
+    <arvore-selecao-dados [idClone]="cdPerfilParaClonar" (selecionados)="updateSelecionados($event)" ></arvore-selecao-dados>
+
+    <div class="col-12 text-right bot" style="margin-top: 22px;">
+
+     <!-- GRAVAR NOVO PERFIL -->
+     <button mat-button class="dButton d-inline-flex green ml-3 mt-1" (click)="salvarPerfil()"
+     [disabled]="!crudForm.valid">Gravar perfil
+    </button>
+    <!--/ SALVAR -->
+
+    <!-- LIMPAR -->
+    <button class="dButton d-inline-flex white ml-3 mt-1" (click)="limparCampos()">
+     Voltar
+   </button>
+ <!--/ LIMPAR -->
+ </div>
+</div>
+</mat-expansion-panel>
+</mat-accordion>
+

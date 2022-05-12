@@ -1,0 +1,102 @@
+<mat-accordion>
+  <mat-expansion-panel [expanded]="true" class="overflow-unset">
+
+
+    <!-- CONTROLA O FORM -->
+    <form class="row row-forms one-field-validate" [formGroup]="reportForm">
+
+      <!-- CONTROLA GRUPO DOS SELECTS -->
+      <div class="form-group row col-12 grids">
+
+        <!-- DROPDOWN SELECIONAR CENTRO DISTRIBUIÇÃO  -->
+        <centro-distribuicao-combo class="form-group col-4 col centro-distribuicao-combo"
+          [control]="getControl('cdRegional')">
+        </centro-distribuicao-combo>
+        <!--/ DROPDOWN SELECIONAR CENTRO DISTRIBUIÇÃO  -->
+
+        <!-- CAMPO ABERTO SELECIONAR PRODUTO  -->
+        <!-- <produto-combo class="form-group col-4 col" (selecionados)="todosProdutosSelecionados($event)" #elementProduto>
+
+        </produto-combo> -->
+        <!--/ CAMPO ABERTO SELECIONAR PRODUTO  -->
+
+        <!-- INPUT ABERTO PARA SELEÇÃO DE PRODUTOS  -->
+        <div id="cdProdutosBuscaPadrao" class="form-group col-6 buscas produto">
+          <div class="title-form vig"><i class="fa fa-0-5x fa-files-o"></i>Digitar os produtos</div>
+          <div class="buscas">
+            <mat-form-field class="col-12 inputFiltro" appearance="outline">
+              <input id="focusOut" matInput class="form-control" formControlName="cdProduto" type="text"
+                placeholder="Digite os produtos separados por vírgula" />
+            </mat-form-field>
+          </div>
+        </div>
+        <!-- /INPUT ABERTO PARA SELEÇÃO DE PRODUTOS  -->
+
+      </div>
+      <!-- CONTROLA GRUPO DOS SELECTS -->
+
+      <!-- DATA PICKER (SELEÇÃO DATAS)  -->
+      <div id="controlaMarginsDataPicker" class="col-10">
+        <div class="form-group row">
+
+          <!-- DATA INCIAL -->
+          <div class="form-group col-2 vigInicio">
+            <div class="title-form"><i class="fa fa-0-5x fa-files-o"></i>Data Inicial</div>
+            <div class="form-group">
+              <mat-form-field appearance="outline" style="width:140px">
+                <input readonly matInput bsDatepicker placeholder="__/__/____" formControlName="dtInicio"
+                  [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" autocomplete="off" class="form-control datepickerStyle"
+                  #datepickerUm="bsDatepicker" type="text" />
+                <a class="icon-input-field dates" (click)="datepickerUm.toggle()">
+                  <i class="fa fa-0-5x fa-calendar-o"></i>
+                </a>
+              </mat-form-field>
+            </div>
+          </div>
+          <!-- /DATA INCIAL -->
+
+
+          <!-- DATA FINAL -->
+          <div class="form-group col-2 vigFinal">
+            <div class="title-form"><i class="fa fa-0-5x fa-files-o"></i>Data Final</div>
+            <div class="form-group">
+              <mat-form-field  appearance="outline" style="width:140px">
+                <input readonly matInput bsDatepicker placeholder="__/__/____" formControlName="dtFim"
+                  [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" autocomplete="off" class="form-control datepickerStyle"
+                  #datepickerDois="bsDatepicker" type="text" />
+                <a class="icon-input-field dates" (click)="datepickerDois.toggle()">
+                  <i class="fa fa-0-5x fa-calendar-o"></i></a>
+              </mat-form-field>
+            </div>
+          </div>
+          <!-- / DATA FINAL -->
+
+          <small id="legendaDataGeracaoPedido">Selecione o período que deseja exportar</small>
+        </div>
+      </div>
+      <!-- /DATA PICKER (SELEÇÃO DATAS) -->
+
+
+      <!-- BARRA DE BOTÕES  -->
+      <div class="form-group col-12 text-right">
+
+        <!-- EXPORTAR  -->
+        <label for="download" class="dButton d-inline-flex green ml-3 mt-1">
+          <i class="fa fa-0-5x fa-cloud-download mr-2"></i>
+          <span>Exportar</span></label>
+        <input id="download" class="form-control file" (click)="exportReport()" />
+        <!-- / EXPORTAR  -->
+
+        <!-- LIMPAR CAMPOS  -->
+        <button class="dButton d-inline-flex white ml-3 mt-1" (click)="limparCampos()"> Limpar campos
+        </button>
+        <!-- /LIMPAR CAMPOS  -->
+      </div>
+      <!--/ BARRA DE BOTÕES  -->
+    </form>
+    <!-- /CONTROLA O FORM -->
+
+  </mat-expansion-panel>
+</mat-accordion>
+<!--/ CONTAIN TODO O PAINEL DE FILTROS -->
+<rd-loading [@fadeInOut] *ngIf="componentLoading"></rd-loading>

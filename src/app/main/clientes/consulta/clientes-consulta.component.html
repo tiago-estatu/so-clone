@@ -1,0 +1,267 @@
+<form class="row one-field-validate" [formGroup]="clientesForm" (ngSubmit)="filtrarItens()" *ngIf='loadForm'>
+
+
+  <div class="col-12 col">
+
+    <mat-accordion>
+      <mat-expansion-panel (click)='expandir = true;' [expanded]='expandir'>
+        <mat-expansion-panel-header [collapsedHeight]="'42px'" [expandedHeight]="'39px'">
+          <mat-panel-title> <i class="fa fa-0-5x fa-filter"></i> Filtros de busca</mat-panel-title>
+          <mat-panel-description> Clique para expandir ou recuar os filtros </mat-panel-description>
+        </mat-expansion-panel-header>
+
+
+
+        <div class="row row-forms">
+
+          <div class="col col-6">
+
+            <div class="row row-forms">
+              <div class="col-12 col">
+                <div class="title-form">busca por cliente</div>
+              </div>
+              <div class="form-group col col-12">
+
+                <mat-form-field class="w-100" appearance="outline">
+                  <mat-label class="placeholder">
+                    Nome
+                  </mat-label>
+                  <input matInput class="form-control" type="text" formControlName="inputNome">
+                  <span class="icon-input-field"><i class="fa fa-0-5x fa-search"></i></span>
+                </mat-form-field>
+
+              </div>
+
+              <div class="form-group col col-6">
+
+                <mat-form-field class="w-100" appearance="outline">
+                  <mat-label class="placeholder">
+                    Email
+                  </mat-label>
+                  <input matInput class="form-control" type="text" formControlName="inputEmail">
+                  <span class="icon-input-field"><i class="fa fa-0-5x fa-search"></i></span>
+
+                </mat-form-field>
+
+              </div>
+
+              <div class="form-group col col-6">
+
+                <mat-form-field class="w-100" appearance="outline" [class.is-invalid]='!documentoIsValido'>
+                  <mat-label class="placeholder">
+                    CPF/CNPJ
+                  </mat-label>
+                  <input matInput [textMask]="{mask: cpfCnpjMask}" #inputMask (keyup)="mascaraCpfCnpj(inputMask.value)"
+                    class="form-control" type="text" formControlName="inputCpfCnpj">
+                  <span class="icon-input-field"><i class="fa fa-0-5x fa-search"></i></span>
+                </mat-form-field>
+
+                <div class="invalid-feedback" *ngIf='!documentoIsValido'>{{labelCpfCnpj}}</div>
+
+              </div>
+
+              <div class="form-group col col-6">
+
+                <mat-form-field class="w-100" appearance="outline">
+                  <mat-label class="placeholder">
+                    Cód. Cliente
+                  </mat-label>
+                  <input matInput mask="0000000000000000000000000" class="form-control" type="text" formControlName="inputCodCliente">
+                  <span class="icon-input-field"><i class="fa fa-0-5x fa-search"></i></span>
+
+                </mat-form-field>
+
+              </div>
+
+              <div class="form-group col col-6">
+
+                <mat-form-field class="w-100" appearance="outline">
+                  <mat-label class="placeholder">
+                    Cód. Cliente Web
+                  </mat-label>
+                  <input matInput mask="000000000000000000000" class="form-control" type="text" formControlName="inputCodClienteWeb">
+                  <span class="icon-input-field"><i class="fa fa-0-5x fa-search"></i></span>
+                </mat-form-field>
+
+              </div>
+
+            </div>
+          </div>
+
+          <div class="col col-6">
+            <div class="row row-forms">
+
+              <div class="col-12 col">
+                <div class="title-form">busca por datas de cadastro</div>
+              </div>
+
+              <div class="form-group col col-6">
+
+                <mat-form-field class="w-100" appearance="outline" [class.is-invalid]='dataPreenchida && fields.inputDataInicio.invalid'>
+
+                  <mat-label class="placeholder">
+                    De
+                  </mat-label>
+
+                  <input matInput bsDatepicker placeholder='__/__/____' autocomplete="off" triggers="dblclick:click"
+                    (keyup)="dateMask($event)" class="form-control" #datepickerUm="bsDatepicker" [maxDate]="maxDate"
+                    type="text" formControlName="inputDataInicio">
+                  <a class="icon-input-field dates" (click)="datepickerUm.toggle()"><i class="fa fa-0-5x fa-calendar-o"></i></a>
+
+                  <mat-error *ngIf="dataPreenchida && fields.inputDataInicio.invalid">
+                    Data inválida
+                  </mat-error>
+
+
+                </mat-form-field>
+
+              </div>
+
+              <div class="form-group col col-6 pb-3">
+
+
+                <mat-form-field class="w-100" appearance="outline" [class.is-invalid]='dataPreenchida && fields.inputDataFinal.invalid'>
+                  <mat-label class="placeholder">
+                    Até
+                  </mat-label>
+                  <input matInput bsDatepicker placeholder='__/__/____' autocomplete="off" triggers="dblclick:click"
+                    (keyup)="dateMask($event)" class="form-control" #datepickerDois="bsDatepicker" [maxDate]="maxDate"
+                    type="text" formControlName="inputDataFinal">
+                  <a class="icon-input-field dates" (click)="datepickerDois.toggle()"><i class="fa fa-0-5x fa-calendar-o"></i></a>
+
+                  <mat-error *ngIf="dataPreenchida && fields.inputDataFinal.invalid">
+                    Data inválida
+                  </mat-error>
+                </mat-form-field>
+
+
+
+              </div>
+
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+      </mat-expansion-panel>
+
+    </mat-accordion>
+
+
+    <div class="text-right mt-3 mb-1">
+
+      <button class="dButton d-inline-flex white mr-3 mb-3" (click)="zerarVariaveisDeBusca()" type="reset">
+        Limpar campos
+      </button>
+
+
+      <button class="dButton d-inline-flex green mb-3" type="submit">
+        Buscar
+      </button>
+
+    </div>
+
+  </div>
+
+</form>
+
+<div class="pt-3 border-top" *ngIf='!loaded'>
+  <p class="mb-2"> Use os campos de busca acima para procurar o cliente cadastrado, você pode procurar pelos
+    campos de texto da esquerda, pelo intervalo de datas de cadastro a direita, ou com as duas formas.
+  </p>
+  <p>
+    O resultado da busca aparecerá nessa área.
+  </p>
+</div>
+
+<section class="content-block table-consult" *ngIf='loaded' [@fadeInOut]>
+
+  <table mat-table [dataSource]="posts" class="table table-striped">
+
+    <ng-container matColumnDef="nome">
+      <th mat-header-cell *matHeaderCellDef> NOME </th>
+      <td mat-cell *matCellDef="let element"> {{element.nmCliente}} </td>
+    </ng-container>
+
+
+    <ng-container matColumnDef="cdCliente">
+      <th mat-header-cell *matHeaderCellDef> CÓD CLIENTE </th>
+      <td mat-cell *matCellDef="let element"> {{element.cdCliente}} </td>
+    </ng-container>
+
+
+    <ng-container matColumnDef="cdClienteWeb">
+      <th mat-header-cell *matHeaderCellDef> CÓD WEB </th>
+      <td mat-cell *matCellDef="let element"> {{element.cdClienteWeb}} </td>
+    </ng-container>
+
+
+
+    <ng-container matColumnDef="email">
+      <th mat-header-cell *matHeaderCellDef> EMAIL </th>
+      <td mat-cell *matCellDef="let element">
+        <div class="break-word">
+          {{element.dsEmail}}
+        </div>
+      </td>
+    </ng-container>
+
+
+    <ng-container matColumnDef="dataCadastro">
+      <th mat-header-cell *matHeaderCellDef> DATA CADASTRO </th>
+      <td mat-cell *matCellDef="let element"> {{element.dtCadastro | slice:0:10}} </td>
+    </ng-container>
+
+
+
+    <ng-container matColumnDef="cpfCnpj">
+      <th mat-header-cell *matHeaderCellDef style="width: 85px;"> CPF/CNPJ </th>
+      <td mat-cell *matCellDef="let element">
+
+        <div *ngIf='element.nrCnpjCpf.length <= 11'>
+          {{element.nrCnpjCpf | mask: '000.000.000-00'}}
+        </div>
+
+
+        <div *ngIf='element.nrCnpjCpf.length > 11'>
+          {{element.nrCnpjCpf | mask: '00.000.000/0000-00'}}
+        </div>
+
+      </td>
+    </ng-container>
+
+
+    <ng-container matColumnDef="tipoCartao">
+      <th mat-header-cell *matHeaderCellDef> tipo cartão </th>
+      <td mat-cell *matCellDef="let element"> {{element.tipoCartao?.dsTipoCartao}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="acoes">
+      <th mat-header-cell *matHeaderCellDef class="text-center" style="width: 105px;"> Ações </th>
+      <td mat-cell *matCellDef="let element" class="text-center">
+        Editar
+      </td>
+    </ng-container>
+
+
+    <tr mat-header-row *matHeaderRowDef="titlesColumns; sticky: true"></tr>
+    <tr mat-row *matRowDef="let element; columns: titlesColumns;" [class.visited]='temp == element.id'></tr>
+
+  </table>
+
+
+
+</section>
+
+<rd-paginacao (outputPaginacao)="loadingApiClientes();"></rd-paginacao>
+
+<rd-loading [@fadeInOut] *ngIf="componentLoading"></rd-loading>
+
+<rd-new-modal [imagemModal]='imagemModal' [tituloModal]='tituloModal' [mensagemModal]='mensagemModal'>
+
+  <rd-cadastro-receita></rd-cadastro-receita>
+
+</rd-new-modal>

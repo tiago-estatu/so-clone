@@ -1,0 +1,83 @@
+.content-block {margin-top: 15px}
+#tabelaTarget, #TabelaEmpty {margin: 20px 0px 0px 5px}
+#tabelaTarget .configuraTextosHeaderTabela, #TabelaEmpty .configuraTextosHeaderTabela {width: auto;text-transform: uppercase; font-weight: bold}
+
+#tabelaTarget td span,#TabelaEmpty td span{display: block;text-align: left}
+
+/* redução do tamanho da fonte
+#tabelaTarget td span{display: block;text-align: left; font-size: 0.675rem}*/
+
+.ajustaTamanhoBtoEditar{text-align: center}
+.ajustaTamanhoBtoEditar .iconInsideBtn{padding:0 0.6rem 0 0.6rem!important}
+#tabelaTarget tfoot td{text-align: center}
+#TabelaEmpty tfoot td{text-align: center}
+
+.positionRelative{position: relative; z-index: 0}
+.suspenderSmall{position: absolute;top: -17px;z-index: 1;left: -1px;}
+
+.alinhaBtoEditarCentro {text-align: center!important}
+
+.faturamentoNormal {
+  display: inline-block;
+  background: #28A745;
+  border-radius: 32px;
+  color: #000;
+  font-size: 13px;
+  text-align: center!important;
+}
+.supensaoParcial {
+  display: inline-block;
+  background: #FFFF00;
+  border-radius: 32px;
+  color: #000;
+  font-size: 13px;
+  text-align: center!important;
+}
+.supensaoTotal {
+  display: inline-block;
+  background: #cb2431;
+  border-radius: 32px;
+  font-size: 13px;
+  color: #fff;
+  text-align: center!important;
+}
+
+.aligned-button{
+  margin-top: 14px;
+}
+
+:host::ng-deep.mat-form-field{
+  line-height: 20px !important;
+}
+:host::ng-deep form {
+  padding-top: 0px !important;
+}
+
+:host::ng-deep.custom-input-align {
+  padding-top: 0px !important;
+
+}
+
+produto-combo form .mat-form-field-appearance-legacy .mat-form-field-wrapper {
+  padding-bottom: 1.25em !important
+}
+
+:host::ng-deep produto-combo form .mat-form-field-appearance-standard .mat-form-field-flex {
+  padding-top: 0px;
+}
+
+:host::ng-deep produto-combo form  .mat-form-field-infix {
+  padding-top: 0px !important;
+  border-top: 0px !important;
+}
+
+
+.configuraTextosHeaderTabela {
+  font-size: 12px;
+}
+.small-text {
+  font-size: 12px;
+}
+.text-no-wrap {
+  white-space: nowrap;
+}

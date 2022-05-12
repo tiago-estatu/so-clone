@@ -1,0 +1,119 @@
+<mat-accordion>
+    <mat-expansion-panel  [expanded]='true' class="overflow-unset">
+        <form class="row row-forms one-field-validate" style="padding-bottom: 20px">
+            <!--  BOTÃO EXPORTAR MODELO CSV -->
+            <div class="col-12 col form-group">
+                <button class="dButton d-inline-flex white ml-3 mt-1 btnExportModelCsv" style="margin-bottom: 14px; margin-right: 20px;"
+                type="submit" (click)="exportarModeloCSV()"> Exportar modelo CSV</button>
+            </div>
+            <!--/  BOTÃO EXPORTAR MODELO CSV -->
+
+            <div class="form-group row col-12">
+                <div class="form-group col-6">
+                    <centro-distribuicao-combo [control]="getControl('cdRegional')"></centro-distribuicao-combo>
+                </div>
+                <div class="form-group col-6" >
+                    <rd-fornecedor-combo [control]="getControl('cdFornecedor')" class="fornecedor-combo" [standalone]="false" [config]="{standalone: false, coldStart: true}">
+                    </rd-fornecedor-combo>
+                </div>
+                <div id="produtos" class="form-group col-6">
+                    <produto-combo [config]="{outline: true, label: 'Produtos', onlyNumbers: true}" [control]="getControl('cdProduto')"></produto-combo>
+                </div>
+            </div>
+            <div class="text-right">
+                <button class="dButton d-inline-flex green ml-3 mt-1" (click)="consultar()">
+                    Consultar
+                </button>
+                <label for="upload" class="dButton d-inline-flex green ml-3 mt-1"><i
+                        class="fa fa-0-5x fa-cloud-upload mr-2"></i>
+                    <span>Importar</span>
+                </label>
+                <input
+                    #importarRef
+                    id="upload"
+                    class="form-control file" type="file"
+                    accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
+                    (change)="importarExcel($event)"
+                    name="file"/>
+                <!--/ IMPORTAR  -->
+                
+                <button class="dButton d-inline-flex white ml-3 mt-1" type="reset" (click)="limparCampos()">
+                    Limpar campos
+                </button>
+            </div>
+
+        </form>
+    </mat-expansion-panel>
+</mat-accordion>
+
+
+<section class="content-block table-consult" style="padding-top: 1px;" *ngIf="dataSource.length > 0">
+    <table mat-table [dataSource]="dataSource | paginate: { itemsPerPage: queryParams.getParam('size'), currentPage: queryParams.getParam('page'), totalItems: itemsInSearch  }" class="table table-striped" *ngIf="!isPedido">
+        <ng-container matColumnDef="cdRegional">
+            <th class="cdColumn" mat-header-cell *matHeaderCellDef>CD</th>
+            <td mat-cell *matCellDef="let element"> {{element.cdRegional}} </td>
+        </ng-container>
+        <ng-container class="column-fornecedor" matColumnDef="fornecedor">
+            <th mat-header-cell *matHeaderCellDef>Fornecedor</th>
+            <td mat-cell class="texto" *matCellDef="let element"> {{element.cdFornecedor}}-{{element.nmFornecedor}}
+            </td>
+        </ng-container>
+        <ng-container class="column-produto" matColumnDef="produto">
+            <th class="productColumn" mat-header-cell *matHeaderCellDef>Produto</th>
+            <td mat-cell class="texto" *matCellDef="let element"> {{element.cdProduto}}-{{element.dsProduto}} </td>
+        </ng-container>
+        <ng-container matColumnDef="qtCxEmbarque">
+            <th mat-header-cell *matHeaderCellDef>Qt. Embarque</th>
+            <td mat-cell *matCellDef="let element"> {{element.qtCxEmbarque}} </td>
+        </ng-container>
+        <ng-container matColumnDef="pc1cxEmbarque">
+            <th mat-header-cell *matHeaderCellDef>% 1º Embarque</th>
+            <td mat-cell *matCellDef="let element"> {{element.pctCxEmbarque1}} </td>
+        </ng-container>
+        <ng-container matColumnDef="pcCxEmbarque">
+            <th mat-header-cell *matHeaderCellDef>% 2ª Embarque</th>
+            <td mat-cell *matCellDef="let element"> {{element.pctCxEmbarque2}} </td>
+        </ng-container>
+        <ng-container matColumnDef="qtCmdPallet">
+            <th mat-header-cell *matHeaderCellDef>Qt. Camada</th>
+            <td mat-cell *matCellDef="let element"> {{element.qtCamadaPallet}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="pcCmdPallet">
+            <th mat-header-cell *matHeaderCellDef>% Camada</th>
+            <td mat-cell *matCellDef="let element"> {{element.pctCamadaPallet}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="qtPallet">
+            <th mat-header-cell *matHeaderCellDef>Qt. Pallet</th>
+            <td mat-cell *matCellDef="let element"> {{element.qtPallet}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="pcPallet">
+            <th mat-header-cell *matHeaderCellDef>% Pallet</th>
+            <td mat-cell *matCellDef="let element"> {{element.pctPallet}} </td>
+        </ng-container>
+
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumnPedido; sticky: true"></tr>
+        <tr mat-row class="texto efeitoHoverLinha" (click)="editRow(element)"
+            *matRowDef="let element; columns:displayedColumnPedido"></tr>
+
+         
+                  
+    </table>
+    <div class="row d-felx justify-content-center">
+    <!-- CONTROLA PAGINAÇÃO -->
+    <pagination-controls
+        class="controlaCssPaginacao" (pageChange)="getPage($event)"
+        autoHide="false"
+        responsive="false"
+        previousLabel="Anterior"
+        nextLabel="Próximo">
+    </pagination-controls>
+    <!--/ CONTROLA PAGINAÇÃO -->
+    </div>
+
+
+</section>
+<rd-loading [@fadeInOut] *ngIf="componentLoading"></rd-loading>

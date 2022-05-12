@@ -1,0 +1,19 @@
+<div class="title-form vig">
+  <i class="fa fa-0-5x fa-files-o"></i>
+  Selecione Motivo
+</div>
+
+<ng-multiselect-dropdown
+    [ngModelOptions]="{ standalone: true }"
+    [(ngModel)]="motivoSelecionadoLista"
+    name="comboMotivoMinimoMaximo"
+    [placeholder]="'Selecione o Motivo'"
+    [data]="$motivos | async | dropmap: 'cdMotivo':'dsMotivo'"
+    (onSelect)="selecionado()"
+    (onDeSelect)="selecionado()"
+    [settings]="dropdownSettings"
+    [disabled]='disabled'
+    >
+</ng-multiselect-dropdown>
+
+

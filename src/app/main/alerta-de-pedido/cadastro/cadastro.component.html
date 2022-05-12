@@ -1,0 +1,248 @@
+<section class="content-block">
+  <article>
+
+    <rd-conteudo-topo [tituloPagina]="tituloPagina" [subtituloPagina]='subtituloPagina' [rotaVoltar]="rotaVoltar"></rd-conteudo-topo>
+
+    <div class="row">
+      <div class="offset-xl-1 col-xl-10 col-lg-12">
+        <div class="row">
+          <form [formGroup]="cadastroForm" (ngSubmit)="modalFuncSave()" class="col-12">
+            <div class="accordion mt-4">
+              <div class="option">
+                <input type="checkbox" id="toggleDados" checked class="toggle" />
+                <label class="title" for="toggleDados">
+                  <span class="d-inline-flex mb-1">
+                    <i class="fa fa-1x fa-exclamation-circle mr-2"></i>
+                    Dados principais
+                  </span>
+                  <span class="icons">
+                    <i class="fa fa-angle-down"></i>
+                    <i class="fa fa-angle-right"></i>
+                  </span>
+                </label>
+                <div class="content content-form">
+                  <div class="row row-forms">
+
+                    <div class="col-6 col form-group">
+
+                      <mat-form-field class="w-100" appearance="outline">
+                        <mat-label class="placeholder">
+                          Status televenda
+                        </mat-label>
+                        <mat-select formControlName='statusTelevenda'>
+                          <mat-option>Selecione um status da televenda</mat-option>
+                          <mat-option value='1'>Teste</mat-option>
+                        </mat-select>
+                        <mat-error>
+                          Campo obrigatório
+                        </mat-error>
+                      </mat-form-field>
+
+                    </div>
+
+
+                    <div class="col-6 col form-group">
+
+                      <mat-form-field class="w-100" appearance="outline">
+                        <mat-label class="placeholder">
+                          Filial
+                        </mat-label>
+                        <mat-select formControlName='bandeira'>
+                          <mat-option>Selecione a filial</mat-option>
+                          <mat-option value='1'>Raia</mat-option>
+                          <mat-option value='1'>Drogasil</mat-option>
+                          <mat-option value='1'>Onofre</mat-option>
+                        </mat-select>
+                        <mat-error>
+                          Campo obrigatório
+                        </mat-error>
+                      </mat-form-field>
+
+                    </div>
+
+                    <div class="col-12 col form-group">
+                      <mat-checkbox formControlName="flAtivo">
+                        Inativo
+                      </mat-checkbox>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="accordion mt-4">
+              <div class="option">
+                <input type="checkbox" id="toggleTemplate" checked class="toggle" />
+                <label class="title" for="toggleTemplate">
+                  <span class="d-inline-flex mb-1">
+                    <i class="fa fa-1x fa-file-code-o mr-2"></i>
+                    Template
+                  </span>
+                  <span class="icons">
+                    <i class="fa fa-angle-down"></i>
+                    <i class="fa fa-angle-right"></i>
+                  </span>
+                </label>
+                <div class="content content-form">
+                  <div class="row row-forms">
+
+                    <div class="form-group col col-12">
+
+                      <div class="text-description mb-3">
+                        <div>Abaixo todos os campos que podem ser usados como comandos para o template</div>
+                        <div>Passe o mouse em cima de cada campo para ver mais detalhes, clique no campo para adicionar
+                          ou escreva abaixo.</div>
+                      </div>
+
+                      <div class="row content-buttons mb-2">
+                        <a matTooltip='noma aqui' matTooltipPosition="right">
+                          NOME <span>?</span>
+                        </a>
+                        <a matTooltip='noma aqui' matTooltipPosition="right">
+                          NOME <span>?</span>
+                        </a>
+                        <a matTooltip='noma aqui' matTooltipPosition="right">
+                          NOME <span>?</span>
+                        </a>
+                        <a matTooltip='noma aqui' matTooltipPosition="right">
+                          NOME <span>?</span>
+                        </a>
+                        <a matTooltip='noma aqui' matTooltipPosition="right">
+                          NOME <span>?</span>
+                        </a>
+                        <a matTooltip='noma aqui' matTooltipPosition="right">
+                          NOME <span>?</span>
+                        </a>
+                      </div>
+
+                      <mat-form-field class="w-100" appearance="outline">
+                        <mat-label class="placeholder">
+                          Copie e cole nessa área as tags ou clique nos campos acima para adicionar
+                        </mat-label>
+                        <textarea matInput class="form-control" placeholder="Copie e cole nessa área as tags ou clique nos campos acima para adicionar"
+                          type="text" formControlName="tagsTemplate"></textarea>
+                        <mat-error>
+                          Campo obrigatório
+                        </mat-error>
+                      </mat-form-field>
+
+                    </div>
+
+
+
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+            <div class="accordion mt-4">
+              <div class="option">
+                <input type="checkbox" id="toggleRegras" checked class="toggle" />
+                <label class="title" for="toggleRegras">
+                  <span class="d-inline-flex mb-1">
+                    <i class="fa fa-1x fa-tasks mr-2"></i>
+                    Regras
+                  </span>
+                  <span class="icons">
+                    <i class="fa fa-angle-down"></i>
+                    <i class="fa fa-angle-right"></i>
+                  </span>
+                </label>
+                <div class="content content-form">
+                  <div class="row row-forms">
+
+                    <div class="col-4 col form-group">
+                      <mat-form-field class="w-100" appearance="outline">
+                        <mat-label class="placeholder">Dispositivos</mat-label>
+                        <mat-select formControlName="devices" multiple>
+                          <mat-option value="1">Celular</mat-option>
+                          <mat-option value="2">SMS</mat-option>
+                          <mat-option value="2">Todos</mat-option>
+                        </mat-select>
+                        <mat-error>
+                          Campo obrigatório
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+
+
+
+                    <div class="col-4 col form-group">
+                      <mat-form-field class="w-100" appearance="outline">
+                        <mat-label class="placeholder">Fluxos</mat-label>
+                        <mat-select formControlName="fluxos" multiple>
+                          <mat-option value="1">Compre e retire</mat-option>
+                          <mat-option value="2">Polo</mat-option>
+                          <mat-option value="2">Micropolo</mat-option>
+                        </mat-select>
+                        <mat-error>
+                          Campo obrigatório
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+
+
+                    <div class="col-4 col form-group">
+                      <mat-form-field class="w-100" appearance="outline">
+                        <mat-label class="placeholder">Controlado</mat-label>
+                        <mat-select formControlName="controlado">
+                          <mat-option value="1">Sim</mat-option>
+                          <mat-option value="2">Não</mat-option>
+                        </mat-select>
+                        <mat-error>
+                          Campo obrigatório
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+
+
+                    <div class="col-4 col form-group">
+                      <mat-form-field class="w-100" appearance="outline">
+                        <mat-label class="placeholder">Serviços de entrega</mat-label>
+                        <mat-select formControlName="servicosEntrega" multiple>
+                          <mat-option value="1">Sim</mat-option>
+                          <mat-option value="2">Não</mat-option>
+                        </mat-select>
+                        <mat-error>
+                          Campo obrigatório
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+
+
+                    <div class="col-4 col form-group">
+                      <mat-form-field class="w-100" appearance="outline">
+                        <mat-label class="placeholder">Transportas</mat-label>
+                        <mat-select formControlName="transportadoras">
+                          <mat-option value="1">Sim</mat-option>
+                          <mat-option value="2">Não</mat-option>
+                        </mat-select>
+                        <mat-error>
+                          Campo obrigatório
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+
+
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="mt-3 text-right">
+              <button class="dButton iconInsideBtn d-inline-flex green" type="submit">
+                <i class="fa pb-1 fa-0-5x fa-check mr-1"></i> Salvar
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </article>
+</section>
+
+
+
+<rd-new-modal [imagemModal]='imagemModal' [tituloModal]='tituloModal' (outputConfirmar)="loadingApi()" [mensagemModal]='mensagemModal' [rotaVoltar]='rotaVoltar'></rd-new-modal>
+<rd-loading [@fadeInOut] *ngIf="componentLoading"></rd-loading>

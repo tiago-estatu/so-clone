@@ -1,0 +1,43 @@
+.content-block {margin-top: 15px}
+#tabelaTarget {margin: 20px 0px 0px 5px}
+#tabelaTarget .configuraTextosHeaderTabela {display: block;width: auto;text-transform: uppercase; font-weight: bold}
+
+    #tabelaTarget td span{display: block;text-align: left}
+
+    /* redução do tamanho da fonte
+    #tabelaTarget td span{display: block;text-align: left; font-size: 0.675rem}*/
+
+    .ajustaTamanhoBtoEditar{text-align: center}
+    .ajustaTamanhoBtoEditar .iconInsideBtn{padding:0 0.6rem 0 0.6rem!important}
+    #tabelaTarget tfoot td{text-align: center}
+        #mostraResultadosCarregados {display: none}
+
+        .positionRelative{position: relative; z-index: 0}
+        .suspenderSmall{position: absolute;top: -17px;z-index: 1;left: -1px;}
+
+     .alinhaBtoEditarCentro {text-align: center!important}
+
+    .faturamentoNormal {
+        display: inline-block;
+        background: #28A745;
+        border-radius: 32px;
+        color: #000;
+        font-size: 13px;
+        text-align: center!important;
+    }
+    .supensaoParcial {
+        display: inline-block;
+        background: #FFFF00;
+        border-radius: 32px;
+        color: #000;
+        font-size: 13px;
+        text-align: center!important;
+    }
+    .supensaoTotal {
+        display: inline-block;
+        background: #cb2431;
+        border-radius: 32px;
+        font-size: 13px;
+        color: #fff;
+        text-align: center!important;
+    }

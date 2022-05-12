@@ -1,0 +1,1 @@
+export * from './motivo-estoque-extra-combo.component';

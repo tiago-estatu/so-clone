@@ -1,0 +1,17 @@
+  <div class="title-form vig">
+  <i class="fa fa-0-5x fa-files-o"></i>
+      Selecionar Centro Distribuição
+  </div>
+  <ng-multiselect-dropdown
+    [ngModelOptions]="{ standalone: true }"
+    [(ngModel)]="cdSelecionadoLista"
+    name="centroDistribuicao"
+    [placeholder]="placeholder"
+    [data]="dataSource | async | dropmap : 'cd_regional' : 'cd_regional-nm_cd_regional'"
+    (onSelect)="selecionarCd($event)"
+    (onSelectAll)="selecionarCd($event)"
+    (deSelectAll)="selecionarCd($event)"
+    (onDeSelect)="selecionarCd($event)"
+    [settings]="dropdownSettings"
+  >
+  </ng-multiselect-dropdown>

@@ -1,0 +1,114 @@
+::ng-deep .mat-expanded {
+    overflow: unset !important;
+}
+::ng-deep .selected-item, .multiselect-item-checkbox{
+    background: #006441!important;
+    border: 1px solid #006441!important;
+}
+.break-element{
+    word-break: break-all;
+}
+.mat-button-toggle-checked {
+    background-image: linear-gradient(to right, #29764c 0%, #42bd79 51%, #29764c 100%);
+    color: white;
+    background-size: 200%;
+    transition: background-image 0.5s;
+
+    &:hover {
+        background-position: right center;
+    }
+}
+th.mat-header-cell{
+    padding: 2px .25rem!important;
+}
+th.mat-header-cell.cdk-column-cdRegional.mat-column-cdRegional {
+    width: 50px;
+    text-align: center;
+}
+
+th.mat-header-cell.cdk-column-produto.mat-column-produto {
+    width: 250px!important;
+}
+th.mat-header-cell.cdk-column-fornecedor.mat-column-fornecedor {
+    width: 250px!important;
+}
+th.mat-header-cell.cdk-column-qtCxEmbarque.mat-column-qtCxEmbarque {
+    position: relative;
+    text-align: -webkit-center;
+}
+th.mat-header-cell.cdk-column-pc1cxEmbarque.mat-column-pc1cxEmbarque {
+    position: relative;
+    text-align: -webkit-center;
+}
+th.mat-header-cell.cdk-column-pcCxEmbarque.mat-column-pcCxEmbarque {
+    position: relative;
+    text-align: -webkit-center;
+}
+th.mat-header-cell.cdk-column-qtCmdPallet.mat-column-qtCmdPallet {
+    position: relative;
+    text-align: -webkit-center;
+}
+
+th.mat-header-cell.cdk-column-pcCmdPallet.mat-column-pcCmdPallet {
+    position: relative;
+    text-align: -webkit-center;
+}
+
+
+section.content-block.table-consult {
+    margin-top: 15px;
+}
+
+.table-consult table td{
+    text-align: center; 
+    cursor:pointer;
+}
+.texto{
+    text-align: left!important;
+}
+
+.form-group.row.col-12 {
+    margin-bottom: unset;
+    padding-bottom: 15px;
+}
+
+.text-right{
+    width: 100%;
+}
+
+mat-form-field.chip{
+    display: block!important;
+    margin-top: 20px;
+}
+mat-icon.removeChip {
+ width: 10px!important;
+}
+.actions {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: flex-end;
+    padding: 18px 0px;
+    .action-container {
+        margin: 0px 4px
+    }
+}
+.centered-flex {
+    display: flex;
+    justify-content: center;
+}
+.title {
+    font-size: 16px;
+    font-weight: bold;
+    color: #707070
+}
+.spaceles {
+    margin: 20px 0px !important;
+    padding: 0px !important 
+}
+mat-label {
+    font-size: 14px;
+}
+.content-form {
+    padding: 20px 0px;
+    overflow: hidden;
+}

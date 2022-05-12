@@ -1,0 +1,24 @@
+<div class="background" [ngStyle]="{'display': display}">
+        <div class="novo-modal modal" [ngStyle]="{'display': display}" 
+            [class.modal-grande]='modalGrande'
+            [class.modal-medio]='modalMedio'
+            [class.modal-pequeno]='modalPequeno'
+            [class.modal-UmInput]='modalUmInput'
+        >
+            <div class="d-flex justify-content-center mt-4 mb-3" *ngIf='imagemModal != "" '>
+                <span class="{{imagemModal}}-content">
+                    <i class="large-icon fa fa-{{imagemModal}}"></i>
+                </span>
+            </div>
+            <div class="titulo-modal" *ngIf="titulo">{{titulo}}</div>
+            <div class="encapsulation">
+               <ng-content viewencapsulation ng-content select="[conteudo]"></ng-content>
+            </div>
+    
+            <div class="footer text-center mb-2 border-top  pt-2 mt-2">
+                <button type="submit" class="dButton d-inline-flex white" (click)="fecharModal()">
+                    Fechar <span class="shortcut">[ESC]</span>
+                </button>
+            </div>
+        </div>
+    </div>

@@ -1,0 +1,22 @@
+<nav class="content_pagination">
+    <ul class="pagination d-flex justify-content-center">
+        <li *ngFor="let item of paginacao; let i = index" class="ng2-smart-page-item page-item" [class.active]="paginaAtual == paginacao[i]"
+            (click)="trocarPagina(paginacao[i]);">
+            <span class="ng2-smart-page-link page-link">
+                {{paginacao[i]}}
+            </span>
+        </li>
+    </ul>
+
+    <div class="pagination_total_pages" *ngIf='paginacaoTotalPaginas'>
+        Total de {{qtdTotalPaginas}} Páginas
+        <input type="number" (keyup.enter)="trocarPagina(paginaDigitada)" [(ngModel)]="paginaDigitada" class="form-control">
+        <button type="button" (click)="trocarPagina(paginaDigitada)">Ir</button>
+        <p *ngIf="erroPaginacao" class="error">Página não encontrada</p>
+    </div>
+
+    <div class="total text-right" *ngIf='qtdDaPagina > 0'>
+        <div *ngIf='qtdTotalRegistros != undefined'> Total de registros: {{qtdTotalRegistros}}</div>
+        <div *ngIf='qtdTotalRegistros != qtdDaPagina'> Registros nessa página: {{qtdDaPagina}}</div>
+    </div>
+</nav>

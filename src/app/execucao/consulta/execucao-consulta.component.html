@@ -1,0 +1,130 @@
+<form class="row row-forms one-field-validate" [formGroup]="conveyorsForm" (ngSubmit)="filtrarItens()">
+
+  <div class="col-12 col">
+    <mat-accordion>
+      <mat-expansion-panel (click)='expandir = true;' [expanded]='expandir'>
+        <mat-expansion-panel-header [collapsedHeight]="'42px'" [expandedHeight]="'39px'">
+          <mat-panel-title> <i class="fa fa-0-5x fa-filter"></i> Filtros de busca</mat-panel-title>
+          <mat-panel-description> Clique para expandir ou recuar os filtros </mat-panel-description>
+        </mat-expansion-panel-header>
+
+        <!-- <div class="accordion mt-4" >
+          <div class="option">
+            <input type="checkbox" id="toggleEnderecos" checked class="toggle" />
+            <label class="title" for="toggleEnderecos">
+              <span class="d-inline-flex mb-1">
+                <i class="fa fa-1x fa-check-circle mr-2"></i>
+                Dados principais
+              </span>
+              <span class="icons">
+                <i class="fa fa-angle-down"></i>
+                <i class="fa fa-angle-right"></i>
+              </span>
+            </label> -->
+            <div class="content content-form">
+            <div class="row row-forms">
+
+              <div class="col-6">
+                <div class="row">
+                  <div class="form-group col col-6">
+
+                    <mat-form-field class="w-100" appearance="outline"
+                      [class.is-invalid]='fields.inputDataInicio.invalid'>
+                      <mat-label class="placeholder">Data de Execução</mat-label>
+                      <input matInput bsDatepicker placeholder='__/__/____' autocomplete="off" triggers="dblclick:click"
+                        (keyup)="dateMask($event)" class="form-control" #datepickerUm="bsDatepicker" [maxDate]="maxDate"
+                        type="text" formControlName="inputDataInicio">
+                      <a class="icon-input-field dates" (click)="datepickerUm.toggle()"><i
+                          class="fa fa-0-5x fa-calendar-o"></i></a>
+                      <mat-error *ngIf="fields.inputDataInicio.invalid">Data inválida
+                      </mat-error>
+                    </mat-form-field>
+
+                  </div>
+                  <div class="form-group col col-6">
+                    <mat-form-field class="w-100" appearance="outline">
+                      <mat-label class="placeholder">
+                        Interface
+                      </mat-label>
+                      <input matInput class="form-control" type="text">
+                      <span class="icon-input-field"><i class="fa fa-0-5x fa-search"></i></span>
+                    </mat-form-field>
+                  </div>
+                </div>
+              </div>              
+            </div>
+          </div>
+          <!-- </div>
+        </div>  -->
+      </mat-expansion-panel>
+    </mat-accordion>
+    <div class="text-right form-group mt-3">
+      
+      <button class="dButton d-inline-flex white ml-3 mt-1" type="reset" (click)="limparTela()">
+        Limpar campos
+      </button>
+
+      <button class="dButton d-inline-flex green ml-3 mt-1" type="submit">
+        Pesquisar
+      </button>
+        
+    </div>
+  </div>
+</form>
+
+<section class="content-block table-consult" *ngIf='loaded'>
+
+
+  <table mat-table [dataSource]="posts" matSort matSortActive="codRotinaInterface" matSortDirection="asc" matSortDisableClear
+    class="table table-striped">
+
+    <ng-container matColumnDef="codRotinaInterface">
+      <th mat-header-cell *matHeaderCellDef> Interface </th>
+      <td mat-cell *matCellDef="let element"> {{element.codRotinaInterface}} </td>
+    </ng-container>
+
+
+    <ng-container matColumnDef="dataRotinaInterface">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Data </th>
+      <td mat-cell *matCellDef="let element">
+        <span *ngIf='element.dataRotinaInterface'>{{element.dataRotinaInterface}} </span> </td>
+    </ng-container>
+
+    <ng-container matColumnDef="nometabela">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Tabela </th>
+      <td mat-cell *matCellDef="let element">
+        <span *ngIf='element.nometabela'> {{ element.nometabela }}</span>
+      </td>
+    </ng-container>
+
+
+
+    <!--  <ng-container matColumnDef="acoes">
+          <th mat-header-cell *matHeaderCellDef class="text-center"> Ações </th>
+          <td mat-cell *matCellDef="let element" class="text-center">
+  
+              <a (click)="goTo($event, element.idTransportadora)" class="mr-2">
+                  <i class="fa fa-0-5x fa-edit" title="Editar login"></i>Editar
+                </a>
+                <mat-slide-toggle type="checkbox" [checked]="element.flAtivo == 1" (change)="toggleVisibility(element)">
+                  <span>{{element.flAtivo == 1 ? 'Ativo' : 'Inativo'}}</span>
+                </mat-slide-toggle>
+
+          </td>
+        </ng-container> -->
+
+
+    <tr mat-header-row *matHeaderRowDef="titlesColumns; sticky: true"></tr>
+    <tr mat-row *matRowDef="let element; columns: titlesColumns;"></tr>
+
+  </table>
+
+
+</section>
+
+<rd-paginacao (outputPaginacao)="loadingApi()"></rd-paginacao>
+
+
+<rd-loading [@fadeInOut] *ngIf="componentLoading"></rd-loading>
+
+<rd-new-modal [imagemModal]='imagemModal' [tituloModal]='tituloModal' [mensagemModal]='mensagemModal'></rd-new-modal>

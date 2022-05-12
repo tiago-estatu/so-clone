@@ -1,0 +1,1 @@
+export * from './consulta-arredondamento.component';

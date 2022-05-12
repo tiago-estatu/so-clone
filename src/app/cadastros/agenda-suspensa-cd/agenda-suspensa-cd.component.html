@@ -1,0 +1,192 @@
+<mat-accordion>
+  <mat-expansion-panel [expanded]="true" class="overflow-unset">
+    <form>
+        <!--  BOTÃO EXPORTAR MODELO CSV -->
+        <div class="ajustarPosicaoBotoesExportar export">
+            <ul>
+               <li><button class="dButton d-inline-flex white btnExportModelCsv" (click)="exportarModeloCSV()" matTooltip="Exportar modelo CSV."> Exportar modelo CSV</button></li>
+            </ul>
+        </div>
+        <!--  /BOTÃO EXPORTAR MODELO CSV -->
+      <!--/ COMBO DE SELECTS TRIPLO-->
+    <div class="form-group row col-12 grids">
+         <!-- COMBO DE SELECTS TRIPLO-->
+       <rd-agrupamento-combos-cd (selecionados)="selectAgrupamento($event)" class="full-width spaced-row">
+
+    </rd-agrupamento-combos-cd>
+      <!-- DROPDOWN SELECIONAR MOTIVO SUSPENSAO  -->
+        <rd-motivo-suspensao-combo class="form-group col col-6"
+        (selecionados)="preencherTodosMotivosSelecionados($event)" [tipoMotivo]="tipoMotivo" #elementMotivo>
+        </rd-motivo-suspensao-combo>
+        <!--/ DROPDOWN SELECIONAR MOTIVO SUSPENSAO -->
+
+        <produto-combo class="form-group col-6 col" [control]="getControl(filterForm,'cdProdutos')"
+            [config]="{onlyNumber: false, multi: true}">
+        </produto-combo>
+
+        <!-- IMPUT TYPE  SELECIONAR PRODUTOS  --
+        <produto-combo class="form-group col col-6"
+        [control]="getControl(filterForm,'cdProduto')">
+        </produto-combo>
+        <!--  GRUPO CONTAINER PARA OS FILTROS -->
+    <!-- DATA PICKER (SELEÇÃO DATAS)  -->
+    <div class="form-group row col-12 ">
+        <div class="form-group col-3">
+
+        <div class="title-form"><i class="fa fa-0-5x fa-files-o"></i>Data Inicial</div>
+        <div class="form-group">
+            <mat-form-field appearance="outline" style="max-width:140px" [formGroup]="filterForm">
+                <input matInput bsDatepicker placeholder="__/__/____" formControlName="dtInicio" required [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" autocomplete="off"
+                class="form-control" #datepickerUm="bsDatepicker" type="text" />
+                <a class="icon-input-field dates" (click)="datepickerUm.toggle()">
+                <i class="fa fa-0-5x fa-calendar-o"></i>
+                </a>
+            </mat-form-field>
+         </div>
+        </div>
+
+    <div class="form-group col-3">
+        <div class="title-form"><i class="fa fa-0-5x fa-files-o"></i>Data Final</div>
+        <div class="form-group datas">
+            <mat-form-field appearance="outline" style="max-width:140px" [formGroup]="filterForm">
+                <input matInput bsDatepicker placeholder="__/__/____" formControlName="dtFim" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
+                autocomplete="off" class="form-control" #datepickerDois="bsDatepicker" type="text" />
+                <a class="icon-input-field dates" (click)="datepickerDois.toggle()">
+                <i class="fa fa-0-5x fa-calendar-o"></i></a>
+            </mat-form-field>
+        </div>
+        </div>
+        </div>
+    </div>
+    <!-- /DATA PICKER (SELEÇÃO DATAS) -->
+        <!-- CONTAINER GRUPO BOTÕES -->
+        <div class="text-right bot">
+          <!-- SUSPENDER -->
+              <button class="dButton d-inline-flex green ml-3 mt-1" (click)="modalSuspenderAgendamentos()"
+                  [disabled]="nenhumItemSelecionado">
+                  Suspender
+              </button>
+          <!--/ SUSPENDER -->
+
+          <!-- CONSULTAR -->
+          <button class="dButton d-inline-flex green ml-3 mt-1" (click)="consultar()">
+              Consultar
+          </button>
+          <!--/CONSULTAR -->
+
+        <!-- IMPORTAR  -->
+        <label for="upload" class="dButton d-inline-flex green ml-3 mt-1">
+            <i class="fa fa-0-5x fa-cloud-upload mr-2"></i><span>Importar</span>
+        </label>
+        <input id="upload" class="form-control file" type="file"
+            accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
+            name="file"
+            (change)="importarExcel($event.target.files)"
+            [formControl]="fileControl"
+        />
+        <!--/ IMPORTAR  -->
+          <!-- EXPORTAR -->
+          <label for="download" class="dButton d-inline-flex green ml-3 mt-1"><i class="fa fa-0-5x fa-cloud-download mr-2"></i>
+              <span>Exportar</span>
+          </label>
+          <input id="download" class="form-control file" type="submit" (click)="exportarAgendaSuspensa()" />
+          <!--/ EXPORTAR -->
+
+          <!-- LIMPAR -->
+          <button class="dButton d-inline-flex white ml-3 mt-1" (click)="clearTudo()">
+              Limpar campos
+          </button>
+          <!--/ LIMPAR -->
+      </div>
+      <!--/ CONTAINER GRUPO BOTÕES -->
+
+    </form>
+</mat-expansion-panel>
+</mat-accordion>
+
+<!-- TABELA GRID -->
+<div id="mostraResultadosCarregados" *ngIf="dataSource.length > 0">
+    <section class="content-block table-consult">
+        <table id="tabelaTarget">
+            <tbody>
+                <!-- HARDCODE PARA O TOPO DA TABELA -->
+                <tr>
+                    <!-- BTO SELECIONAR TODOS -->
+                    <td class="positionRelative">
+                        <small class="suspenderSmall">Suspender</small>
+                        <mat-checkbox [(ngModel)]="selecionarTodos" (change)="selecionarTodosItens($event)"></mat-checkbox>
+                    </td>
+                    <!--/ BTO SELECIONAR TODOS -->
+
+                    <td><span style="width: 60px" class="configuraTextosHeaderTabela">DT INICIAL</span></td>
+                    <td ><span style="width: 60px" class="configuraTextosHeaderTabela">DT FINAL</span></td>
+                    <td><span style="width: 29px" class="configuraTextosHeaderTabela">CD</span></td>
+                    <td><span style="width: 260px" class="configuraTextosHeaderTabela">FORNECEDOR</span></td>
+                    <td><span style="width: 260px" class="configuraTextosHeaderTabela">FABRICANTE</span></td>
+                    <td><span style="width: 152px" class="configuraTextosHeaderTabela">AGENDA</span></td>
+                    <td><span style="width: 52px" class="configuraTextosHeaderTabela">DETALHE</span></td>
+                </tr>
+                <!-- HARDCODE PARA O TOPO DA TABELA /-->
+
+
+                <!-- NG-FOR INTERANDO SOBRE AS TR'S DA TABELA PARA POPULAR A GRID -->
+                <tr class="efeitoHoverLinha " *ngFor="let item of dataSource | paginate: { itemsPerPage: itemsPorPagina, currentPage: pageNumber, totalItems: totalDeItems  }">
+
+
+                    <!-- BTO SELECIONAR ITEM ATUAL -->
+                    <td><mat-checkbox [(ngModel)]="item.selecionado" [disabled]="item.fgStatus===2" (change)="itemSelecionado()"></mat-checkbox></td>
+                    <!--/ BTO SELECIONAR ITEM ATUAL -->
+
+                    <td><span>{{ dtConsulta.dtInicio }}</span></td>
+                    <td><span>{{ dtConsulta.dtFim }}</span></td>
+                    <td><span><b>{{ item.cdRegional }}</b> </span></td>
+                    <td><span><b>{{ item.cdFornecedor }}</b> - {{item.nmFornecedor}}</span></td>
+                    <td><span><b>{{ item.cdFabricante }}</b> - {{ item.nmFabricante }}</span></td>
+                  
+
+                    <!-- VERIFICAÇÃO SE EXISTE ALGUM TIPO DE SUSPENSÃO DE CD -->
+                    <ng-container *ngIf="item.fgStatus === 0;">
+                        <td><span class="normal"> NORMAL </span></td>
+                    </ng-container>
+
+                    <ng-container *ngIf="item.fgStatus === 1;">
+                        <td><span class="supensaoParcial">POSSUI SUSPENSÃO  </span></td>
+                    </ng-container>
+
+                    <ng-container *ngIf="item.fgStatus === 2;">
+                        <td><span class="supensaoTotal">POSSUI SUSPENSÃO TOTAL</span></td>
+                    </ng-container>
+                    <!--/ VERIFICAÇÃO SE EXISTE ALGUM TIPO DE SUSPENSÃO DE FATURAMENTO -->
+
+
+                    <!-- BTO VER DETALHE -->
+                    <td><span class="alinhaBtoEditarCentro"><a (click)="exibirAgendas(item)" class="mr-2"><i class="fa fa-0-5x fa-edit" title="Ver detalhe"></i></a></span></td>
+                    <!--/ BTO VER DETALHE -->
+                </tr>
+            </tbody>
+
+
+            <!-- FOOTER DA TABELA -->
+            <tfoot>
+                <tr>
+                    <td colspan="8">
+                        <!-- CONTROLA PAGINAÇÃO -->
+                        <pagination-controls
+                            class="controlaCssPaginacao" (pageChange)="pageNumber = $event"
+                            autoHide="true"
+                            responsive="false"
+                            previousLabel="Anterior"
+                            nextLabel="Próximo">
+                        </pagination-controls>
+                        <!--/ CONTROLA PAGINAÇÃO -->
+                    </td>
+                </tr>
+            </tfoot>
+            <!--/ FOOTER DA TABELA -->
+        </table>
+    </section>
+</div>
+<!-- /TABELA GRID -->
+ 
+
+<rd-loading [@fadeInOut] *ngIf="componentLoading"></rd-loading>

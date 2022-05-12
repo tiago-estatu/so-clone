@@ -1,0 +1,182 @@
+<mat-accordion>
+  <mat-expansion-panel [expanded]="expandir" class="overflow-unset">
+
+
+    <!-- CONTROLA O FORM -->
+    <form class="row row-forms one-field-validate">
+
+      <!-- CONTROLA GRUPO DOS SELECTS -->
+      <div class="form-group row col-12 grids">
+
+        <!-- DROPDOWN SELECIONAR CENTRO DISTRIBUIÇÃO  -->
+        <centro-distribuicao-combo class="form-group col-4 col centro-distribuicao-combo"
+          (selecionados)="todosCentroDistribuicaoSelecionados($event)" #elementCD>
+        </centro-distribuicao-combo>
+        <!--/ DROPDOWN SELECIONAR CENTRO DISTRIBUIÇÃO  -->
+
+        <!-- DROPDOWN SELECIONAR FILIAL  -->
+        <filial-combo class="form-group col-4 col filial-combo"
+          (selecionados)="preencherFiliaisSelecionadas($event)"[cdsSelecionados]="_todosCDSelecionado" #elementFilial>
+        </filial-combo>
+        <!--/ DROPDOWN SELECIONAR FILIAL  -->
+
+        <!-- INPUT ABERTO PARA SELEÇÃO DE PRODUTOS  -->
+        <!-- <div id="cdProdutosBuscaPadrao" class="form-group col-4 buscas produto">
+          <div class="title-form vig"><i class="fa fa-0-5x fa-files-o"></i>Digitar os produtos</div>
+          <div class="buscas" style="margin-top: -5px;">
+            <mat-form-field class="col-12 inputFiltro" appearance="outline">
+              <input id="focusOut" matInput class="form-control" [ngModelOptions]="{standalone: true}"
+                [(ngModel)]="_todosProdutosDigitados" type="text" placeholder="{{_msgProdutos}}"
+                #CdProdutosDigitados virgulaNumero>
+            </mat-form-field>
+          </div> -->
+          <!-- <small id="legendaLMPM">Motivo LMPM deve ser consultado individualmente</small> -->
+        <!-- </div> -->
+        <!-- /INPUT ABERTO PARA SELEÇÃO DE PRODUTOS  -->
+      </div>
+      <!-- CONTROLA GRUPO DOS SELECTS -->
+
+      <!-- DATA PICKER (SELEÇÃO DATAS)  -->
+      <div id="controlaMarginsDataPicker" class="col-10">
+        <div class="form-group row">
+          <div class="form-group col-2 vigInicio">
+            <div class="title-form"><i class="fa fa-0-5x fa-files-o"></i>Data Inicial</div>
+            <div class="form-group">
+              <mat-form-field appearance="outline" style="width:140px">
+                <input matInput bsDatepicker placeholder="__/__/____" [(ngModel)]="_dataInicial"
+                  [ngModelOptions]="{standalone: true}" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
+                  autocomplete="off" class="form-control" #datepickerUm="bsDatepicker" type="text" />
+                <a class="icon-input-field dates" (click)="datepickerUm.toggle()">
+                  <i class="fa fa-0-5x fa-calendar-o"></i>
+                </a>
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div class="form-group col-2 vigFinal">
+            <div class="title-form"><i class="fa fa-0-5x fa-files-o"></i>Data Final</div>
+            <div class="form-group">
+              <mat-form-field appearance="outline" style="width:140px">
+                <input matInput bsDatepicker placeholder="__/__/____" [(ngModel)]="_dataFinal"
+                  [ngModelOptions]="{standalone: true}" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
+                  autocomplete="off" class="form-control" #datepickerDois="bsDatepicker" type="text" />
+                <a class="icon-input-field dates" (click)="datepickerDois.toggle()">
+                  <i class="fa fa-0-5x fa-calendar-o"></i></a>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+        <small id="legendaDataGeracaoPedido">Selecione o período para estorno</small>
+      </div>
+      <!-- /DATA PICKER (SELEÇÃO DATAS) -->
+
+
+      <!-- BARRA DE BOTÕES  -->
+      <div class="form-group col-12 text-right">
+      <!-- ESTORNAR  -->
+      <button class="dButton d-inline-flex green ml-3 mt-1" (click)="estornarSelecionados()"
+      [disabled]="nenhumItemSelecionado"> Estornar
+     </button>
+     <!-- /ESTORNAR  -->
+        <!-- CONSULTAR  -->
+        <label for="download" class="dButton d-inline-flex green ml-3 mt-1">
+          <span>Consultar</span></label>
+        <input id="download" class="form-control file" (click)="consultaDados()" />
+        <!-- / CONSULTAR  -->
+
+        <!-- LIMPAR CAMPOS  -->
+        <button class="dButton d-inline-flex white ml-3 mt-1" (click)="limparCampos()"> Limpar campos
+        </button>
+        <!-- /LIMPAR CAMPOS  -->
+      </div>
+      <!--/ BARRA DE BOTÕES  -->
+    </form>
+    <!-- /CONTROLA O FORM -->
+
+  </mat-expansion-panel>
+</mat-accordion>
+<!--/ CONTAIN TODO O PAINEL DE FILTROS -->
+
+ <!-- TABELA GRID -->
+ <div id="mostraResultadosCarregados">
+  <ng-container *ngIf="totalItems>0">
+    <section class="content-block table-consult">
+        <table id="tabelaTarget">
+            <tbody>
+                <!-- HARDCODE PARA O TOPO DA TABELA -->
+                <tr>
+                   <!-- BTO SELECIONAR TODOS -->
+                   <td class="positionRelative">
+                    <mat-checkbox [(ngModel)]="selecionarTodos" (change)="selecionarTodosItens($event)"></mat-checkbox>
+                </td>
+                <!--/ BTO SELECIONAR TODOS -->
+                  <td><span style="width: 60px" class="configuraTextosHeaderTabela">DT INICIAL</span></td>
+                  <td ><span style="width: 60px" class="configuraTextosHeaderTabela">DT FINAL</span></td>
+                  <td><span style="width: 29px" class="configuraTextosHeaderTabela">CD</span></td>
+                  <td><span style="width: 29px" class="configuraTextosHeaderTabela">FILIAL</span></td>
+                  <td><span style="width: 162px" class="configuraTextosHeaderTabela">STATUS CANCELAMENTO</span></td>
+                  <td><span style="width: 52px" class="configuraTextosHeaderTabela">DETALHE</span></td>
+                </tr>
+                <!-- HARDCODE PARA O TOPO DA TABELA /-->
+
+
+                <!-- NG-FOR INTERANDO SOBRE AS TR'S DA TABELA PARA POPULAR A GRID -->
+                <tr *ngFor="let item of dataSource| paginate: { itemsPerPage: itemsPerPage, currentPage: curPage }">
+                    <!-- BTO SELECIONAR ITEM ATUAL [disabled]="item.fgFilialSuspensa===2"-->
+                  <td><mat-checkbox  [(ngModel)]="item.selecionado"  (change)="itemSelecionado()"></mat-checkbox></td>
+                  <!--/ BTO SELECIONAR ITEM ATUAL -->
+
+                  <td><span>{{ item.dataInicio }}</span></td>
+                  <td><span>{{ item.dataFim }}</span></td>
+                  <td><span><b>{{ item.cdRegional }}</b> - {{item.nmRegional}}</span></td>
+                  <td><span><b>{{ item.cdFilial }}</b> - {{ item.nmFantasia }}</span></td>
+
+                  <!-- VERIFICAÇÃO SE EXISTE ALGUM TIPO DE SUSPENSÃO DE CD -->
+                  <ng-container *ngIf="item.fgFilialSuspensa === 0;">
+                      <td><span class="suspensaoNormal"> NORMAL </span></td>
+                  </ng-container>
+
+                  <ng-container *ngIf="item.fgFilialSuspensa === 1;">
+                      <td><span class="supensaoParcial">POSSUI SUSPENSÃO  </span></td>
+                  </ng-container>
+
+                  <ng-container *ngIf="item.fgFilialSuspensa === 2;">
+                      <td><span class="supensaoTotal">POSSUI SUSPENSÃO TOTAL</span></td>
+                  </ng-container>
+                  <!--/ VERIFICAÇÃO SE EXISTE ALGUM TIPO DE SUSPENSÃO DE FATURAMENTO -->
+
+
+                  <!-- BTO VER DETALHE -->
+                  <td><span class="alinhaBtoEditarCentro"><a (click)="exibirModalFaturamentoSuspensoDetalhe(item)" class="mr-2"><i class="fa fa-0-5x fa-edit" title="Ver detalhe"></i></a></span></td>
+                  <!--/ BTO VER DETALHE -->
+                </tr>
+            </tbody>
+
+
+          <!-- FOOTER DA TABELA -->
+          <tfoot>
+              <tr>
+                  <td colspan="8">
+                      <!-- CONTROLA PAGINAÇÃO -->
+                      <pagination-controls
+                          class="controlaCssPaginacao" (pageChange)="curPage = $event"
+                          autoHide="true"
+                          responsive="false"
+                          previousLabel="Anterior"
+                          nextLabel="Próximo">
+                      </pagination-controls>
+                      <!--/ CONTROLA PAGINAÇÃO -->
+                  </td>
+              </tr>
+          </tfoot>
+          <!--/ FOOTER DA TABELA -->
+        </table>
+    </section>
+  </ng-container>
+  <!-- /BLOCO NG-IF -->
+</div>
+<!-- /TABELA GRID -->
+
+<!-- JANELA MODAL E LOADING -->
+<rd-loading [@fadeInOut] *ngIf="componentLoading"></rd-loading>
+<!--/ JANELA MODAL E LOADING -->

@@ -1,0 +1,15 @@
+::ng-deep .mat-expanded {
+  overflow: unset !important;
+}
+
+.mat-chip-list-wrapper {
+  display: flex;
+  flex-direction: row;
+   flex-wrap: unset!important; 
+  align-items: center;
+  margin: -4px;
+  width: 400px;
+}
+.export {
+  padding-bottom: 10px;
+}

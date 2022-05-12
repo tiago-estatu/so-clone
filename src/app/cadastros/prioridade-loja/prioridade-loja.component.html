@@ -1,0 +1,163 @@
+<mat-accordion>
+    <mat-expansion-panel [expanded]="expandir" class="overflow-unset">
+
+        <!-- CONTROLA O FORM -->
+        <form class="row row-forms one-field-validate">
+            <!--  BOTÃO EXPORTAR MODELO CSV -->
+            <div class="ajustarPosicaoBotoesExportar export">
+                <ul>
+                        <!-- BTN OCULTADO APÓS SOLICITAÇÃO DA SPRINT 23 -->
+                    <!-- <li><button class="dButton d-inline-flex white ml-3 mt-1 btnExportModelCsv" style="margin-right: 15px;" (click)="exportarFiltrosButton()" matTooltip="Exportar Filtros Selecionados."> Exportar Seleção de Filtros</button></li> -->
+                    <li><button class="dButton d-inline-flex white ml-3 mt-1 btnExportModelCsv" style="margin-right: 15px;" (click)="exportarModeloCsvButton()" matTooltip="Exportar modelo CSV."> Exportar modelo CSV</button></li>
+                </ul>
+            </div>
+            <!--  /BOTÃO EXPORTAR MODELO CSV -->
+
+            <!-- CONTROLA GRUPO DOS SELECTS -->
+            <div class="form-group row col-12 grids">
+
+                <!-- DROPDOWN SELECIONAR CENTRO DISTRIBUIÇÃO  -->
+                <centro-distribuicao-combo class="form-group col-4 col centro-distribuicao-combo"
+                [config]="{multi: false}"
+                    (selecionados)="todosCentroDistribuicaoSelecionados($event)" #elementCD>
+                </centro-distribuicao-combo>
+                <!--/ DROPDOWN SELECIONAR CENTRO DISTRIBUIÇÃO  -->
+
+                <!-- DROPDOWN SELECIONAR FILIAL  -->
+                <filial-combo class="form-group col-4 col filial-combo" (selecionados)="preencherFiliaisSelecionadas($event)"
+                    [config]="{multi: false}"
+                    [cdsSelecionados]="_todosCDSelecionado" #elementFilial>
+                </filial-combo>
+                <!--/ DROPDOWN SELECIONAR FILIAL  -->
+
+                <!-- DROPDOWN SELECIONAR GRUPO PRIORIDADE
+                    ****** DROPLIST ESTÁ SETADO COM VALORES HARDED CODE ************
+                -->
+                <combo-Prioridade-Loja class="form-group col-4 col combo-Prioridade-Loja"
+                    [selecaoUnicaGruposPrioridade]="selecaoUnicaGruposPrioridade"
+                    (selecionados)="preencherGruposSelecionados($event)" #elementGrupoPrioridade>
+                </combo-Prioridade-Loja>
+                <!--/  DROPDOWN SELECIONAR GRUPO PRIORIDADE  -->
+            </div>
+            <!-- CONTROLA GRUPO DOS SELECTS -->
+
+            <!-- BARRA DE BOTÕES  -->
+            <div class="form-group col-12 text-right">
+                <!-- ALTERAR  -->
+                <button class="dButton d-inline-flex green ml-3 mt-1"
+                    (click)="alterarPrioridadeLojaButton($event)" [disabled]="nenhumItemSelecionado"> Alterar
+                </button>
+                <!-- /ALTERAR  -->
+
+                <!-- RETIRAR  -->
+                <button class="dButton d-inline-flex green ml-3 mt-1"
+                    (click)="retiroPrioridadeLoja($event)" [disabled]="nenhumItemSelecionado"> Retirar
+                </button>
+                <!-- /RETIRAR  -->
+
+                <!-- CONSULTAR  -->
+                <button class="dButton d-inline-flex green ml-3 mt-1"
+                    (click)="consultarButton()"> Consultar
+                </button>
+                <!-- /CONSULTAR  -->
+
+
+                 <!-- IMPORTAR  -->
+                 <label for="upload" class="dButton d-inline-flex green ml-3 mt-1">
+                    <i class="fa fa-0-5x fa-cloud-upload mr-2"></i><span>Importar</span>
+                </label>
+                <input id="upload" class="form-control file" type="file"
+                       accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
+                       name="file"
+                       (change)="importFile($event)"
+                       [formControl]="fileControl"
+                />
+                <!--/ IMPORTAR  -->
+
+
+                <!-- LIMPAR CAMPOS  -->
+                <button class="dButton d-inline-flex white ml-3 mt-1"
+                    (click)="limparCampos()"> Limpar campos
+                </button>
+                <!-- /LIMPAR CAMPOS  -->
+
+            </div>
+            <!--/ BARRA DE BOTÕES  -->
+        </form>
+        <!-- /CONTROLA O FORM -->
+
+    </mat-expansion-panel>
+</mat-accordion>
+<!--/ CONTAIN TODO O PAINEL DE FILTROS -->
+
+  <div id="mostraResultadosCarregados">
+    <section class="content-block table-consult">
+        <table id="tabelaTarget" >
+            <tbody>
+                <tr>
+                    <!-- BTO SELECIONAR TODOS -->
+                    <td class="positionRelative">
+                        <mat-checkbox [(ngModel)]="selecionarTodos" (change)="selecionarTodosItens($event)"></mat-checkbox>
+                    </td>
+                    <!--/ BTO SELECIONAR TODOS -->
+
+                    <td><span class="configuraTextosHeaderTabela">CD</span></td>
+                    <td><span class="configuraTextosHeaderTabela">Filial</span></td>
+                    <td><span class="configuraTextosHeaderTabela">Grupo</span></td>
+                </tr>
+                <!-- HARDCODE PARA O TOPO DA TABELA /-->
+
+                <!--
+                    NG-FOR INTERANDO SOBRE AS TR'S DA TABELA
+                    PARA POPULAR A GRID
+                -->
+                <tr class="efeitoHoverLinha" *ngFor="let item of dadosParaGrid | paginate: { itemsPerPage: itemsPorPagina, currentPage: pageNumber, totalItems: totalDeItems }">
+
+                        <!-- BTO SELECIONAR ITEM ATUAL -->
+                        <ng-container *ngIf="item.nrGrupoPrioridade !== null; else checkBoxDisabled">
+                            <td><mat-checkbox [(ngModel)]="item.selecionado" (change)="itemSelecionado()"></mat-checkbox></td>
+                        </ng-container>
+                        <ng-template #checkBoxDisabled>
+                            <td><mat-checkbox [disabled]="true" ></mat-checkbox></td>
+                        </ng-template>
+                        <!--/ BTO SELECIONAR ITEM ATUAL -->
+
+
+                        <td><span><b>{{ item.cdRegional}}</b> - {{item.nmRegional}}</span></td>
+                        <td><span><b>{{ item.cdFilial }}</b> - {{ item.nmFantasia}} </span></td>
+
+                        <!-- VERIFICAÇÃO SE EXISTE GRUPO DE PRIORIDADE -->
+                        <ng-container *ngIf="item.nrGrupoPrioridade !== null; else semGrupo">
+                            <td><span><b>{{ item.nrGrupoPrioridade}}</b></span></td>
+                        </ng-container>
+                        <ng-template #semGrupo>
+                            <td><span><b>SEM GRUPAMENTO</b></span></td>
+                        </ng-template>
+
+                        <!--/ VERIFICAÇÃO SE EXISTE GRUPO DE PRIORIDADE -->
+                    </tr>
+                <!-- / HARDCODE PARA O TOPO DA TABELA -->
+            </tbody>
+
+
+            <!-- FOOTER DA TABELA -->
+            <tfoot>
+                <tr>
+                    <td colspan="12">
+                        <!-- CONTROLA PAGINAÇÃO -->
+                            <pagination-controls
+                            class="controlaCssPaginacao" (pageChange)="getPage($event)"
+                            autoHide="true"
+                            responsive="false"
+                            previousLabel="Anterior"
+                            nextLabel="Próximo">
+                        </pagination-controls>
+                    <!--/ CONTROLA PAGINAÇÃO -->
+                    </td>
+                </tr>
+            </tfoot>
+            <!--/ FOOTER DA TABELA -->
+        </table>
+    </section>
+  </div>
+<rd-loading [@fadeInOut] *ngIf="componentLoading"></rd-loading>

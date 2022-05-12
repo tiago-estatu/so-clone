@@ -1,0 +1,48 @@
+<form
+        [ngClass]=" chipSelected.length > 0 ? '' : 'custom-input-align'"
+        [ngStyle]="{'padding-top':  chipSelected.length > 0 ? '24px' : '38px'}"
+>
+  <mat-form-field class="chip">
+    <mat-chip-list  [ngClass]="!config.multi ? 'single-chip' : ''" #chipList>
+      <mat-chip
+        *ngFor="let filial of  chipSelected"
+        [selectable]="true"
+        [removable]="true"
+        (removed)="removeFilial(filial)"
+        [matTooltip]="mensagemTooltip(filial)"
+        matTooltipPosition="below"
+
+      >
+      <span class="descricaofilial">{{getDescriptionFilial(filial)}}</span>
+        <mat-icon class="removerChip" matChipRemove>clear</mat-icon>
+      </mat-chip>
+      <input
+        [placeholder]="config.inputLabel"
+        #filialInput
+        [formControl]="filialControl"
+        [matAutocomplete]="auto"
+        [matChipInputFor]="chipList"
+        [type]="config.onlyNumber ? 'number' : 'text'"
+        [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+        [matChipInputAddOnBlur]="true"
+        (matChipInputTokenEnd)="addFilial($event)"
+        (keydown)="checkNumbers($event)"
+      />
+    </mat-chip-list>
+    <mat-autocomplete
+      #auto="matAutocomplete"
+      (optionSelected)="filialSelected($event)"
+    >
+      <mat-option
+        *ngFor="let filial of filtered | async"
+        [value]="filial"
+        (click)="selecionarFilial(filial)"
+      >
+        {{ filial.cd_filial }} | {{ filial.nm_fantasia }}
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+</form>
+  <simple-notifications [options]="options"></simple-notifications>
+
+  <rd-loading [@fadeInOut] *ngIf="componentLoading"></rd-loading>

@@ -1,0 +1,22 @@
+:host::ng-deep.mat-form-field-appearance-outline>.mat-form-field-wrapper>.mat-form-field-flex {
+  min-height: 41px;
+  .mat-form-field-infix{
+    margin: auto !important;
+    border-top: 0.52em solid transparent;
+    mat-chip-list>.mat-chip-list-wrapper{
+      width: auto;
+      input {
+        width: auto
+      }
+    }
+  }
+}
+.date-row>.form-group{
+  margin: 0px 8px
+}
+.margin-initial {
+  margin: initial;
+}
+.icon-input-field.dates {
+  margin-top: 2px;
+}

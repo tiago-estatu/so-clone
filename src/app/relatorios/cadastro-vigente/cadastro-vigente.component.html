@@ -1,0 +1,39 @@
+<mat-accordion>
+  <mat-expansion-panel [expanded]="expandir" class="overflow-unset">
+    <form [formGroup]="relatorioForm">
+
+      <div class="form-group row col-12 grids">
+            <div class="form-group row col-12">                
+                <div id="produtos" class="form-group col-6">
+                  <localizacao-cd-filial-combo [config]="{multi: false , outline: true, label: 'Localização', onlyNumbers: true}" [control]="getControl('cdLocalizacao')"></localizacao-cd-filial-combo>
+                </div> 
+                <div id="produtos" class="form-group col-6">
+                    <produto-combo [config]="{multi: false , outline: true, label: 'Produtos', onlyNumbers: true}" [control]="getControl('cdProduto')"></produto-combo>
+                </div>
+            </div>
+      </div>
+
+      <div class="form-group col-12 text-right">
+
+        <!-- CADASTRO VIGENTE  -->
+        <button for="downloadCadastoVigente" class="dButton d-inline-flex green ml-3 mt-1" type="submit" (click)="exportarCadastroVigente()">
+          <i class="fa fa-0-5x fa-cloud-download mr-2"></i>
+          <span>Exportar Cadastro Vigente</span>
+        </button>
+        <!-- / CADASTRO VIGENTE  -->
+
+
+        <!-- LIMPAR FILTROS  -->
+        <button class="dButton d-inline-flex white ml-3 mt-1" type="reset" (click)="limparCampos()">
+          Limpar campo
+        </button>
+        <!-- / LIMPAR FILTRO -->
+      </div>
+    </form>
+
+  </mat-expansion-panel>
+</mat-accordion>
+
+<!-- <rd-new-modal [imagemModal]="imagemModal" [tituloModal]="tituloModal" [mensagemModal]="mensagemModal"></rd-new-modal> -->
+
+<rd-loading [@fadeInOut] *ngIf="componentLoading"></rd-loading>

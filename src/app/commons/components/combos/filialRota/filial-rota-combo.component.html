@@ -1,0 +1,21 @@
+<div class="title-form vig">
+    <i class="fa fa-0-5x fa-files-o"></i>
+        Selecionar Rota
+</div>
+<!-- DROPDOWN SELEC FILIAIS -->
+<ng-multiselect-dropdown
+    [ngModelOptions]="{ standalone: true }"
+    [(ngModel)]="filialRotaSelecionados"
+    name="filial"
+    [placeholder]="'Selecionar Rota'"
+    [data]="filialRota | async | dropmap: 'cdFilialRota':'dsFilialRota'"
+    (onSelect)="selecionado($event)"
+    (onDeSelect)="selecionado($event)"
+    [settings]="dropdownSettings"
+    [disabled]="disabled">
+</ng-multiselect-dropdown>
+<!--/ DROPDOWN SELEC FILIAIS -->
+
+<!-- ÍCONE DE LOADING -->
+<rd-loading [@fadeInOut] *ngIf="componentLoading"></rd-loading>
+<!--/ ÍCONE DE LOADING -->

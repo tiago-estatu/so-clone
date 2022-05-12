@@ -1,0 +1,111 @@
+<mat-accordion>
+  <mat-expansion-panel (click)='expandir = true;' [expanded]='expandir' class="overflow-unset">
+    <mat-expansion-panel-header [collapsedHeight]="'42px'" [expandedHeight]="'39px'">
+      <mat-panel-title> <i class="fa fa-0-5x fa-filter"></i> Filtros de busca</mat-panel-title>
+      <mat-panel-description> Clique para expandir ou recuar os filtros </mat-panel-description>
+    </mat-expansion-panel-header>
+    <form class="row row-forms one-field-validate" [formGroup]="formFaturamento" style="padding-bottom: 20px">
+      <div class="form-group row col-12">
+        <div class="form-group col-4">
+          <ng-multiselect-dropdown [ngModelOptions]="{standalone: true}" [(ngModel)]="cdSelecionadoLista"
+            name="centroDistribuicao" [placeholder]="'Selecionar Centro Distribuição'" [data]="dropdownCDLista"
+            [settings]="dropdownSettings">
+          </ng-multiselect-dropdown>
+        </div>
+        <div class="form-group col-4">
+          <ng-multiselect-dropdown [ngModelOptions]="{standalone: true}" [(ngModel)]="rotaSelecionadoLista" name="rota"
+            [placeholder]="'Selecionar Rota'" [data]="dropdownRotaLista" [settings]="dropdownSettings">
+          </ng-multiselect-dropdown>
+        </div>
+        <div class="form-group col-4">
+          <ng-multiselect-dropdown [ngModelOptions]="{standalone: true}" [(ngModel)]="filialSelecionadoLista"
+            name="filial" [placeholder]="'Selecionar Filial'" [data]="dropdownFilialLista"
+            [settings]="dropdownSettings">
+          </ng-multiselect-dropdown>
+        </div>
+      </div>
+      <div class="col-12">
+        <div class="text-right">
+          <button class="dButton d-inline-flex green ml-3 mt-1" (click)="consultar()">
+            Consultar
+          </button>
+          <button class="dButton d-inline-flex green ml-3 mt-1" (click)="efetivar()">
+            Efetivar
+          </button>
+          <button class="dButton d-inline-flex white ml-3 mt-1" type="reset" (click)="limparTela()">
+            Limpar campos
+          </button>
+        </div>
+      </div>
+    </form>
+  </mat-expansion-panel>
+</mat-accordion>
+
+<section class="content-block table-consult" style="margin-top: 15px;">
+  <table mat-table [dataSource]="dataSource" class="table table-striped">
+    <ng-container matColumnDef="selecionar">
+      <th mat-header-cell *matHeaderCellDef>
+        <mat-checkbox (change)="$event ? masterToggle() : null" [checked]="selection.hasValue() && isAllSelected()"
+          [indeterminate]="selection.hasValue() && !isAllSelected()" [aria-label]="checkboxLabel()">
+        </mat-checkbox>
+      </th>
+      <td mat-cell *matCellDef="let row">
+        <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null"
+          [checked]="selection.isSelected(row)" [aria-label]="checkboxLabel(row)">
+        </mat-checkbox>
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="idFaturamento">
+      <th mat-header-cell *matHeaderCellDef hidden="true"> idFaturamento</th>
+      <td mat-cell *matCellDef="let element" hidden="true"> {{element.idFaturamento}} </td>
+    </ng-container>
+    <ng-container matColumnDef="filial">
+      <th mat-header-cell *matHeaderCellDef>Filial</th>
+      <td mat-cell class="texto" *matCellDef="let element"><span>{{element.filial}}</span></td>
+    </ng-container>
+    <ng-container matColumnDef="inputCD">
+      <th mat-header-cell *matHeaderCellDef>Centro Distribuição</th>
+      <td mat-cell *matCellDef="let element"> {{element.inputCD}} </td>
+    </ng-container>
+    <ng-container matColumnDef="rota">
+      <th mat-header-cell *matHeaderCellDef>Rota</th>
+      <td mat-cell *matCellDef="let element"> {{element.rota}} </td>
+    </ng-container>
+    <ng-container matColumnDef="qtdSkus">
+      <th mat-header-cell *matHeaderCellDef>Qtd. Skus</th>
+      <td mat-cell *matCellDef="let element"> {{element.qtdSkus}} </td>
+    </ng-container>
+    <ng-container matColumnDef="custo">
+      <th mat-header-cell *matHeaderCellDef>Custo</th>
+      <td mat-cell *matCellDef="let element"> 
+          <i class="fa" style="font-size:36px" [ngStyle]= "getMyStyles(element.custo)" aria-hidden="true" [ngClass]="{
+            'fa-check': element.custo === 1,
+            'fa-exclamation-triangle': element.custo === 0,
+            'fa-bug': element.custo === -1
+          }"></i>
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="cubagem">
+      <th mat-header-cell *matHeaderCellDef>Cubagem</th>
+      
+      <td mat-cell *matCellDef="let element"> 
+          <i class="fa" style="font-size:36px" [ngStyle]= "getMyStyles(element.cubagem)" aria-hidden="true" [ngClass]="{
+            'fa-check': element.cubagem === 1,
+            'fa-exclamation-triangle': element.cubagem === 0,
+            'fa-bug': element.cubagem ===-1
+          }"></i>
+    </ng-container>
+    <ng-container matColumnDef="transmissao">
+      <th mat-header-cell *matHeaderCellDef>Transmissão</th>
+      <td mat-cell *matCellDef="let element"> 
+          <i class="fa" style="font-size:36px" [ngStyle]= "getMyStyles(element.transmissao)" aria-hidden="true" [ngClass]="{
+            'fa-check': element.transmissao === 1,
+            'fa-exclamation-triangle': element.transmissao === 0,
+            'fa-times': element.transmissao ===-1
+          }"></i>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="displayedColumnFaturamento; sticky: true"></tr>
+    <tr mat-row style="cursor:pointer;height: 35px;" *matRowDef="let element; columns:displayedColumnFaturamento"
+      (click)="goTo($event)"></tr>
+  </table>
+</section>

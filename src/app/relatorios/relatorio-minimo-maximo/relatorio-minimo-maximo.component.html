@@ -1,0 +1,147 @@
+<mat-accordion>
+  <mat-expansion-panel [expanded]="expandir" class="overflow-unset">
+    <form [formGroup]="relatorioForm">
+      <div class="form-group row col-12 formulario">
+        <div class="form-group col-4 col centro-distribuicao-combo">
+            <centro-distribuicao-combo
+              (selecionados)="setCentroSelecionados($event)"
+              #clearCD>
+            </centro-distribuicao-combo>
+        </div>
+        <!-- DROPDOWN SELECIONAR CATEGORIA  -->
+        <div class="form-group col-4 col categorias">
+            <categoria-produto-combo
+              (selecionados)="setCategoriaSelecionados($event)"
+              #clearCAT>
+            </categoria-produto-combo>
+        </div>
+      <!--/ DROPDOWN SELECIONAR CATEGORIA  -->
+
+      <div class="form-group col-4 col">
+        <rd-motivos-cadastro-minimo-maximo
+          (selecionados)="setMotivosSelecionados($event)"
+          #clearMotivos>
+        </rd-motivos-cadastro-minimo-maximo>
+      </div>
+
+
+
+      </div>
+      <div class="form-group row col-12 grids">
+
+        <div class="form-group col-2 col vigInicio">
+          <div class="title-form vig">
+            <i class="fa fa-0-5x fa-files-o"></i>
+            Data Inicial
+          </div>
+          <div class="form-group col col-2">
+            <mat-form-field
+              class="w-100"
+              appearance="outline"
+              style="width:140px !important">
+              <input
+                matInput
+                bsDatepicker
+                placeholder="__/__/____"
+                formControlName="dataInicial"
+                [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
+                autocomplete="off"
+                class="form-control"
+                #datepickerUm="bsDatepicker"
+                type="text"
+              />
+              <a class="icon-input-field dates" (click)="datepickerUm.toggle()">
+                <i class="fa fa-0-5x fa-calendar-o"></i>
+              </a>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="form-group col-2 col vigFinal">
+          <div class="title-form">
+            <i class="fa fa-0-5x fa-files-o"></i>
+            Data Final
+          </div>
+          <div class="form-group col col-2">
+            <mat-form-field
+              class="w-100"
+              appearance="outline"
+              style="width:140px !important"
+            >
+              <input
+                matInput
+                bsDatepicker
+                placeholder="__/__/____"
+                formControlName="dataFinal"
+                [max]="dataMaxima"
+                [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
+                autocomplete="off"
+                class="form-control"
+                #datepickerDois="bsDatepicker"
+                type="text"
+              />
+              <a
+                class="icon-input-field dates"
+                (click)="datepickerDois.toggle()"
+              >
+                <i class="fa fa-0-5x fa-calendar-o"></i>
+              </a>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <!-- CAMPO FILIAL -->
+        <div class="form-group row col-4 buscas filial" style="margin-left: 22px;">
+            <div class="title-form vig">
+                <i class="fa fa-0-5x fa-files-o"></i>
+                Digitar as Filiais
+            </div>
+            <div class="buscas">
+              <mat-form-field class="inputFiltro" appearance="outline">
+                  <input matInput class="form-control" type="text" formControlName="filiaisConsulta" virgulaNumero>
+              </mat-form-field>
+            </div>
+        </div>
+        <!-- /CAMPO FILIAL -->
+
+
+
+        <!-- CAMPO PRODUTO -->
+        <div class="form-group row col-4 buscas produto" style="margin-left: -53px;">
+            <div class="title-form vig">
+                <i class="fa fa-0-5x fa-files-o"></i>
+                Digitar os Produtos
+            </div>
+            <div class="buscas">
+              <mat-form-field class="inputFiltro" appearance="outline">
+                  <input matInput class="form-control" type="text" formControlName="produtosConsulta" virgulaNumero>
+              </mat-form-field>
+            </div>
+        </div>
+        <!-- /CAMPO PRODUTO -->
+
+      </div>
+    </form>
+    <div class="form-group col-12 text-right">
+      <!-- EXPORTAR  -->
+      <label for="download" class="dButton d-inline-flex green ml-3 mt-1">
+        <i class="fa fa-0-5x fa-cloud-download mr-2"></i>
+        <span>Exportar</span></label>
+        <input id="download" class="form-control file" type="submit" (click)="exportarRelatorio()"/>
+      <!-- / EXPORTAR  -->
+       <!-- LIMPAR FILTROS  -->
+       <button class="dButton d-inline-flex white ml-3 mt-1" type="reset"
+       (click)="limparFiltros(clearCD, clearCAT , clearMotivos)"> Limpar campos
+       </button>
+       <!-- / LIMPAR FILTRO -->
+    </div>
+  </mat-expansion-panel>
+</mat-accordion>
+
+<rd-new-modal
+  [imagemModal]="imagemModal"
+  [tituloModal]="tituloModal"
+  [mensagemModal]="mensagemModal"
+></rd-new-modal>
+
+<rd-loading [@fadeInOut] *ngIf="componentLoading"></rd-loading>

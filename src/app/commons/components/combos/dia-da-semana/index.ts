@@ -1,0 +1,1 @@
+export * from './dia-da-semana-combo.component';

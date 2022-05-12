@@ -1,0 +1,275 @@
+<section class="content-block">
+    <article>
+
+    <rd-conteudo-topo [tituloPagina]="tituloPagina" [subtituloPagina]='subtituloPagina' [rotaVoltar]="rotaVoltar">
+    </rd-conteudo-topo>
+
+    <div class="row">
+      <div class="offset-xl-1 col-xl-10 col-lg-12">
+        <div class="row">
+          <form [formGroup]="cadastroForm" (ngSubmit)="validate()" class="col-12">
+            <div class="accordion mt-4">
+              <div class="option">
+                <input type="checkbox" id="togglePrincipal" checked class="toggle" />
+                <label class="title" for="togglePrincipal">
+                  <span class="d-inline-flex mb-1">
+                    <i class="fa fa-1x fa-check-circle mr-2"></i>
+                    Dados principais
+                  </span>
+                  <span class="icons">
+                    <i class="fa fa-angle-down"></i>
+                    <i class="fa fa-angle-right"></i>
+                  </span>
+                </label>
+                <div class="content content-form">
+                  <div class="row row-forms">
+                    <div class="col-6 col form-group">
+                        <mat-label>
+                            Centro Distribuição
+                          </mat-label>
+                      <mat-form-field class="w-100" appearance="outline">
+                        <input matInput class="form-control" formControlName="inputRegional"  readonly>
+                      </mat-form-field>
+                    </div>
+                      <div class="col-6 col form-group" *ngIf="isPedido == 1">
+                        <mat-label>
+                          Fornecedor
+                        </mat-label>
+                        <mat-form-field class="w-100" appearance="outline">
+                          <input matInput class="form-control" formControlName="inputFornecedor" readonly>
+                        </mat-form-field>
+                      </div>
+                      <div class="col-6 col form-group" *ngIf="isPedido == 0">
+                        <mat-label>
+                          Filial
+                        </mat-label>
+                        <!-- <mat-form-field class="w-100" appearance="outline">
+                          <input matInput class="form-control" formControlName="inputFilial" readonly>
+                        </mat-form-field> -->
+                      </div>
+                      <!--div class="col-6 col form-group select-inputs">
+                          <mat-label>
+                              Master
+                            </mat-label>
+                        <mat-form-field class="w-100" appearance="outline">
+                            <input matInput class="form-control" formControlName="master" readonly>
+                        </mat-form-field>
+                      </div>
+                    <div class="col-6 col form-group select-inputs">
+                        <mat-label>
+                            Categoria
+                          </mat-label>
+                      <mat-form-field class="w-100" appearance="outline">
+                            <input matInput class="form-control" formControlName="categoria" readonly>
+                      </mat-form-field>
+                    </div-->
+                    <div class="form-group col-3 col">
+                        <mat-label>
+                            Produto
+                          </mat-label>
+                      <mat-form-field class="w-100" appearance="outline">
+                        <input matInput class="form-control" formControlName="cdProduto" readonly>
+                      </mat-form-field>
+                    </div>
+                    <div class="form-group col col-9">
+                        <mat-label>
+                            Descrição
+                          </mat-label>
+                      <mat-form-field class="w-100" appearance="outline">
+                        <input matInput class="form-control" formControlName="dsProduto" readonly>
+                      </mat-form-field>
+                    </div>
+                                        
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+           <!--DISPLAY -->
+            <!-- <div class="accordion mt-4" *ngIf="isPedido == 0">
+              
+              <div class="option">
+                <input type="checkbox" id="toggleDisplays" checked class="toggle" />
+                <label class="title" for="toggleDisplays">
+                  <span class="d-inline-flex mb-1">
+                    <i class="fa fa-1x fa-map-marker mr-2"></i>
+                    Displays
+                  </span>
+                  <span class="icons">
+                    <i class="fa fa-angle-down"></i>
+                    <i class="fa fa-angle-right"></i>
+                  </span>
+                </label>
+                <div class="content content-form">
+                  <div class="row row-forms">
+                    <div class="col-4 col form-group">
+                        <mat-label>
+                            Quantidade Display
+                          </mat-label>
+                      <mat-form-field class="w-100" appearance="outline">
+                        <input matInput class="form-control" type="text" formControlName="qtCxDisplay" numbersOnly>
+                      </mat-form-field>
+                    </div>
+                    <div class="col-4 col form-group">
+                      <mat-label>
+                          % 1º Display
+                      </mat-label>
+                      <mat-form-field class="w-100" appearance="outline">
+                        <input matInput class="form-control" type="text" maxlength="3" id="pc1cxDisplay" formControlName="pc1cxDisplay" numbersOnly>
+                        <mat-hint>Digite valores de 0 a 100</mat-hint>
+                      </mat-form-field>
+                    </div>
+                    <div class="form-group col col-4">
+                      <mat-label>
+                            % 2º Display 
+                      </mat-label>
+                      <mat-form-field class="w-100" appearance="outline">
+                        <input matInput class="form-control" type="text" maxlength="3" formControlName="pcCxDisplay" numbersOnly>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div> -->
+
+          <!--embarques -->
+            <div class="accordion mt-4">
+              <div class="option">
+                <input type="checkbox" id="toggleEmbarques" checked class="toggle" />
+                <label class="title" for="toggleEmbarques">
+                  <span class="d-inline-flex mb-1">
+                    <i class="fa fa-1x fa-map-marker mr-2"></i>
+                    Embarques
+                  </span>
+                  <span class="icons">
+                    <i class="fa fa-angle-down"></i>
+                    <i class="fa fa-angle-right"></i>
+                  </span>
+                </label>
+                <div class="content content-form">
+                  <div class="row row-forms">
+                    <div class="col-4 col form-group">
+                      <mat-label>
+                        Quantidade Embarque
+                      </mat-label>
+                      <mat-form-field class="w-100" appearance="outline">
+                        <input matInput class="form-control" type="text" numbersOnly formControlName="qtCxEmbarque">
+                      </mat-form-field>
+                    </div>
+                    <div class="col-4 col form-group">
+                      <mat-label>
+                          % 1º Embarque 
+                      </mat-label>
+                      <mat-form-field class="w-100" appearance="outline">
+                        <input matInput class="form-control" maxlength="3" numbersOnly type="text" formControlName="pctCxEmbarque1">
+                        <mat-hint>Digite valores de 0 a 100</mat-hint>
+                      </mat-form-field>
+                    </div>
+                    <div class="col col-4 form-group">
+                      <mat-label>
+                          % 2º Embarque 
+                      </mat-label>
+                      <mat-form-field class="w-100" appearance="outline">
+                        <input matInput class="form-control" maxlength="3" numbersOnly  type="text" formControlName="pctCxEmbarque2"
+                        [ngClass]="{ 'is-invalid': submitted && fields.pctCxEmbarque2.errors }">
+                        <mat-hint>Digite valores de 0 a 100</mat-hint>
+                        <mat-error *ngIf="fields.pctCxEmbarque2.errors">
+                          Por favor digite valores de 0 a 100.
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          <!--CAMADAS -->
+            <div class="accordion mt-4" *ngIf="isPedido">
+              <div class="option">
+                <input type="checkbox" id="toggleCamadas" checked class="toggle" />
+                <label class="title" for="toggleCamadas">
+                  <span class="d-inline-flex mb-1">
+                    <i class="fa fa-1x fa-map-marker mr-2"></i>
+                    Camadas
+                  </span>
+                  <span class="icons">
+                    <i class="fa fa-angle-down"></i>
+                    <i class="fa fa-angle-right"></i>
+                  </span>
+                </label>
+                <div class="content content-form">
+                  <div class="row row-forms">
+                    <div class="form-group col col-4">
+                        <mat-label>
+                            Quantidade Camada
+                          </mat-label>
+                      <mat-form-field class="w-100" appearance="outline">
+                        <input matInput class="form-control" type="text" numbersOnly formControlName="qtCamadaPallet" >
+                      </mat-form-field>
+                    </div>
+                    <div class="form-group col col-4">
+                      <mat-label>
+                          % Camada 
+                          </mat-label>
+                      <mat-form-field class="w-100" appearance="outline">
+                        <input matInput class="form-control" type="text" maxlength="3" numbersOnly formControlName="pcCmdPallet" >
+                      </mat-form-field>
+                    </div>
+                    <div class="form-group col col-4">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          <!--PALLETS -->
+            <div class="accordion mt-4" *ngIf="isPedido">
+              <div class="option">
+                <input type="checkbox" id="togglePallets" checked class="toggle" />
+                <label class="title" for="togglePallets">
+                  <span class="d-inline-flex mb-1">
+                    <i class="fa fa-1x fa-map-marker mr-2"></i>
+                    Pallets
+                  </span>
+                  <span class="icons">
+                    <i class="fa fa-angle-down"></i>
+                    <i class="fa fa-angle-right"></i>
+                  </span>
+                </label>
+                <div class="content content-form">
+                  <div class="row row-forms">
+                    <div class="col-5 col form-group">
+                        <mat-label>
+                            Quantidade Pallet
+                          </mat-label>
+                      <mat-form-field class="w-100" appearance="outline">
+                        <input matInput class="form-control" type="text" numbersOnly formControlName="qtPallet">
+                      </mat-form-field>
+                    </div>
+                    <div class="col-6 col form-group">
+                        <mat-label>
+                            % Pallet 
+                          </mat-label>
+                      <mat-form-field class="w-100" appearance="outline" >
+                        <input matInput class="form-control" type="text" maxlength="3" numbersOnly formControlName="pctPallet">
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+            <div class="mt-3 text-right">
+              <button class="dButton iconInsideBtn d-inline-flex green" type="submit">
+                <i class="fa pb-1 fa-0-5x fa-check mr-1"></i> Salvar
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </article>
+</section>
+
+<rd-new-modal [rotaVoltar]='rotaVoltar' [btnVoltarConfirmar]="btnVoltarConfirmar" [imagemModal]='imagemModal' [tituloModal]='tituloModal' [mensagemModal]='mensagemModal'></rd-new-modal>
+<rd-loading [@fadeInOut] *ngIf="componentLoading"></rd-loading>

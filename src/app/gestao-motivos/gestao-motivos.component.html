@@ -1,0 +1,14 @@
+<mat-accordion>
+  <mat-expansion-panel [expanded]="true" class="overflow-unset">
+<div class="row row-forms align-items-end" id="ajustaMarginBottom" [formGroup]="motivoForm">
+
+      <!-- LIMPAR -->
+      <button class="dButton d-inline-flex white ml-3 mt-1" (click)="motivoForm.reset()">
+          Limpar
+      </button>
+      <!--/ LIMPAR -->
+</div>
+
+  </mat-expansion-panel>
+</mat-accordion>
+<rd-loading [@fadeInOut] *ngIf="componentLoading"></rd-loading>

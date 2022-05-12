@@ -1,0 +1,17 @@
+
+  <button (click)="btnCloseModal()" type="button" class="dButton d-inline-flex white" *ngIf="!btnVoltar">
+    {{btnCancelName}} <span class="shortcut">[ESC] </span>
+  </button>
+
+  <button (click)="funcBtnVoltar()" type="button" class="dButton d-inline-flex white" *ngIf="btnVoltar">
+    Voltar <span class="shortcut">[ESC] </span>
+  </button>
+
+  <button *ngIf="btnConfirmar" type="submit" class="dButton d-inline-flex {{colorBtnPrincipal}}" (click)='funcBtnConfirmar()'>
+    {{btnNameConfirmar}} <span class="shortcut">[ENTER]</span>
+  </button>
+
+
+  <button *ngIf="btnConfirmarForm" type="submit" class="dButton d-inline-flex {{colorBtnPrincipal}}">
+    {{btnNameConfirmar}} <span class="shortcut">[ENTER]</span>
+  </button>

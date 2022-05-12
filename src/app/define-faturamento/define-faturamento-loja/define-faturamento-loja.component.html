@@ -1,0 +1,90 @@
+<mat-accordion>
+  <mat-expansion-panel [expanded]="true" class="overflow-unset">
+    <form>
+        <rd-combos-faturamento-loja (selecionados)="selectField($event)"></rd-combos-faturamento-loja>
+
+        <!-- BARRA DE BOTÕES  -->
+        <div class="form-group col-12 text-right">
+
+          <!-- SALVAR  -->
+          <button [disabled]="(!(hadChange))" (click)="updateFaturamento()" class="dButton d-inline-flex green ml-3 mt-1"> Salvar
+          </button>
+          <!-- /SALVAR  -->
+
+          <!-- CONSULTAR  -->
+          <button (click)="consultar()" [disabled]="!((filialList | async).length > 0)" class="dButton d-inline-flex green ml-3 mt-1"> Consultar
+          </button>
+          <!-- /CONSULTAR  -->
+
+
+            <!-- LIMPAR CAMPOS  -->
+            <button (click)="limparCampos()" class="dButton d-inline-flex white ml-3 mt-1" type="reset"> Limpar campos
+            </button>
+            <!-- /LIMPAR CAMPOS  -->
+        <!--/ BARRA DE BOTÕES  -->
+
+      </div>
+    </form>
+  </mat-expansion-panel>
+</mat-accordion>
+
+
+<div id="mostraResultadosCarregados" *ngIf="(dataSource | async)?.status == 'READY'">
+  <ng-container >
+    <section class="content-block table-consult">
+        <table id="tabelaTarget" >
+            <tbody>
+                  <tr>
+                    <th colspan="1">Centro de Distribuição</th>
+                    <th colspan="2">Rota</th>
+                    <th colspan="3">Filial</th>
+                    <th colspan="4">Status de Faturamento</th>
+                  </tr>
+
+                  <!--
+                      NG-FOR INTERANDO SOBRE AS TR'S DA TABELA
+                      PARA POPULAR A GRID
+                  -->
+                  <tr *ngFor="let filiais of (dataSource | async)?.data">
+                    <td colspan="1"><b>{{ filiais.cdRegional}}</b> - {{filiais.nmRegional}}</td>
+                    <td colspan="2">{{ filiais.nrOrdem}}</td>
+                    <td colspan="3"><b>{{ filiais.cdFilial }}</b> - {{ filiais.nmFantasiaFilial}}</td>
+                    <td colspan="4">
+                        <mat-button-toggle-group (change)="changeFaturamento(filiais)" [value]="filiais.faturamento">
+                            <mat-button-toggle value="ABF">ABF</mat-button-toggle>
+                            <mat-button-toggle value="SO">SO</mat-button-toggle>
+                          </mat-button-toggle-group>
+                    </td>
+                </tr>
+              </tbody>
+  
+  
+             <!-- FOOTER DA TABELA -->
+             <tfoot>
+    
+              <tr><td colspan="8" style="border-bottom: 1px solid rgba(100,100,100,0.2);"></td></tr>
+              <tr>
+                  <td colspan="8">
+                      <div class="col-12 d-flex justify-content-end puffed">
+                           <!-- SALVAR  -->
+                           <button [disabled]="!(hadChange)" (click)="updateFaturamento()" class="dButton d-inline-flex green ml-3 mt-1"> Salvar
+                          </button>
+                          <!-- /SALVAR  -->
+                           <!-- TOPO  -->
+                           <button *ngIf="(dataSource | async)?.data.length > 10" (click)="toTop()" class="dButton d-inline-flex green ml-3 mt-1"> <i class="fa fa-0-5x fa-arrow-up mr-2"></i>Voltar ao topo
+                          </button>
+                          <!-- /TOPO  -->
+                      </div>
+                  </td>
+              </tr>
+          </tfoot>
+          <!--/ FOOTER DA TABELA -->
+          </table>
+      </section>
+  </ng-container>
+  <!-- /BLOCO NG-IF -->
+</div>
+
+ 
+
+<rd-loading [@fadeInOut] *ngIf="componentLoading"></rd-loading>

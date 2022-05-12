@@ -1,0 +1,167 @@
+<div mat-dialog-title>
+    <div class="row centered-flex">
+        <div class="col-xl-11 col-lg-12">
+
+    Cadastro de arredondamento
+    </div>
+
+    </div>
+</div>
+<mat-dialog-content>
+
+    <div class="row centered-flex">
+      <div class="col-xl-11 col-lg-12" [formGroup]="cadastroForm" >
+        <mat-tab-group>
+            <!-- DADOS PRINCIPAIS -->
+            <mat-tab label="Dados principais">
+                <div class="content content-form">
+                    <div class="row row-forms">
+                      <div class="col-6 col form-group">
+                          <mat-label>
+                              Centro Distribuição
+                            </mat-label>
+                        <mat-form-field class="w-100" appearance="outline">
+                          <input matInput class="form-control" formControlName="inputRegional">
+                        </mat-form-field>
+  
+                      </div>
+                        <div class="col-6 col form-group">
+                          <mat-label>
+                            Fornecedor
+                          </mat-label>
+                          <mat-form-field class="w-100" appearance="outline">
+                            <input matInput class="form-control" formControlName="inputFornecedor">
+                          </mat-form-field>
+                        </div>
+                      
+                      <div class="form-group col-3 col">
+                          <mat-label>
+                              Produto
+                            </mat-label>
+                        <mat-form-field class="w-100" appearance="outline">
+                          <input matInput class="form-control" formControlName="cdProduto">
+                        </mat-form-field>
+                      </div>
+                      <div class="form-group col col-9">
+                          <mat-label>
+                              Descrição
+                            </mat-label>
+                        <mat-form-field class="w-100" appearance="outline">
+                          <input matInput class="form-control" formControlName="dsProduto">
+                        </mat-form-field>
+                      </div>
+                                          
+                    </div>
+                  </div>
+            </mat-tab>
+            <!-- EMBARQUES -->
+            <mat-tab label="Embarques"> 
+                <div class="content content-form">
+                    <div class="row row-forms">
+                      <div class="col-4 col form-group">
+                        <mat-label>
+                          Quantidade Embarque
+                        </mat-label>
+                        <mat-form-field class="w-100" appearance="outline">
+                          <input matInput class="form-control" type="text" numbersOnly formControlName="qtCxEmbarque">
+                        </mat-form-field>
+                      </div>
+                      <div class="col-4 col form-group">
+                        <mat-label>
+                            % 1º Embarque 
+                        </mat-label>
+                        <mat-form-field class="w-100" appearance="outline">
+                          <input matInput class="form-control" maxlength="3" numbersOnly type="text" formControlName="pctCxEmbarque1">
+                          <mat-hint>Digite valores de 0 a 100</mat-hint>
+                        </mat-form-field>
+                      </div>
+                      <div class="col col-4 form-group">
+                        <mat-label>
+                            % 2º Embarque 
+                        </mat-label>
+                        <mat-form-field class="w-100" appearance="outline">
+                          <input matInput class="form-control" maxlength="3" numbersOnly  type="text" formControlName="pctCxEmbarque2"
+                          [ngClass]="{ 'is-invalid': fields.pctCxEmbarque2.errors }">
+                          <mat-hint>Digite valores de 0 a 100</mat-hint>
+                          <mat-error *ngIf="fields.pctCxEmbarque2.errors">
+                            Por favor digite valores de 0 a 100.
+                          </mat-error>
+                        </mat-form-field>
+                      </div>
+                    </div>
+                  </div>
+            </mat-tab>
+
+            <!-- CAMADAS -->
+            <mat-tab label="Camadas"> 
+                <div class="content content-form">
+                    <div class="row row-forms">
+                      <div class="form-group col col-4">
+                          <mat-label>
+                              Quantidade Camada
+                            </mat-label>
+                        <mat-form-field class="w-100" appearance="outline">
+                          <input matInput class="form-control" type="text" numbersOnly formControlName="qtCamadaPallet" >
+                        </mat-form-field>
+                      </div>
+                      <div class="form-group col col-4">
+                        <mat-label>
+                            % Camada 
+                            </mat-label>
+                        <mat-form-field class="w-100" appearance="outline">
+                          <input matInput class="form-control" type="text" maxlength="3" numbersOnly formControlName="pctCamadaPallet" >
+                          <mat-error *ngIf="cadastroForm.get('pctCamadaPallet').errors">                            
+                            Por favor digite valores de 0 a 100.                          
+                          </mat-error>
+                        </mat-form-field>
+                      </div>
+                      <div class="form-group col col-4">
+                      </div>
+                    </div>
+                  </div>
+            </mat-tab>
+
+            <!-- PALLETS -->
+            <mat-tab label="Pallets"> 
+                <div class="content content-form">
+                    <div class="row row-forms">
+                      <div class="col-5 col form-group">
+                          <mat-label>
+                              Quantidade Pallet
+                            </mat-label>
+                        <mat-form-field class="w-100" appearance="outline">
+                          <input matInput class="form-control" type="text" numbersOnly formControlName="qtPallet">
+                        </mat-form-field>
+                      </div>
+                      <div class="col-6 col form-group">
+                          <mat-label>
+                              % Pallet 
+                          </mat-label>
+                          <mat-form-field class="w-100" appearance="outline" >
+                              <input matInput class="form-control" type="text" maxlength="3" numbersOnly formControlName="pctPallet">
+                              <mat-error *ngIf="cadastroForm.get('pctPallet').errors">                            
+                                Por favor digite valores de 0 a 100.                          
+                              </mat-error>
+                          </mat-form-field>
+                      </div>
+                    </div>
+                  </div>
+            </mat-tab>
+          </mat-tab-group>
+      </div>
+    </div>
+</mat-dialog-content >
+
+<div mat-dialog-actions class="actions">
+    <div class="action-container">
+        <button class="dButton iconInsideBtn d-inline-flex" (click)="closeDialog()">
+          <i class="fa pb-1 fa-0-5x fa-times mr-1"></i> Cancelar
+        </button>
+    </div>
+    <div class="action-container">
+        <button class="dButton iconInsideBtn d-inline-flex green" (click)="validate()">
+          <i class="fa pb-1 fa-0-5x fa-check mr-1"></i> Salvar
+        </button>
+    </div>
+</div>
+<rd-loading [@fadeInOut] *ngIf="componentLoading"></rd-loading>

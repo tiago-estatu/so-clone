@@ -1,0 +1,67 @@
+<mat-accordion>
+    <mat-expansion-panel [expanded]="true" class="overflow-unset">
+<div class="row row-forms align-items-end" id="ajustaMarginBottom" [formGroup]="produtoEspelhoForm">
+
+    <!--Botão de exportar modelo em CSV-->
+    <div class="col-12 col form-group">
+        <button class="dButton d-inline-flex white ml-3 mt-1 btnExportModelCsv" style="margin-right: 6px;" (click)="exportarModeloCSV()" matTooltip="Exportar modelo CSV."> Exportar
+            modelo
+            CSV</button>
+    </div>
+
+    <!--Componente Procurar Produto semDemanda-->
+    <div class="form-group col-4">
+        <produto-combo [config]="{multi: false, label: LABEL_SEM_DEMANDA}"
+                       [control]="getFormField('semDemanda')"></produto-combo>
+    </div>
+    <!--Componente para exibir produto espelho cadastrado-->
+    <div class="form-group col-4 espelhoCadastrado">
+        <mat-form-field class="eventless">
+            <mat-label>Produto Espelho Cadastrado</mat-label>
+            <mat-chip-list class="single-chip" [ngClass]="{hasContent: getFormField('espelhoCadastrado').value.length > 0}" #chipListProduct>
+                <mat-chip *ngIf="getFormField('espelhoCadastrado').value?.length > 0 && getFormField('semDemanda').value?.length > 0">
+                    {{getFormField('espelhoCadastrado').value[0].cdProduto}}
+                    - {{getFormField('espelhoCadastrado').value[0].dsProduto}}
+                </mat-chip>
+                <mat-chip *ngIf="getFormField('espelhoCadastrado').value?.length === 0 && getFormField('semDemanda').value?.length > 0">
+                    Nenhum produto encontrado
+                </mat-chip>
+                <input matInput [matChipInputFor]="chipListProduct" [disabled]="true">
+            </mat-chip-list>
+        </mat-form-field>
+    </div>
+
+    <div class="form-group col-4">
+        <!--Componente Procurar Produto novoEspelho-->
+        <produto-combo [config]="{multi: false, label: LABEL_NOVO_ESPELHO}"
+                       [control]="getFormField('novoEspelho')">
+        </produto-combo>
+    </div>
+
+    <div class="col-12 text-right bot">
+        <button mat-button class="dButton d-inline-flex green ml-3 mt-1" (click)="salvarFormulario()"
+                [disabled]="!produtoEspelhoForm.valid">Salvar
+        </button>
+        <!-- IMPORTAR  -->
+        <label for="upload" class="dButton d-inline-flex green ml-3 mt-1">
+            <i class="fa fa-0-5x fa-cloud-upload mr-2"></i><span>Importar</span>
+        </label>
+        <input
+                id="upload"
+                class="form-control file" type="file"
+                accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
+                (change)="importFile($event)"
+                [formControl]="fileControl"
+                name="file"/>
+        <!--/ IMPORTAR  -->
+        <!-- LIMPAR -->
+        <button class="dButton d-inline-flex white ml-3 mt-1" (click)="produtoEspelhoForm.reset()">
+            Limpar campos
+        </button>
+        <!--/ LIMPAR -->
+    </div>
+</div>
+
+    </mat-expansion-panel>
+</mat-accordion>
+<rd-loading [@fadeInOut] *ngIf="componentLoading"></rd-loading>

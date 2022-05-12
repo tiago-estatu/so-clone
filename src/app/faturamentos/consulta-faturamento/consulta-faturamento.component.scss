@@ -1,0 +1,29 @@
+::ng-deep .selected-item, .multiselect-item-checkbox{
+    background: #006441!important;
+    border: 1px solid #006441!important;
+}
+
+::ng-deep .mat-expanded {
+    overflow: unset !important;
+}
+
+th.mat-header-cell{
+    font-size:15px;
+}
+
+table.table.table-striped.mat-table {
+    table-layout: auto;
+}
+
+tr.mat-header-row.ng-star-inserted {
+    text-align-last: center;
+}
+.table-consult table td{
+    text-align: center; 
+}
+.texto{
+    text-align: left!important;
+}
+th.mat-header-cell{
+    font-size:15px;
+}

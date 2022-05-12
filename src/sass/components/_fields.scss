@@ -1,0 +1,366 @@
+input {
+    &::-webkit-input-placeholder {
+        /* Chrome/Opera/Safari */
+        color: $gray1;
+        font-family: $font-light;
+    }
+
+    &::-moz-placeholder {
+        /* Firefox 19+ */
+        color: $gray1;
+        font-family: $font-light;
+    }
+
+    &:-ms-input-placeholder {
+        /* IE 10+ */
+        color: $gray1;
+        font-family: $font-light;
+    }
+
+    &:-moz-placeholder {
+        /* Firefox 18- */
+        color: $gray1;
+        font-family: $font-light;
+    }
+}
+
+textarea.form-control {
+    min-height: 243px;
+}
+
+select.form-control {
+    height: 37.94px !important;
+    line-height: 11px;
+    color: $color-font-segundary;
+    -webkit-appearance: none; //SAFARI BUG
+    font-size: $font-size-sm;
+    color: $gray1;
+    font-family: $font-light;
+
+    &.edit-client-select {
+        height: 31.94px !important;
+    }
+}
+
+.title-form {
+    font-size: $font-size-sm;
+    text-transform: uppercase;
+    color: $color-font-segundary;
+    font-family: $font-book;
+    font-weight: bold;
+    display: inline-block;
+    min-height: 17px;
+    width: 100%;
+
+    i {
+        position: relative;
+        top: 2px;
+    }
+}
+
+.row-forms {
+    margin-right: -10px !important;
+    margin-left: -10px !important;
+
+    .col {
+        padding-right: 10px;
+        padding-left: 10px;
+        margin-bottom: 5px;
+    }
+}
+
+.form-group {
+    position: relative;
+
+    .invalid-feedback {
+        font-size: 10px;
+        text-transform: lowercase;
+        display: block;
+        margin-top: -12px;
+        margin-left: 5px;
+        text-transform: lowercase;
+        position: absolute;
+        color: $red;
+
+        &::first-letter {
+            text-transform: uppercase;
+        }
+
+        text-transform: lowercase;
+    }
+
+    .form-control {
+        &.is-invalid+.icon-input-field {
+            display: none;
+
+            &.dates {
+                display: block;
+            }
+        }
+    }
+
+    .form-control+.icon-input-field {
+        position: absolute;
+        top: -8px;
+        right: -10px;
+        display: block;
+
+        &.dates {
+            pointer-events: all;
+            @include transition(.3s);
+            @include border-radii(0, 5px, 5px, 0);
+            background-color: rgba($color-primary, .8);
+
+            i {
+                color: white;
+            }
+
+            &:hover {
+                background-color: $color-primary;
+
+                i {
+                    color: white !important;
+                }
+            }
+        }
+    }
+
+    .placeholder {
+        font-size: $font-size-sm;
+        color: $gray1;
+        font-family: $font-light;
+    }
+}
+
+
+
+.cuppa-dropdown,
+.cuppa-dropdown .selected-list,
+.cuppa-dropdown .c-btn {
+
+    &:focus,
+    &:active {
+        outline: inherit !important;
+    }
+}
+
+.cuppa-dropdown {
+    .dropdown-list {
+        .pure-checkbox {
+            input[type="checkbox"]:checked+label:before {
+                background: $color-primary;
+            }
+
+            input[type="checkbox"]+label:before {
+                color: $color-primary;
+                border: 1px solid $gray1;
+            }
+
+            input[type=checkbox]+label:after {
+                top: 45%;
+                width: 6px;
+            }
+        }
+    }
+
+    .c-input {
+        font-size: $font-size-sm;
+        font-family: $font-light;
+        padding: 0 10px;
+    }
+
+    .c-btn {
+        font-size: $font-size-sm;
+        font-family: $font-light;
+        color: $gray1;
+        max-height: 35px;
+        padding: 10.7px !important;
+        overflow: hidden;
+    }
+
+    .list-filter .c-search svg {
+        fill: $gray1 !important;
+    }
+
+    .selected-list {
+        background-color: #ffffff;
+        border: 1px solid $border-inputs;
+        border-radius: 3px;
+        -webkit-border-radius: 3px;
+        -moz-border-radius: 3px;
+
+        .countplaceholder {
+            top: 54%;
+        }
+
+        .c-list .c-token {
+            //padding: 15px 25px 10px 170px !important;
+            //margin-top: 0 !important;
+            background-color: $color-primary;
+        }
+
+        .c-btn {
+            .c-list {
+                color: white;
+            }
+        }
+
+        .c-angle-down,
+        .c-angle-up {
+            svg {
+                fill: $gray1 !important;
+            }
+        }
+    }
+}
+
+angular2-multiselect {
+    .cuppa-dropdown {
+        background-color: #ffffff;
+        margin-top: 4px;
+
+        label {
+            font-weight: 200 !important;
+            font-size: 10px !important;
+        }
+
+        .c-token.ng-star-inserted {
+            font-size: 10px;
+        }
+    }
+}
+
+.form-control {
+    font-size: $font-size-smd;
+    color: $color-font-segundary;
+    height: calc(1.67rem);
+    padding: 0.665rem .75rem;
+    font-family: $font-book;
+    @include transition(0.3s);
+    @include border-radius(3px);
+
+    &:focus+.icon-input-field {
+        &.dates {
+            background-color: transparent;
+        }
+    }
+
+    &:focus+.icon-input-field,
+    &:focus+a {
+        i {
+            color: $color-primary !important;
+        }
+    }
+
+    &:disabled {
+        background-color: inherit;
+        color: #000 !important
+    }
+
+    &::-webkit-input-placeholder {
+        // Chrome/Opera/Safari
+        color: $gray1;
+        font-family: $font-light;
+    }
+
+    &::-moz-placeholder {
+        /* Firefox 19+ */
+        color: $gray1;
+        font-family: $font-light;
+    }
+
+    &:-ms-input-placeholder {
+        /* IE 10+ */
+        color: $gray1;
+        font-family: $font-light;
+    }
+
+    &:-moz-placeholder {
+        /* Firefox 18- */
+        color: $gray1;
+        font-family: $font-light;
+    }
+}
+
+.select-inputs {
+    position: relative;
+}
+
+.icon-input-field {
+    display: none;
+    position: relative;
+    margin: 0 0 0 -37px;
+    padding: 9.5px 7px 7.5px 7px;
+    pointer-events: none;
+
+    i {
+        @include transition(.3s);
+        color: $gray1;
+    }
+
+    &.icon-select-show {
+        display: block;
+        position: absolute;
+        top: 8px;
+        right: 0;
+    }
+
+    &.icon-select-show-phone {
+        display: block;
+        position: absolute;
+        top: -1px;
+        right: 0;
+    }
+}
+
+.icon-input-field+.dropdown-menu {
+    padding: 0px;
+    left: 15px;
+    width: 100%;
+}
+
+.c-input {
+    display: block;
+    width: 100%;
+    padding: .500rem .75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #F8F8F8;
+    background-clip: padding-box;
+    border: 1px solid $border;
+    @include border-radius(3px);
+    color: $color-font-primary;
+
+    &:focus {
+        outline: none;
+        border: 1px solid $color-primary;
+        @include transition(0.3s);
+    }
+
+    &:disabled {
+        background-color: #eeeeee;
+        color: $color-font-disable;
+        -webkit-touch-callout: none;
+        /* iOS Safari */
+        -webkit-user-select: none;
+        /* Safari */
+        -khtml-user-select: none;
+        /* Konqueror HTML */
+        -moz-user-select: none;
+        /* Firefox */
+        -ms-user-select: none;
+        /* Internet Explorer/Edge */
+        user-select: none;
+        /* Non-prefixed version, currently */
+    }
+}
+
+.mt-35 {
+    margin-top: 35px;
+}
+
+span.mat-checkbox-label {
+    white-space: normal !important;
+    display: inline-block !important;
+}

@@ -1,0 +1,106 @@
+.mat-expansion-panel {
+    overflow: visible !important;
+  }
+  #controlaMarginsDataPicker {
+    position: relative;
+    z-index: 0;
+    margin-left: -86px !important;
+    margin-top: -22px !important;
+  }
+  .ajustaLarguraLabel {
+    width: 120px;
+    margin-left: 0px;
+  }
+  #controlaMarginsDataPicker .form-group {
+    width: 100%;
+    // margin-bottom: 0rem;
+  }
+  
+  .datepicker {
+    margin-left: 14px;
+  }
+  
+  #legendaDataGeracaoPedido {
+    display: none;
+    position: absolute;
+    bottom: -7px;
+    left: 16px;
+    z-index: 1;
+    color: #7b7b7b;
+  }
+  
+  ::ng-deep .mat-expanded {
+    overflow: unset !important;
+  }
+  
+  .grids {
+    margin-bottom: unset !important;
+  }
+  
+  .divRadioButton {
+    margin-right: 10px !important;
+    margin-left: 4px;
+    margin-bottom: 0px;
+  }
+  
+  .buscas {
+    display: inline;
+    align-items: baseline;
+    margin-bottom: visible !important;
+  }
+  .buscas .inputFiltro {
+    width: 85% !important;
+  }
+  .filial {
+    margin-right: 10px !important;
+    margin-left: 2px;
+    margin-bottom: 0px;
+  }
+  .accordion {
+    width: 100%;
+  }
+  
+  .radio-group {
+    // display: flex;
+    // flex-direction: column;
+    // margin: 1px 0;
+  }
+  
+  :host ::ng-deep .mat-radio-container {
+    width: 22px;
+    height: 12px;
+  }
+  
+  :host ::ng-deep .mat-radio-label {
+    min-width: 188px;
+    margin-bottom: 0px;
+  }
+  .radio-button {
+    // margin: 30px;
+    // position: relative;
+    // height: 12px!important;
+  }
+  
+  .circulo {
+    // width: 20px!important;
+    // height: 12px!important;
+  }
+  .mat-radio-button ~ .mat-radio-button {
+    // margin-left: 76px;
+    // width: 20px;
+    // height: 12px!important;
+  }
+  
+  .mat-radio-container::after {
+    // box-sizing: border-box;
+    // display: inline-block;
+    // position: relative;
+    // width: 20px;
+    // height: 42px;
+    // flex-shrink: 0;
+  }
+  
+  // .title-form{
+  //   width: 112%!important;
+  // }
+  

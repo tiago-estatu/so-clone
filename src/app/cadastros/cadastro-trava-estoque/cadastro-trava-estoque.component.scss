@@ -1,0 +1,75 @@
+:host::ng-deep.centro-distribuicao-combo {
+    .title-form {
+        margin-bottom: 4px;
+    }
+}
+
+:host::ng-deep.products {
+    .mat-form-field-flex {
+        min-height: 42px;
+    }
+}
+
+//input outline color
+:host::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
+    color: #adadad !important;
+}
+
+
+.row-forms {
+    padding-bottom: 20px;
+}
+
+.table-consult {
+    margin-top: 20px;
+}
+
+.modal-wrap {
+    padding: 24px 8px;
+}
+
+:host::ng-deep.rd-input {
+    .mat-form-field-flex {
+        min-height: 42px;
+    }
+}
+
+.modal-title {
+    color: #4b4b4b;
+    font-size: 18px;
+    padding: 8px;
+    font-weight: bold;
+}
+
+:host::ng-deep.form-group .form-control + .icon-input-field{
+    right: -12px;
+}
+
+
+:host::ng-deep .mat-expanded {
+    overflow: unset !important;
+  }
+.form-picker {
+    margin: 0px !important;
+}
+
+#cdProdutosBuscaPadrao {
+    position: relative;
+    margin: 0px 0px 0px -5px;
+}
+.buscas {
+    margin: 0px 0px 0px -13px;
+}
+
+#tabelaTarget {margin-top: 15px}
+#tabelaTarget .configuraTextosHeaderTabela {text-align: left;display: block;width: auto;text-transform: uppercase; font-weight: bold}
+    #tabelaTarget td span{display: block;text-align: center}
+    .ajustaTamanhoBtoEditar{text-align: left}
+    .ajustaTamanhoBtoEditar .iconInsideBtn{padding:0 0.6rem 0 0.6rem!important}
+    #tabelaTarget tfoot td{text-align: left}
+        #tabelaTarget .msgSemResultadosNaBusca {font-family: Cereal-Medium;color: #005034;font-size: 1rem;margin: 0;padding: 10px 0px 20px 25px}
+
+.ajusteBtPading {
+    padding-left: 0.8625rem !important;
+    padding-right: 0.8625rem !important;
+}

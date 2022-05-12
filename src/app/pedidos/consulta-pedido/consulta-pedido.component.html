@@ -1,0 +1,143 @@
+<mat-accordion>
+    <mat-expansion-panel [expanded]="expandir" >
+
+        <!-- CONTROLA O FORM -->
+        <form class="col-12 one-field-validate" [formGroup]="formPedido">
+
+
+            <!--COMBO REATIVO TRIPLO (CD + FABRICANTE + FORNECEDOR + [flagCompraCd]="falso para retorno atrelado ao cdOperador" )-->
+            <rd-agrupamento-combos-cd [flagCompraCd]="false" (selecionados)="campoSelecionado($event)"></rd-agrupamento-combos-cd>
+            <!--/ COMBO REATIVO TRIPLO (CD + FABRICANTE + FORNECEDOR)-->
+
+
+            <!-- CONTROLA DATA PICKER -->
+            <div class="form-group col-2 dataPicker">
+                <mat-form-field class="w-100" appearance="outline" style="width:160px !important"
+                     [class.is-invalid]='fields.inputDataInicio.invalid'>
+                     <mat-label class="placeholder">Data Sugestão</mat-label>
+                     <input matInput bsDatepicker placeholder='__/__/____' [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
+                             autocomplete="off" triggers="dblclick:click" (keyup)="dateMask($event)" class="form-control"
+                             #datepickerUm="bsDatepicker" [maxDate]="maxDate" type="text" formControlName="inputDataInicio">
+                         <a class="icon-input-field dates" (click)="datepickerUm.toggle()"><i class="fa fa-0-5x fa-calendar-o"></i></a>
+                         <mat-error *ngIf="fields.inputDataInicio.invalid">Data inválida</mat-error>
+                 </mat-form-field>
+             </div>
+             <!--/ CONTROLA DATA PICKER -->
+
+            <!-- CONTROLA GRUPO BOTÕES -->
+            <div class="grupoBotoes">
+                <button class="dButton d-inline-flex green ml-3 mt-1" (click)="consultar(1)">
+                    Consultar
+                </button>
+                <button class="dButton d-inline-flex green ml-3 mt-1" [hidden]="false"(click)="modalEfetivar()" [disabled]= "nenhumItemSelecionado">
+                    Efetivar
+                </button>
+                <button class="dButton d-inline-flex green ml-3 mt-1" (click)="modalExportar()" [disabled]= "nenhumItemSelecionado">
+                    Exportar
+                </button>
+
+                <button class="dButton d-inline-flex white ml-3 mt-1" type="reset" (click)="limparCampos()">
+                    Limpar campos
+                </button>
+            </div>
+            <!--/ CONTROLA GRUPO BOTÕES -->
+
+        </form>
+        <!-- /CONTROLA O FORM -->
+
+    </mat-expansion-panel>
+</mat-accordion>
+<!--/ CONTAIN TODO O PAINEL DE FILTROS -->
+
+<!-- TABELA GRID -->
+<section class="content-block table-consult">
+    <table id="tabelaTarget">
+        <tbody>
+            <!-- HARDCODE PARA O TOPO DA TABELA -->
+            <tr>
+                <!-- BTO SELECIONAR TODOS -->
+                <td class="positionRelative">
+                    <small class="suspenderSmall">Efetivar/Exportar</small>
+                    <mat-checkbox (change)="$event ? selecionarTodosItens($event) : null" [checked]="selecionarTodos"
+                   >
+                </mat-checkbox>
+                </td>
+                <!--/ BTO SELECIONAR TODOS  [indeterminate]="!isAllSelected()"-->
+
+                <td><span style="width: 29px" class="configuraTextosHeaderTabela">CD</span></td>
+                <td><span style="width: 270px" class="configuraTextosHeaderTabela">FABRICANTE</span></td>
+                <td><span style="width: 270px" class="configuraTextosHeaderTabela">FORNECEDOR</span></td>
+                <td><span style="width: 40px" class="configuraTextosHeaderTabela">TOTAL SKUS</span></td>
+                <td><span style="width: 60px" class="configuraTextosHeaderTabela">QT. TOTAL</span></td>
+                <td><span style="width: 100px" class="configuraTextosHeaderTabela">TOTAL PEDIDO</span></td>
+                <td><span style="width: 52px" class="configuraTextosHeaderTabela">DETALHE</span></td>
+            </tr>
+            <!-- HARDCODE PARA O TOPO DA TABELA /-->
+
+            <!-- NG-FOR INTERANDO SOBRE AS TR'S DA TABELA PARA POPULAR A GRID -->
+            <tr *ngFor="let element of dataSource | async | paginate: { itemsPerPage: itemsPorPagina, currentPage: paginaAtual, totalItems: totalDeItems }">
+
+                <!-- BTO SELECIONAR ITEM ATUAL -->
+                <td><mat-checkbox (change)="selecionarItem($event, element)"
+                    [checked]="element.selecionado"></mat-checkbox></td>
+                <!--/ BTO SELECIONAR ITEM ATUAL -->
+
+                <td><span><b>{{ element.cdRegional }}</b></span></td>
+                <td><span><b> {{ element.cdFabricante }} </b> - {{ element.nmFabricante}} </span></td>
+                <td><span><b>{{ element.cdFornecedor }}</b> - {{element.nmFornecedor}}</span></td>
+                <td><span class="textAlignCenter">{{ element.qtProduto }}</span></td>
+                <td><span class="textAlignCenter">{{ element.qtPedida }}</span></td>
+                <td><span class="textAlignCenter">{{ element.vlTotal }}</span></td>
+
+                <!-- BTO VER DETALHE -->
+                <td><span class="ajustaTamanhoBtoEditar"><a (click)="goTo($event,element)" class="mr-2"><i class="fa fa-0-5x fa-edit" title="Ver detalhe"></i></a></span></td>
+                <!--/ BTO VER DETALHE -->
+            </tr>
+        </tbody>
+
+
+        <!-- FOOTER DA TABELA -->
+        <tfoot>
+            <tr>
+                <td colspan="8">
+                    <!-- CONTROLA PAGINAÇÃO -->
+                    <pagination-controls
+                        class="controlaCssPaginacao" (pageChange)="consultar($event)"
+                        autoHide="true"
+                        responsive="false"
+                        previousLabel="Anterior"
+                        nextLabel="Próximo">
+                    </pagination-controls>
+                    <!--/ CONTROLA PAGINAÇÃO -->
+                </td>
+            </tr>
+        </tfoot>
+        <!--/ FOOTER DA TABELA -->
+    </table>
+</section>
+<!-- /TABELA GRID -->
+
+<!-- JANELA MODAL E LOADING -->
+<rd-new-modal [imagemModal]='imagemModal' [tituloModal]='tituloModal' [mensagemModal]='mensagemModal'>
+        <table id="tabaleGridModalPedidosEfetivados">
+            <tbody>
+                <tr>
+                    <td><span class="configuraTextosHeaderTabela">Dt Recomendação</span></td>
+                    <td><span class="configuraTextosHeaderTabela">CD</span></td>
+                    <td><span class="configuraTextosHeaderTabela">FORNECEDOR</span></td>
+                    <td><span class="configuraTextosHeaderTabela">FABRICANTE</span></td>
+                    <td><span class="configuraTextosHeaderTabela">Nº Pedido</span></td>
+                </tr>
+                <tr *ngFor="let itens of listaPedidosEfetivados">
+                    <td><span>{{ itens.dtRecomendacao | date: 'dd/MM/yyyy' }}</span></td>
+                    <td><span>{{ itens.cdRegional }}</span></td>
+                    <td><span>{{ itens.cdFornecedor }}</span></td>
+                    <td><span>{{ itens.cdFabricante }}</span></td>
+                    <td><span>{{ itens.valor }}</span></td>
+                </tr>
+            </tbody>
+        </table>
+
+</rd-new-modal>
+<rd-loading [@fadeInOut] *ngIf="componentLoading"></rd-loading>
+<!--/ JANELA MODAL E LOADING -->

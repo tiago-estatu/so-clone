@@ -1,0 +1,39 @@
+.container-modal {
+  .inputValorMaximo,
+  .inputValorMinimo,
+  .inputFilial,
+  .inputProduto,
+  .title {
+    font-family: Cereal-Medium;
+    color: #005034;
+    font-size: 1rem;
+    margin: 0;
+    line-height: 23px;
+    padding-top: 10px;
+  }
+  .text-right {
+    padding-top: 10px;
+  }
+  .inputs {
+    width: 350px;
+  }
+  .mat-form-field-wrapper {
+    padding-bottom: 4px;
+}
+  // .inputValues {
+  //   padding-top: 30px;
+  // }
+  #vlMin {
+    margin-left: 6.5px;
+  }
+}
+
+.ajustaDivLegenda {float: left}
+    .ajustaTextLegenda {
+      display: block;
+      font-size: 12px;
+      font-weight: bold;
+    }
+    
+#dropDownMotivo { display: block}
+#inputMotivo { display: block}

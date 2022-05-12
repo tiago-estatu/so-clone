@@ -1,0 +1,35 @@
+<!-- Sidebar Menu -->
+<aside class="col sidebar" #sidebar [class.classToggleMenu]='classToggleMenu && clickedToggleMenu' (mouseleave)='mouseLeaveList()'>
+    <div class="row logo">
+        <a routerLink="/inicio" class="d-flex" title="Voltar para Página inicial">
+            <img class="logo-img" src="./assets/images/logo_only_rd.svg" alt="Backommerce" />
+            <h2 class="logo-name"> Stock Optimisation </h2>
+        </a>
+    </div>
+
+
+    <ul class="row menu" [style.min-height.px]="heightStyle" *ngIf='loaded' [@fadeInOut]>
+        <ng-template ngFor let-menu [ngForOf]="menus" let-i="index">
+            <li routerLinkActive="active" class="menuList" (mouseenter)='mouseEnterList()'>
+                <a class="item-menu" [routerLink]="menu.rotaMenu != '' ? '/' + menu.rotaMenu : '/null'" [class.disabled]="menu.rotaMenu  == ''">
+                    <i class="fa fa-0-5x fa-file-text"></i>
+                    <span class="text-item">{{menu.nomeMenu}}</span>
+                </a>
+                <ul *ngIf="menu.subMenu.length >= 0">
+                    <ng-template ngFor let-itens [ngForOf]="menu.subMenu" let-i="index">
+                        <li><span><a [routerLink]="'/' + itens.rota" class="item-menu"> {{itens.nome}}</a></span></li>
+                    </ng-template>
+                </ul>
+                <i class="fa fa-angle-right fa-0-2x" *ngIf="menu.subMenu.length > 0"></i>
+            </li>
+        </ng-template>
+
+        <li class="menu-retratil menuList" [class.fixed]='fixed'>
+            <a class="item-menu" (click)='toogleMenu($event)'>
+                <i class="fa fa-1x fa-bars mr-1"></i><span class="text-item"> {{fraseMenu}}</span>
+            </a>
+        </li>
+    </ul>
+</aside>
+
+<rd-new-modal [imagemModal]='imagemModal' [tituloModal]='tituloModal' [mensagemModal]='mensagemModal' [rotaVoltar]='rotaVoltar'></rd-new-modal>

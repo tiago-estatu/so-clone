@@ -1,0 +1,59 @@
+.mat-checkbox-layout .mat-checkbox-label {
+    top: 3px;
+    position: relative;
+}
+
+.mat-checkbox-indeterminate.mat-accent .mat-checkbox-background,
+.mat-checkbox-checked.mat-accent .mat-checkbox-background {
+    background-color: $color-primary;
+}
+
+.mat-checkbox .mat-checkbox-frame {
+    border-color: $color-font-segundary;
+    border-width: 1px;
+}
+
+.mat-checkbox-layout{
+    color: $gray1 !important;
+    font-weight: 100 !important;
+}
+
+.mat-checkbox-inner-container {
+    margin-right: 5px;
+}
+
+.mat-checkbox-layout .mat-checkbox-label {
+    font-size: $font-size-smd;
+}
+
+.mat-radio-outer-circle,
+.mat-radio-inner-circle {
+    height: 16px !important;
+    width: 16px !important;
+}
+
+.mat-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle {
+    border-color: $color-primary !important;
+}
+
+.mat-radio-button.mat-accent .mat-radio-inner-circle,
+.mat-radio-button.mat-accent .mat-radio-ripple .mat-ripple-element:not(.mat-radio-persistent-ripple),
+.mat-radio-button.mat-accent.mat-radio-checked .mat-radio-persistent-ripple,
+.mat-radio-button.mat-accent:active .mat-radio-persistent-ripple {
+    background-color: $color-primary !important;
+}
+
+.mat-radio-button .mat-radio-ripple {
+    height: 30px !important;
+    width: 30px !important;
+    left: calc(50% - 17px) !important;
+    top: calc(50% - 17px) !important;
+}
+
+.mat-radio-outer-circle {
+    border-color: rgba(0, 0, 0, 0.36) !important;
+}
+
+.mat-radio-label-content {
+    padding-left: 3px !important;
+}

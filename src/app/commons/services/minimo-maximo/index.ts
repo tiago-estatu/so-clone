@@ -1,0 +1,1 @@
+export * from './minimo-maximo.service';
